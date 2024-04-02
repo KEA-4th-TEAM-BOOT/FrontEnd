@@ -1,19 +1,21 @@
-import React from 'react'
-import AudioCard from '../components/contents/Audiocard'
-import { Helmet, HelmetProvider } from 'react-helmet-async'
-import Header from './Header'
-import Player from './Player'
-import styled from 'styled-components'
+import React from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import Header from './Header';
+import Player from './Player';
+import styled from 'styled-components';
 
-const contentMain = styled.main`
-max-width: 2000px;
-min-height: 100vh;
-margin: 0 auto;
-padding-left: 260px;
-`
+// 스타일 컴포넌트의 이름을 PascalCase로 변경
+const ContentMain = styled.main`
+  max-width: 2000px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-left: 260px;
+`;
+
 const Main = (props) => {
     return (
-        <contentMain id="main" role="main">
+        // 여기에서 PascalCase 이름을 사용
+        <ContentMain id="main" role="main">
             <HelmetProvider>
                 <Helmet
                     titleTemplate="%s | Auda : 글이 내게로 오다"
@@ -25,14 +27,12 @@ const Main = (props) => {
                 </Helmet>
 
                 <Header />
-                <contentMain id="main" role="main">
-                    {props.children}
-                </contentMain>
+                {/* 중첩된 contentMain을 제거하고 props.children을 직접 ContentMain 내에 렌더링 */}
+                {props.children}
                 <Player />
             </HelmetProvider>
-        </contentMain>
+        </ContentMain>
     )
 }
 
-export default Main
-
+export default Main;
