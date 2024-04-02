@@ -1,6 +1,6 @@
 [
   {
-    "id" : 1,
+    "id": 1,
     "imageUrl": "https://nerd-lee.github.io/assets/img/etc/styledcomponents.png",
     "category": "라이프스타일",
     "title": "한국의 벚꽃이 일본의 국화가 된 이유",
@@ -12,13 +12,13 @@
     "tag": "Good",
     "imageUrl": "https://t1.kakaocdn.net/friends/prod/main_tab/home/home_20201106164745_kr.jpg?type=thumb&opt=R329x247@2xa",
     "title": "통통미 폭발 구름 폭신 필로우",
-    "writer": "관계자외 출입 금지2",
+    "writer": "관계자외 출입 금지2"
   },
   {
     "id": 3,
     "tag": "Theme",
-    "img": "https://t1.kakaocdn.net/friends/prod/main_tab/home/home_20201111183631_kr.jpg?type=thumb&opt=R335x187@2xa",
+    "imageUrl": "https://t1.kakaocdn.net/friends/prod/main_tab/home/home_20201111183631_kr.jpg?type=thumb&opt=R335x187@2xa",
     "title": "올 겨울엔 프렌즈랑 메리 화이트 크리스마스!",
-    "writer": "관계자외 출입 금지3",
+    "writer": "관계자외 출입 금지3"
   }
 ]

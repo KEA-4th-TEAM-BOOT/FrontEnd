@@ -14,6 +14,7 @@ import './App.css';
 const App = () => {
   return (
       <BrowserRouter>
+      <Suspense fallback={<Main />}>
           <Routes>
               <Route path='/' element={<Main />} />
               <Route path='/search' element={<Search />} />
@@ -24,6 +25,7 @@ const App = () => {
               <Route path='/mypage' element={<Mypage />} />
               <Route path='*' element={<Not />} />
           </Routes>
+          </Suspense>
       </BrowserRouter>
   );
 }
