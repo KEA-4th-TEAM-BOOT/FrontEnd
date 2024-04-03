@@ -1,8 +1,9 @@
 import React from 'react'
+import Main from './Main'
 
 const Search = () => {
   return (
-    <div>Search</div>
+    <Main>Search</Main>
   )
 }
 

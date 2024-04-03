@@ -1,8 +1,9 @@
 import React from 'react'
+import Main from './Main'
 
 const Follow = () => {
   return (
-    <div>Follow</div>
+    <Main>Follow</Main>
   )
 }
 
