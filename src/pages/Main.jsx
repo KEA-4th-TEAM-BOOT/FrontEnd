@@ -16,11 +16,22 @@ const Main = (props) => {
     return (
         // 여기에서 PascalCase 이름을 사용
         <ContentMain id="main" role="main">
+            <HelmetProvider>
+                <Helmet
+                    titleTemplate="%s | Auda : 글이 내게로 오다"
+                    defaultTitle="Auda : 글이 내게로 오다"
+                    defer={false}
+                >
+                    {props.title && <title>{props.title}</title>}
+                    <meta name="description" content={props.description} />
+                </Helmet>
+
                 <Header />
                 <ContentMain>
                 {props.children}
                 <Player />
                 </ContentMain>
+            </HelmetProvider>
         </ContentMain>
     )
 }
