@@ -14,8 +14,6 @@ const ContentMain = styled.main`
 
 const Main = (props) => {
     return (
-        // 여기에서 PascalCase 이름을 사용
-        <ContentMain id="main" role="main">
             <HelmetProvider>
                 <Helmet
                     titleTemplate="%s | Auda : 글이 내게로 오다"
@@ -27,12 +25,11 @@ const Main = (props) => {
                 </Helmet>
 
                 <Header />
-                <ContentMain>
+                <ContentMain id="main" role="main">
                 {props.children}
-                <Player />
                 </ContentMain>
+                <Player />
             </HelmetProvider>
-        </ContentMain>
     )
 }
 

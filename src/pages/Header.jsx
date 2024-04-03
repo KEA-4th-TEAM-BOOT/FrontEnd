@@ -14,7 +14,7 @@ const HeaderContainer = styled.header`
   left: 0;
   top: 0;
   width: 260px;
-  height: 100%;
+  height: calc(100% - 120px);
   overflow-y: auto;
   z-index: 10000;
   border-right: 1px solid var(--black100);
