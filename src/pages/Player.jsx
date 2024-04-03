@@ -13,13 +13,11 @@ const FootPlayer = styled.div
 `
     text-align: center;
     position : fixed;
-    max-width: 2000px;
-    left: 0;
+    width: 100%;
+    height: 80px;
     bottom : 0;
     background-color: var(--black100);
-    border-top: 1px solid (var--black100);
     padding: 20px;
-    width: calc(100% - 260px);
     color: var(--black400);
     font-size: 0.8rem;
 `;
