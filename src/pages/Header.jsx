@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import logoImage from '../images/logo.png';
-import profileImage from '../images/profile.png';
-import homeIcon from '../images/icons/homeicon.png';
-import searchIcon from '../images/icons/searchicon.png';
-import feedIcon from '../images/icons/feedicon.png';
-import followIcon from '../images/icons/followicon.png';
-import writeIcon from '../images/icons/writeicon.png';
+import logoImage from "../images/logo.png";
+import profileImage from "../images/profile.png";
+import homeIcon from "../images/icons/homeicon.svg";
+import searchIcon from "../images/icons/searchicon.svg";
+import feedIcon from "../images/icons/feedicon.svg";
+import followIcon from "../images/icons/followicon.svg";
+import writeIcon from "../images/icons/writeicon.svg";
 
 const HeaderContainer = styled.header`
   position: fixed;
@@ -18,6 +18,12 @@ const HeaderContainer = styled.header`
   overflow-y: auto;
   z-index: 10000;
   border-right: 1px solid var(--black100);
+`;
+
+const LogoImage = styled.img`
+  width: 100px;
+  height: auto;
+  margin-left: 80px; // 수정 필요
 `;
 
 const MenuList = styled.ul`
@@ -33,12 +39,23 @@ const MenuItem = styled.li`
   margin-top: 50px;
   text-align: center;
   align-items: center;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-left: 80px; // 수정 필요
 `;
 
-const LogoImage = styled.img`
-  width: 100px;
-  height: auto;
-  margin-left: 80px; // 수정하기
+const MenuIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+`;
+
+const MenuItemLink = styled.a`
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
 `;
 
 const ProfileImage = styled.img`
@@ -46,49 +63,61 @@ const ProfileImage = styled.img`
   height: auto;
   margin: 10px;
   margin-top: 100px;
-  margin-left: 100px; // 수정하기
+  margin-left: 45px; // 수정 필요
 `;
 
-const MenuIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-`
-const Header = () => {
-    return (
-        <HeaderContainer id='header' role='banner'>
-            <h1 className='header_logo'>
-                <LogoImage src={logoImage} alt="LogoImage" />
-            </h1>
-            <nav className='header_menu'>
-                <MenuList>
-                    <MenuItem>
-                        <MenuIcon src={homeIcon} alt="Home Icon" />
-                        <a href='/'>메인</a>
-                    </MenuItem>
-                    <MenuItem>
-                        <MenuIcon src={searchIcon} alt="Search Icon" />
-                        <a href='/search'>검색</a>
-                    </MenuItem>
-                    <MenuItem>
-                        <MenuIcon src={feedIcon} alt="Feed Icon" />
-                        <a href='/feed'>피드</a>
-                    </MenuItem>
-                    <MenuItem>
-                        <MenuIcon src={followIcon} alt="Follow Icon" />
-                        <a href='/follow'>팔로잉</a>
-                    </MenuItem>
-                    <MenuItem>
-                        <MenuIcon src={writeIcon} alt="Write Icon" />
-                        <a href='/write'>글쓰기</a>
-                    </MenuItem>
-                </MenuList>
-            </nav>
-            <div className='header_profile'>
-                <ProfileImage src={profileImage} alt="ProfileImage" />
-            </div>
-        </HeaderContainer>
-    )
-}
+const ProfileLink = styled.a`
+  width: 50px;
+  height: auto;
+  margin: 10px;
+  margin-top: 100px;
+  margin-left: 45px; // 수정 필요
+`;
 
+const Header = () => {
+  return (
+    <HeaderContainer id="header" role="banner">
+      <h1 className="header_logo">
+        <LogoImage src={logoImage} alt="LogoImage" />
+      </h1>
+      <nav className="header_menu">
+        <MenuList>
+          <MenuItem>
+            <MenuItemLink href="/">
+              <MenuIcon src={homeIcon} alt="Home Icon" />
+              메인
+            </MenuItemLink>
+          </MenuItem>
+          <MenuItem>
+            <MenuItemLink href="/search">
+              <MenuIcon src={searchIcon} alt="Search Icon" />
+              검색
+            </MenuItemLink>
+          </MenuItem>
+          <MenuItem>
+            <MenuItemLink href="/feed">
+              <MenuIcon src={feedIcon} alt="Feed Icon" />
+              피드
+            </MenuItemLink>
+          </MenuItem>
+          <MenuItem>
+            <MenuItemLink href="/follow">
+              <MenuIcon src={followIcon} alt="Follow Icon" />
+              팔로잉
+            </MenuItemLink>
+          </MenuItem>
+          <MenuItem>
+            <MenuItemLink href="/write">
+              <MenuIcon src={writeIcon} alt="Write Icon" />
+              글쓰기
+            </MenuItemLink>
+          </MenuItem>
+        </MenuList>
+      </nav>
+      <ProfileLink href="/mypage">
+        <ProfileImage src={profileImage} alt="ProfileImage" />
+      </ProfileLink>
+    </HeaderContainer>
+  );
+};
 export default Header;
