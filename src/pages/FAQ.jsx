@@ -1,8 +1,8 @@
 import React from 'react'
-
+import Main from './Main'
 const FAQ = () => {
   return (
-    <div>FAQ</div>
+    <Main>FAQ</Main>
   )
 }
 

@@ -13,7 +13,7 @@ const FootPlayer = styled.div
 `
     text-align: center;
     position : fixed;
-    width: 100%;
+    max-width: 2000px;
     left: 0;
     bottom : 0;
     background-color: var(--black100);

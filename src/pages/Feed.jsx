@@ -1,8 +1,8 @@
 import React from 'react'
-
+import Main from './Main'
 const Feed = () => {
   return (
-    <div>Feed</div>
+    <Main>Feed</Main>
   )
 }
 
