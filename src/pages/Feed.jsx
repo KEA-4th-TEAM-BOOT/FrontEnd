@@ -1,9 +1,8 @@
-import React from 'react'
-import Main from './Main'
-const Feed = () => {
-  return (
-    <Main>Feed</Main>
-  )
-}
+import React from "react";
+import Main from "./Main";
 
-export default Feed
+const Feed = () => {
+  return <Main>Feed</Main>;
+};
+
+export default Feed;

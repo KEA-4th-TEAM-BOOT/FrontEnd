@@ -1,19 +1,20 @@
-import React from 'react'
-import Main from './Main'
-import Banner from '../components/contents/Banner'
-import Content from '../components/contents/Content'
-import Trend from '../components/contents/Trend'
-import Footer from './Footer'
 
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React from "react";
+import Main from "./Main";
+import Banner from "../components/contents/Banner";
+import Content from "../components/contents/Content";
+import Recommend from "../components/contents/Recommend";
+import Footer from "./Footer";
 
 
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 const Home = () => {
 
@@ -70,8 +71,11 @@ const Home = () => {
             <Trend />
             <Footer />
 
-        </Main>
-    )
-}
+      <Content />
+      <Recommend />
+      <Footer />
+    </Main>
+  );
+};
 
-export default Home
+export default Home;
