@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+
 const BannerWrapper = styled.div`
   width: 1374px;
   height: 615px; // Bottom 컴포넌트의 위치를 고려하지 않고 전체 배너 높이를 설정
