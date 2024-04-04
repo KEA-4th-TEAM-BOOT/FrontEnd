@@ -1,7 +1,7 @@
 import React from "react";
 import Main from "./Main";
 import Banner from "../components/contents/Banner";
-import Feed from "../components/contents/Feed";
+import Content from "../components/contents/Content";
 import Recommend from "../components/contents/Recommend";
 import Footer from "./Footer";
 
@@ -60,7 +60,7 @@ const Home = () => {
         </SwiperSlide>
       </Swiper>
 
-      <Feed />
+      <Content />
       <Recommend />
       <Footer />
     </Main>
