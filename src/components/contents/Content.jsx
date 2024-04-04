@@ -17,8 +17,26 @@ const ContentWrapper = styled.div`
 `;
 
 // ContentTitle 컴포넌트의 스타일을 정의합니다.
-const ContentTitle = styled.h1`
+const ContentTitle = styled.div`
   font-size: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const Buttons = styled.button`
+  background-color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  margin-left: 10px; /* 왼쪽 마진 추가 */
+  border: none; /* 테두리 제거 */
+  cursor: pointer; /* 마우스 오버 시 커서 변경 */
+  &:disabled {
+    background-color: #ccc; /* 비활성화 시 배경색 변경 */
+    cursor: default; /* 비활성화 시 커서 변경 */
+  }
 `;
 
 // Content 컴포넌트를 정의합니다.
@@ -74,10 +92,12 @@ const Content = () => {
   return (
     <ContentWrapper>
       <ContentTitle>
-        콘텐츠
-        {/* 이전/다음 버튼. 슬라이드의 위치에 따라 활성/비활성 상태가 결정됩니다. */}
-        <button onClick={goPrev} disabled={isBeginning}>◀</button>
-        <button onClick={goNext} disabled={isEnd}>▶</button>
+      <span>콘텐츠</span> {/* h1 대신 span을 사용합니다. */}
+      <div>
+        {/* 버튼을 div로 감싸서 오른쪽 정렬을 유지합니다. */}
+        <Buttons onClick={goPrev} disabled={isBeginning}>◀</Buttons>
+        <Buttons onClick={goNext} disabled={isEnd}>▶</Buttons>
+      </div>
       </ContentTitle>
       {/* Swiper 컴포넌트. 각 슬라이드는 AudioCard 컴포넌트를 포함합니다. */}
       <Swiper
