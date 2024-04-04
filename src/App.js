@@ -12,7 +12,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react'
 import './App.css';
 
-
 const App = () => {
   return (
     <BrowserRouter>
