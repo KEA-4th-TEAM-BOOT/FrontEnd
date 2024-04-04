@@ -14,6 +14,7 @@ const ContentMain = styled.main`
 
 const Main = (props) => {
   return (
+    <ContentMain>
     <HelmetProvider>
       <Helmet
         titleTemplate="%s | Auda : 글이 내게로 오다"
@@ -30,6 +31,7 @@ const Main = (props) => {
       </ContentMain>
       <Player />
     </HelmetProvider>
+    </ContentMain>
   );
 };
 
