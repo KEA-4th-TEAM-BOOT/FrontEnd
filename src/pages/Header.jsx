@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import logoImage from "../images/logo.png";
 import profileImage from "../images/profile.png";
@@ -13,36 +14,54 @@ const HeaderContainer = styled.header`
   position: fixed;
   left: 0;
   top: 0;
-  width: 260px;
+  width: 165px;
   height: calc(100% - 120px);
   overflow-y: auto;
   z-index: 10000;
   border-right: 1px solid var(--black100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 const LogoImage = styled.img`
   width: 100px;
-  height: auto;
-  margin-left: 80px; // 수정 필요
+  height: 55px;
+`;
+
+const LogoLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  width: 100px;
+  height: 90px;
 `;
 
 const MenuList = styled.ul`
+  width: 100%;
   list-style-type: none;
   padding: 0;
 `;
 
 const MenuItem = styled.li`
-  a {
-    text-decoration: none;
-    color: black;
-  }
-  margin-top: 50px;
+  width: 100%;
+  margin-top: 5px;
+  padding-top: 17px;
+  padding-bottom: 17px;
   text-align: center;
   align-items: center;
   font-weight: bold;
   display: flex;
   align-items: center;
-  margin-left: 80px; // 수정 필요
+  flex-direction: column;
+  justify-content: flex-start;
+  &:hover {
+    background: rgba(141, 141, 141, 0.3);
+    color: white;
+    transition: 0.5s;
+  }
 `;
 
 const MenuIcon = styled.img`
@@ -51,7 +70,7 @@ const MenuIcon = styled.img`
   margin-right: 10px;
 `;
 
-const MenuItemLink = styled.a`
+const MenuLink = styled(Link)`
   text-decoration: none;
   color: black;
   display: flex;
@@ -61,63 +80,62 @@ const MenuItemLink = styled.a`
 const ProfileImage = styled.img`
   width: 50px;
   height: auto;
-  margin: 10px;
   margin-top: 100px;
-  margin-left: 45px; // 수정 필요
 `;
 
-const ProfileLink = styled.a`
+const ProfileLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
   width: 50px;
   height: auto;
-  margin: 10px;
-  margin-top: 100px;
-  margin-left: 45px; // 수정 필요
+  margin-top: 20px;
 `;
 
 const Header = () => {
   return (
     <HeaderContainer id="header" role="banner">
-      <h1 className="header_logo">
-        <LogoImage src={logoImage} alt="LogoImage" />
-      </h1>
-      <nav className="header_menu">
-        <MenuList>
-          <MenuItem>
-            <MenuItemLink href="/">
-              <MenuIcon src={homeIcon} alt="Home Icon" />
-              메인
-            </MenuItemLink>
-          </MenuItem>
-          <MenuItem>
-            <MenuItemLink href="/search">
-              <MenuIcon src={searchIcon} alt="Search Icon" />
-              검색
-            </MenuItemLink>
-          </MenuItem>
-          <MenuItem>
-            <MenuItemLink href="/feed">
-              <MenuIcon src={feedIcon} alt="Feed Icon" />
-              피드
-            </MenuItemLink>
-          </MenuItem>
-          <MenuItem>
-            <MenuItemLink href="/follow">
-              <MenuIcon src={followIcon} alt="Follow Icon" />
-              팔로잉
-            </MenuItemLink>
-          </MenuItem>
-          <MenuItem>
-            <MenuItemLink href="/write">
-              <MenuIcon src={writeIcon} alt="Write Icon" />
-              글쓰기
-            </MenuItemLink>
-          </MenuItem>
-        </MenuList>
-      </nav>
-      <ProfileLink href="/mypage">
-        <ProfileImage src={profileImage} alt="ProfileImage" />
+      <LogoLink to="/">
+        <LogoImage src={logoImage} alt="Logo Image" />
+      </LogoLink>
+      <MenuList>
+        <MenuItem>
+          <MenuLink to="/">
+            <MenuIcon src={homeIcon} alt="Home Icon" />
+            메인
+          </MenuLink>
+        </MenuItem>
+        <MenuItem>
+          <MenuLink to="/search">
+            <MenuIcon src={searchIcon} alt="Search Icon" />
+            검색
+          </MenuLink>
+        </MenuItem>
+        <MenuItem>
+          <MenuLink to="/feed">
+            <MenuIcon src={feedIcon} alt="Feed Icon" />
+            피드
+          </MenuLink>
+        </MenuItem>
+        <MenuItem>
+          <MenuLink to="/follow">
+            <MenuIcon src={followIcon} alt="Follow Icon" />
+            팔로잉
+          </MenuLink>
+        </MenuItem>
+        <MenuItem>
+          <MenuLink to="/write">
+            <MenuIcon src={writeIcon} alt="Write Icon" />
+            글쓰기
+          </MenuLink>
+        </MenuItem>
+      </MenuList>
+      <ProfileLink to="/mypage">
+        <ProfileImage src={profileImage} alt="Profile Image" />
       </ProfileLink>
     </HeaderContainer>
   );
 };
+
 export default Header;
