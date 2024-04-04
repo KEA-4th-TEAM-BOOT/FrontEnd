@@ -13,6 +13,7 @@ const FootPlayer = styled.div
 `
     text-align: center;
     position : fixed;
+    left: 0;
     width: 100%;
     height: 80px;
     bottom : 0;
