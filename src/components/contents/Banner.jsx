@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const BannerWrapper = styled.div`
   width: 1374px;
@@ -12,7 +12,7 @@ const BannerWrapper = styled.div`
 const ImageBackground = styled.div`
   width: 100%;
   height: 532px;
-  background-image: url(${props => props.image});
+  background-image: url(${(props) => props.image});
   background-size: cover;
   border-radius: 20px;
   background-position: center;
@@ -23,15 +23,17 @@ const ImageBackground = styled.div`
 const Bottom = styled.div`
   position: absolute;
   left: 50%; // 정중앙을 맞추기 위함
-  transform: translateX(-50%); //Bottom이 50% 갔지만 Bottom의 중앙이 살짝 오른쪽에 가있기 때문에 왼쪽으로 살짝 옮겨줘야함.
+  transform: translateX(
+    -50%
+  ); //Bottom이 50% 갔지만 Bottom의 중앙이 살짝 오른쪽에 가있기 때문에 왼쪽으로 살짝 옮겨줘야함.
   bottom: 30px; // Bottom의 높이 절반인 830px만큼 위로 올림으로써 하단 살짝 위에 위치하게 함
   border: 3px solid blue;
   text-align: center;
-  display : flex;
-  justify-content : center;
-  align-items : center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  border-radius:20px;
+  border-radius: 20px;
   width: 487px;
   height: 176px; // Bottom의 높이 설정
   background-color: white; // Bottom 배경색 추가
@@ -39,7 +41,7 @@ const Bottom = styled.div`
 
 const ContentTitle = styled.p`
   font-size: 25px;
-  color: black  ;
+  color: black;
   margin: 0;
   margin-top: 3px;
   margin-bottom: 10px;
@@ -52,15 +54,15 @@ const ContentWriter = styled.p`
 `;
 
 const Banner = ({ imageUrl, contentTitle, contentWriter }) => {
-    return (
-        <BannerWrapper>
-            <ImageBackground image={imageUrl} />
-            <Bottom>
-               <ContentTitle>{contentTitle}</ContentTitle>
-                <ContentWriter>{contentWriter}</ContentWriter>
-            </Bottom>
-        </BannerWrapper>
-    );
+  return (
+    <BannerWrapper>
+      <ImageBackground image={imageUrl} />
+      <Bottom>
+        <ContentTitle>{contentTitle}</ContentTitle>
+        <ContentWriter>{contentWriter}</ContentWriter>
+      </Bottom>
+    </BannerWrapper>
+  );
 };
 
 export default Banner;

@@ -14,7 +14,7 @@ const HeaderContainer = styled.header`
   position: fixed;
   left: 0;
   top: 0;
-  width: 165px;
+  width: 260px; // 수정할 때 Main.jsx에 있는 ContentMain 부분도 수정하기
   height: calc(100% - 120px);
   overflow-y: auto;
   z-index: 10000;

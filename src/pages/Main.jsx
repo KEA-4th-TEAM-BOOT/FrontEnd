@@ -9,28 +9,28 @@ const ContentMain = styled.main`
   max-width: 2000px;
   min-height: 100vh;
   margin: 0 auto;
-  padding-left: 165px;
+  padding-left: 260px;
 `;
 
 const Main = (props) => {
   return (
     <ContentMain>
-    <HelmetProvider>
-      <Helmet
-        titleTemplate="%s | Auda : 글이 내게로 오다"
-        defaultTitle="Auda : 글이 내게로 오다"
-        defer={false}
-      >
-        {props.title && <title>{props.title}</title>}
-        <meta name="description" content={props.description} />
-      </Helmet>
+      <HelmetProvider>
+        <Helmet
+          titleTemplate="%s | Auda : 글이 내게로 오다"
+          defaultTitle="Auda : 글이 내게로 오다"
+          defer={false}
+        >
+          {props.title && <title>{props.title}</title>}
+          <meta name="description" content={props.description} />
+        </Helmet>
 
-      <Header />
-      <ContentMain id="main" role="main">
-        {props.children}
-      </ContentMain>
-      <Player />
-    </HelmetProvider>
+        <Header />
+        <ContentMain id="main" role="main">
+          {props.children}
+        </ContentMain>
+        <Player />
+      </HelmetProvider>
     </ContentMain>
   );
 };
