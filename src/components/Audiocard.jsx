@@ -22,8 +22,8 @@ export default AudioCard;
 const CardWrapper = styled.div`
   position: relative;
   display: flex;
-  width: 250px;
-  height: 300px;
+  width: 300px;
+  height: 442px;
   border-radius: 20px;
   overflow: hidden;
 `;
@@ -43,7 +43,7 @@ const BlurOverlay = styled.div`
   height: 33%; // 이제 높이의 3분의 1가 블러 처리됩니다.
   position: absolute;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
@@ -55,7 +55,7 @@ const BlurOverlay = styled.div`
 const PlayButton = styled.button`
   position: absolute;
   right: 20px;
-  bottom: 116px; // BlurOverlay의 높이의 절반만큼 설정하여 경계에 배치합니다.
+  bottom: 163px; // BlurOverlay의 높이의 절반만큼 설정하여 경계에 배치합니다.
   width: 45px;
   height: 45px;
   background-color: #fff;
