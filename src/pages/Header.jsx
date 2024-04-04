@@ -18,7 +18,8 @@ const HeaderContainer = styled.header`
   height: calc(100% - 120px);
   overflow-y: auto;
   z-index: 10000;
-  border-right: 1px solid var(--black100);
+  border-right: 2px solid #aaa;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,26 +49,24 @@ const MenuList = styled.ul`
 const MenuItem = styled.li`
   width: 100%;
   margin-top: 5px;
-  padding-top: 17px;
-  padding-bottom: 17px;
-  text-align: center;
-  align-items: center;
-  font-weight: bold;
+  padding: 12px 0;
   display: flex;
   align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   &:hover {
-    background: rgba(141, 141, 141, 0.3);
+    background: rgba(141, 141, 141, 0.2);
     color: white;
     transition: 0.5s;
+    border-radius: 50px;
   }
 `;
 
 const MenuIcon = styled.img`
   width: 24px;
   height: 24px;
-  margin-right: 10px;
+  margin-right: 15px;
+  margin-left: 80px;
+  justify-content: start;
 `;
 
 const MenuLink = styled(Link)`
@@ -75,6 +74,8 @@ const MenuLink = styled(Link)`
   color: black;
   display: flex;
   align-items: center;
+  width: 100%;
+  justify-content: start;
 `;
 
 const ProfileImage = styled.img`
