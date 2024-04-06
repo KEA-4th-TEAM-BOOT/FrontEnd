@@ -3,6 +3,7 @@ import Main from "./Main";
 import Banner from "../components/contents/Banner";
 import Content from "../components/contents/Content";
 import Recommend from "../components/contents/Recommend";
+import Following from "../components/contents/Following";
 import Footer from "./Footer";
 
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -64,6 +65,7 @@ const Home = () => {
 
       <Content />
       <Recommend />
+      <Following />
       <Footer />
     </Main>
   );

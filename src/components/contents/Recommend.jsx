@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Postcard from "../Postcard";
-import gotofeedIcon from "../../images/icons/gotofeed.svg";
+import gotofeedIcon from "../../images/icons/moreicon.svg";
 
 const RecommendWrapper = styled.section`
   width: 1374px;
