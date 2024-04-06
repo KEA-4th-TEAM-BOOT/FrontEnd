@@ -27,9 +27,7 @@ const App = () => {
           <Route path='*' element={<Not />} />
         </Routes>
       </Suspense>
-      <Player />
     </BrowserRouter>
-
   );
 }
 
