@@ -16,9 +16,9 @@ const Footer = () => {
         <FooterDescription>
           <Logo src="https://cdn.builder.io/api/v1/image/assets/TEMP/50b4a1227f4c0fcc1e84e9b9a61c9fe0954f65ea2122fd2f6fb605753ffadc1d?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Auda Logo" />
           <DescriptionText>
-            사용자가 자신의 블로그에 글을 작성하면, Auda 서비스를 통해 해당 글을
-            음성으로 들을 수 있습니다. 글 뿐만 아니라, 사진과 동영상도 음성으로
-            설명해줍니다.
+          사용자가 자신의 블로그에 글을 작성하면, Auda 서비스
+            <br />를 통해 해당 글을 음성으로 들을 수 있습니다. 글 뿐만 아
+            <br /> 니라, 사진과 동영상도 음성으로 설명해줍니다.
             <br />
           </DescriptionText>
         </FooterDescription>
@@ -54,6 +54,7 @@ const FooterWrapper = styled.footer`
   font-size: 18px;
   color: #666;
   font-weight: 500;
+  padding: 30px;
 `;
 
 const FooterContent = styled.div`
