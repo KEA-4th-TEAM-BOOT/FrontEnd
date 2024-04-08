@@ -17,9 +17,9 @@ const FootPlayer = styled.div
     width: 100%;
     height: 80px;
     bottom : 0;
-    background-color: var(--black100);
+    background-color: black;
     padding: 20px;
-    color: var(--black400);
+    color: white;
     font-size: 0.8rem;
     z-index:10000;
 `;
