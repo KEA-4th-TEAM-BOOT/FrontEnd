@@ -10,6 +10,7 @@ const ContentMain = styled.main`
   min-height: 100vh;
   margin: 0 auto;
   padding-left: 260px;
+  padding-bottom: 120px;
 `;
 
 const Main = (props) => {
