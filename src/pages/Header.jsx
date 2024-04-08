@@ -10,6 +10,60 @@ import feedIcon from "../images/icons/feedicon.svg";
 import followIcon from "../images/icons/followicon.svg";
 import writeIcon from "../images/icons/writeicon.svg";
 
+const Header = () => {
+
+  return (
+    <HeaderContainer id="header" role="banner">
+      <LogoLink to="/">
+        <LogoImage src={logoImage} alt="Logo Image" />
+      </LogoLink>
+      <MenuList>
+        <MenuItem>
+          <MenuLink to="/">
+            <MenuIcon src={homeIcon} alt="Home Icon" />
+            메인
+          </MenuLink>
+        </MenuItem>
+        <MenuItem>
+          <MenuLink to="/search">
+            <MenuIcon src={searchIcon} alt="Search Icon" />
+            검색
+          </MenuLink>
+        </MenuItem>
+        <MenuItem>
+          <MenuLink to="/feed">
+            <MenuIcon src={feedIcon} alt="Feed Icon" />
+            피드
+          </MenuLink>
+        </MenuItem>
+        <MenuItem>
+          <MenuLink to="/follow">
+            <MenuIcon src={followIcon} alt="Follow Icon" />
+            팔로잉
+          </MenuLink>
+        </MenuItem>
+        <MenuItem>
+          <MenuLink to="/write">
+            <MenuIcon src={writeIcon} alt="Write Icon" />
+            글쓰기
+          </MenuLink>
+        </MenuItem>
+        <MenuItem>
+          <MenuLink to="/write">
+            <MenuIcon alt="Write Icon" />
+            로그인
+          </MenuLink>
+        </MenuItem>
+      </MenuList>
+      <ProfileLink to="/mypage">
+        <ProfileImage src={profileImage} alt="Profile Image" />
+      </ProfileLink>
+    </HeaderContainer>
+  );
+};
+
+export default Header;
+
 const HeaderContainer = styled.header`
   position: fixed;
   left: 0;
@@ -93,50 +147,3 @@ const ProfileLink = styled(Link)`
   height: auto;
   margin-top: 20px;
 `;
-
-const Header = () => {
-  return (
-    <HeaderContainer id="header" role="banner">
-      <LogoLink to="/">
-        <LogoImage src={logoImage} alt="Logo Image" />
-      </LogoLink>
-      <MenuList>
-        <MenuItem>
-          <MenuLink to="/">
-            <MenuIcon src={homeIcon} alt="Home Icon" />
-            메인
-          </MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink to="/search">
-            <MenuIcon src={searchIcon} alt="Search Icon" />
-            검색
-          </MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink to="/feed">
-            <MenuIcon src={feedIcon} alt="Feed Icon" />
-            피드
-          </MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink to="/follow">
-            <MenuIcon src={followIcon} alt="Follow Icon" />
-            팔로잉
-          </MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink to="/write">
-            <MenuIcon src={writeIcon} alt="Write Icon" />
-            글쓰기
-          </MenuLink>
-        </MenuItem>
-      </MenuList>
-      <ProfileLink to="/mypage">
-        <ProfileImage src={profileImage} alt="Profile Image" />
-      </ProfileLink>
-    </HeaderContainer>
-  );
-};
-
-export default Header;
