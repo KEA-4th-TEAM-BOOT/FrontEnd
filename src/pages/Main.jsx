@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import Header from "./Header";
 import Player from "./Player";
 import styled from "styled-components";
+import Footer from "./Footer";
 
 // 스타일 컴포넌트의 이름을 PascalCase로 변경
 const ContentMain = styled.main`
@@ -29,7 +30,9 @@ const Main = (props) => {
         <Header />
         <ContentMain id="main" role="main">
           {props.children}
+          <Footer />
         </ContentMain>
+        
         <Player />
       </HelmetProvider>
     </ContentMain>
