@@ -6,7 +6,7 @@ import Recommend from "../components/contents/Recommend";
 import Following from "../components/contents/Following";
 import Footer from "../components/contents/Footer"
 
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -14,6 +14,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import "swiper/css/effect-fade";
 
 const Home = () => {
   return (
@@ -24,11 +25,14 @@ const Home = () => {
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
+        effect="fade"
+        loop={true}
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
         }}
-        modules={[Autoplay, Pagination, Navigation]}
+        
+        modules={[Autoplay, Pagination, Navigation, EffectFade]}
       >
         <SwiperSlide>
           <Banner

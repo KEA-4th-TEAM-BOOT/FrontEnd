@@ -21,4 +21,5 @@ const FootPlayer = styled.div
     padding: 20px;
     color: var(--black400);
     font-size: 0.8rem;
+    z-index:10000;
 `;

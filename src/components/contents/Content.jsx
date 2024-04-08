@@ -92,7 +92,7 @@ const Content = () => {
   return (
     <ContentWrapper>
       <ContentTitle>
-      <span>콘텐츠</span> {/* h1 대신 span을 사용합니다. */}
+      <h4>콘텐츠</h4> {/* h1 대신 span을 사용합니다. */}
       <div>
         {/* 버튼을 div로 감싸서 오른쪽 정렬을 유지합니다. */}
         <Buttons onClick={goPrev} disabled={isBeginning}>◀</Buttons>
