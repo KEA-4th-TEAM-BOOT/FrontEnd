@@ -5,7 +5,7 @@ import gotofollowIcon from "../../images/icons/moreicon.svg";
 
 const FollowingWrapper = styled.section`
   width: 1374px;
-  height: 547px;
+  height: auto;
   padding: 30px;
 `;
 
