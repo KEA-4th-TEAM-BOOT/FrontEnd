@@ -29,7 +29,6 @@ const Main = (props) => {
         <ContentMain id="main" role="main">
           {props.children}
         </ContentMain>
-        <Player />
       </HelmetProvider>
     </ContentMain>
   );

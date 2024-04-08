@@ -11,6 +11,7 @@ import Home from './pages/Home'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react'
 import './App.css';
+import Player from './pages/Player'
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path='*' element={<Not />} />
         </Routes>
       </Suspense>
+      <Player />
     </BrowserRouter>
   );
 }
