@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Photocard from "../card/Photocard";
 import gotofollowIcon from "../../assets/img/icons/moreicon.svg";
+import { Link } from "react-router-dom";
+import follow from "../../pages/Follow";
 
 const FollowingWrapper = styled.section`
   width: 1374px;
@@ -71,11 +73,9 @@ const Following = () => {
     <FollowingWrapper>
       <Header>
         <Title>팔로잉</Title>
-        <GoToFollow
-          src={gotofollowIcon}
-          alt="Go to follow"
-          onClick={() => (window.location.href = "/follow")}
-        />
+        <Link to="/follow">
+          <GoToFollow src={gotofollowIcon} alt="Go to follow" />
+        </Link>
       </Header>
       <PhotocardWrapper>
         {cardData.map((data, index) => (

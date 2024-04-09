@@ -11,7 +11,6 @@ import followIcon from "../assets/img/icons/followicon.svg";
 import writeIcon from "../assets/img/icons/writeicon.svg";
 
 const Header = () => {
-
   return (
     <HeaderContainer id="header" role="banner">
       <LogoLink to="/">
@@ -73,7 +72,6 @@ const HeaderContainer = styled.header`
   overflow-y: auto;
   z-index: 10000;
   border-right: 2px solid #aaa;
-  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
