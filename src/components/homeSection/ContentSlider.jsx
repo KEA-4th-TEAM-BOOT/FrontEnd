@@ -1,6 +1,6 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import AudioCard from '../Audiocard';
+import AudioCard from '../../components/ui/Audiocard';
 
 import 'swiper/css';
 import 'swiper/css/navigation';

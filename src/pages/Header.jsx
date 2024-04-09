@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import logoImage from "../images/logo.png";
-import profileImage from "../images/profile.png";
-import homeIcon from "../images/icons/homeicon.svg";
-import searchIcon from "../images/icons/searchicon.svg";
-import feedIcon from "../images/icons/feedicon.svg";
-import followIcon from "../images/icons/followicon.svg";
-import writeIcon from "../images/icons/writeicon.svg";
+import logoImage from "../assets/img/logo.png";
+import profileImage from "../assets/img/profile.png";
+import homeIcon from "../assets/img/icons/homeicon.svg";
+import searchIcon from "../assets/img/icons/searchicon.svg";
+import feedIcon from "../assets/img/icons/feedicon.svg";
+import followIcon from "../assets/img/icons/followicon.svg";
+import writeIcon from "../assets/img/icons/writeicon.svg";
 
 const Header = () => {
 

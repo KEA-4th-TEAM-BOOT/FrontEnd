@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styled from 'styled-components';
-import AudioCard from '../Audiocard';
+import AudioCard from '../../components/ui/Audiocard';
 // Swiper 스타일시트를 임포트합니다.
 import 'swiper/css';
 import 'swiper/css/navigation';

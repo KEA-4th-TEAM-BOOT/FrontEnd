@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Header from "./Header";
-import Player from "./Player";
+import Player from "../components/Player";
 import styled from "styled-components";
 import Footer from "./Footer";
 
