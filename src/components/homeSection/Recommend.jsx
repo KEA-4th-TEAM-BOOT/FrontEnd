@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Postcard from "../../components/ui/Postcard";
-import gotofeedIcon from "../../images/icons/moreicon.svg";
+import Postcard from "../card/Postcard";
+import gotofeedIcon from "../../assets/img/icons/moreicon.svg";
+import { Link } from "react-router-dom";
 
 const RecommendWrapper = styled.section`
   width: 1374px;
@@ -95,11 +96,9 @@ const Recommend = () => {
     <RecommendWrapper>
       <Header>
         <Title>추천</Title>
-        <GoToFeed
-          src={gotofeedIcon}
-          alt="Go to feed"
-          onClick={() => (window.location.href = "/feed")}
-        />
+        <Link to="/feed">
+          <GoToFeed src={gotofeedIcon} alt="Go to feed" />
+        </Link>
       </Header>
       <PostcardWrapper>
         {cardData.map((data, index) => (

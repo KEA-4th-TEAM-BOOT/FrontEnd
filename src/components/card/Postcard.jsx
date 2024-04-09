@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import likeO from "../../images/icons/likeOicon.svg";
-import likeX from "../../images/icons/likeXicon.svg";
-import comment from "../../images/icons/commenticon.svg";
+import likeO from "../../assets/img/icons/likeOicon.svg";
+import likeX from "../../assets/img/icons/likeXicon.svg";
+import comment from "../../assets/img/icons/commenticon.svg";
 
 const categoryColors = {
   LifeStyle: "#FF983A",
