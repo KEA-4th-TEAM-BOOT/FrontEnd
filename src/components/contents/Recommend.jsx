@@ -5,7 +5,7 @@ import gotofeedIcon from "../../images/icons/moreicon.svg";
 
 const RecommendWrapper = styled.section`
   width: 1374px;
-  height: 547px;
+  height: auto;
   padding: 30px;
 `;
 

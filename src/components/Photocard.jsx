@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const Card = styled.div`
+const CardWrapper = styled.div`
   width: 680px;
   height: 589px;
-  background-color: #ffffff;
+  background-color: black;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -15,6 +15,17 @@ const Card = styled.div`
 const TopSection = styled.div`
   display: flex;
   height: 375px;
+  width: 100%;
+  padding: 30px;
+`;
+
+const BottomSection = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, 155px);
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
 `;
 
 const MainImage = styled.img`
@@ -33,6 +44,7 @@ const TitleContentWrapper = styled.div`
 
 const CardTitle = styled.h2`
   font-size: 45px;
+  color: #ffffff;
   width: 111px;
   height: 54px;
   margin: 0;
@@ -43,29 +55,28 @@ const CardTitle = styled.h2`
 
 const CardText = styled.p`
   font-size: 20px;
+  color: #ffffff;
   height: 288px;
-  margin: 0;
+  margin-right: 10px;
   overflow-y: auto;
-`;
-
-const BottomImageGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 135px);
-  gap: 10px;
-  padding: 16px;
-  justify-content: center;
-  flex-grow: 1;
+  &::-webkit-scrollbar {
+    // 이거 스크롤이 되게 할 건지 아님 넘치는 글은 안 뜨게 할 건지
+    display: none;
+  }
 `;
 
 const SmallImage = styled.img`
   width: 135px;
   height: 125px;
   object-fit: cover;
+  border-radius: 10px;
+  justify-self: center;
+  align-self: center;
 `;
 
 const Photocard = ({ title, content, images }) => {
   return (
-    <Card>
+    <CardWrapper>
       <TopSection>
         <MainImage src={images[0]} alt="Main" />
         <TitleContentWrapper>
@@ -73,12 +84,12 @@ const Photocard = ({ title, content, images }) => {
           <CardText>{content}</CardText>
         </TitleContentWrapper>
       </TopSection>
-      <BottomImageGrid>
+      <BottomSection>
         {images.slice(1).map((imgUrl, index) => (
           <SmallImage key={index} src={imgUrl} alt={`Thumbnail ${index + 1}`} />
         ))}
-      </BottomImageGrid>
-    </Card>
+      </BottomSection>
+    </CardWrapper>
   );
 };
 
