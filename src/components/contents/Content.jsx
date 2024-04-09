@@ -61,7 +61,7 @@ const Content = () => {
     if (!isEnd) {
       let nextIndex = swiperRef.current.activeIndex + 4;
       nextIndex = nextIndex >= swiperRef.current.slides.length ? swiperRef.current.slides.length - 1 : nextIndex;
-      swiperRef.current.slideTo(nextIndex);
+      swiperRef.current.slideTo(nextIndex); 
     }
   };
 
