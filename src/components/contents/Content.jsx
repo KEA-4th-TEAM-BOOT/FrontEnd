@@ -1,13 +1,13 @@
 // 필요한 모듈 및 컴포넌트를 임포트합니다.
-import React, { useState, useEffect, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import styled from "styled-components";
-import AudioCard from "../Audiocard";
+import React, { useState, useEffect, useRef } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import styled from 'styled-components';
+import AudioCard from '../Audiocard';
 // Swiper 스타일시트를 임포트합니다.
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 // styled-components를 사용하여 ContentWrapper 컴포넌트 스타일을 정의합니다.
 const ContentWrapper = styled.div`
@@ -60,11 +60,8 @@ const Content = () => {
   const goNext = () => {
     if (!isEnd) {
       let nextIndex = swiperRef.current.activeIndex + 4;
-      nextIndex =
-        nextIndex >= swiperRef.current.slides.length
-          ? swiperRef.current.slides.length - 1
-          : nextIndex;
-      swiperRef.current.slideTo(nextIndex);
+      nextIndex = nextIndex >= swiperRef.current.slides.length ? swiperRef.current.slides.length - 1 : nextIndex;
+      swiperRef.current.slideTo(nextIndex); 
     }
   };
 
@@ -82,11 +79,11 @@ const Content = () => {
   // 컴포넌트가 언마운트될 때 리스너를 제거합니다.
   useEffect(() => {
     if (swiperRef.current) {
-      swiperRef.current.on("slideChange", updateButtonState);
+      swiperRef.current.on('slideChange', updateButtonState);
     }
     return () => {
       if (swiperRef.current) {
-        swiperRef.current.off("slideChange", updateButtonState);
+        swiperRef.current.off('slideChange', updateButtonState);
       }
     };
   }, []);
@@ -95,16 +92,12 @@ const Content = () => {
   return (
     <ContentWrapper>
       <ContentTitle>
-        <h4>콘텐츠</h4> {/* h1 대신 span을 사용합니다. */}
-        <div>
-          {/* 버튼을 div로 감싸서 오른쪽 정렬을 유지합니다. */}
-          <Buttons onClick={goPrev} disabled={isBeginning}>
-            ◀
-          </Buttons>
-          <Buttons onClick={goNext} disabled={isEnd}>
-            ▶
-          </Buttons>
-        </div>
+      <h4>콘텐츠</h4> {/* h1 대신 span을 사용합니다. */}
+      <div>
+        {/* 버튼을 div로 감싸서 오른쪽 정렬을 유지합니다. */}
+        <Buttons onClick={goPrev} disabled={isBeginning}>◀</Buttons>
+        <Buttons onClick={goNext} disabled={isEnd}>▶</Buttons>
+      </div>
       </ContentTitle>
       {/* Swiper 컴포넌트. 각 슬라이드는 AudioCard 컴포넌트를 포함합니다. */}
       <Swiper
@@ -117,42 +110,18 @@ const Content = () => {
         }}
       >
         {/* 슬라이드들을 정의합니다. */}
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <AudioCard />
-        </SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
+        <SwiperSlide><AudioCard /></SwiperSlide>
       </Swiper>
     </ContentWrapper>
   );
