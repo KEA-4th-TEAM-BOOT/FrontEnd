@@ -1,5 +1,4 @@
 import React from "react";
-import Main from "./Main";
 import Banner from "../components/homeSection/Banner";
 import Content from "../components/homeSection/Content";
 import Recommend from "../components/homeSection/Recommend";
@@ -17,10 +16,7 @@ import "swiper/css/effect-fade";
 
 const Home = () => {
   return (
-    <Main
-      title="Auda : 글이 내게로 오다"
-      description="내 목소리로 들려주는 글 : Auda"
-    >
+    <>
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -68,7 +64,7 @@ const Home = () => {
       <Content />
       <Recommend />
       <Following />
-    </Main>
+    </>
   );
 };
 

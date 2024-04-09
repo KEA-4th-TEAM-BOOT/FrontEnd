@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const BannerWrapper = styled.div`
-  width: 1374px;
+  width: 100%;
   height: 615px; // Bottom 컴포넌트의 위치를 고려하지 않고 전체 배너 높이를 설정
-  padding: 30px;
   position: relative;
+  display:flex; 
   overflow: hidden; // 내용이 벗어나지 않도록 처리
 `;
 
