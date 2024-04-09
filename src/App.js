@@ -1,4 +1,3 @@
-import Main from './pages/Main'
 import Search from './pages/Search'
 import Feed from './pages/Feed'
 import Follow from './pages/Follow'
@@ -17,7 +16,7 @@ const App = () => {
   return (
     <BrowserRouter>
 
-      <Suspense fallback={<Main />}>
+      <Suspense fallback={<Home />}>
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />

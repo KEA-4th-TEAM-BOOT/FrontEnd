@@ -11,9 +11,8 @@ import "swiper/css/scrollbar";
 
 // styled-components를 사용하여 ContentWrapper 컴포넌트 스타일을 정의합니다.
 const ContentWrapper = styled.div`
-  width: 1374px;
+  width: 100%;
   height: auto;
-  padding: 30px;
 `;
 
 // ContentTitle 컴포넌트의 스타일을 정의합니다.
