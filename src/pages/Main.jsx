@@ -7,10 +7,13 @@ import Footer from "./Footer";
 
 // 스타일 컴포넌트의 이름을 PascalCase로 변경
 const ContentMain = styled.main`
-  max-width: 2000px;
+  max-width: 1374px;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
-  padding-left: 260px;
   padding-bottom: 120px;
 `;
 
@@ -26,14 +29,7 @@ const Main = (props) => {
           {props.title && <title>{props.title}</title>}
           <meta name="description" content={props.description} />
         </Helmet>
-
-        <Header />
-        <ContentMain id="main" role="main">
           {props.children}
-          <Footer />
-        </ContentMain>
-        
-        <Player />
       </HelmetProvider>
     </ContentMain>
   );
