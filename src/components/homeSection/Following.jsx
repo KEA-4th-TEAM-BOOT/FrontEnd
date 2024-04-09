@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Photocard from "../../components/ui/Photocard";
-import gotofollowIcon from "../../images/icons/moreicon.svg";
+import Photocard from "../card/Photocard";
+import gotofollowIcon from "../../assets/img/icons/moreicon.svg";
 
 const FollowingWrapper = styled.section`
   width: 1374px;

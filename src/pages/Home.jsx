@@ -1,9 +1,9 @@
 import React from "react";
 import Main from "./Main";
-import Banner from "./Home/Banner";
-import Content from "./Home/Content";
-import Recommend from "./Home/Recommend";
-import Following from "./Home/Following";
+import Banner from "../components/homeSection/Banner";
+import Content from "../components/homeSection/Content";
+import Recommend from "../components/homeSection/Recommend";
+import Following from "../components/homeSection/Following";
 
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 
@@ -30,7 +30,6 @@ const Home = () => {
           delay: 3000,
           disableOnInteraction: false,
         }}
-        
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
       >
         <SwiperSlide>
