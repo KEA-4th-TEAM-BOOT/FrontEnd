@@ -62,7 +62,8 @@ const CardText = styled.p`
   color: #ffffff;
   height: auto;
   margin-right: 10px;
-  overflow-y: auto; // 이거 스크롤 내리면 내용이 더 뜨게 할 건지 결정 안 할 거라면 hidden으로 바꾸기
+  overflow-y: hidden; // 이거 스크롤 내리면 내용이 더 뜨게 할 건지 결정. 할 거라면 auto으로 바꾸기
+  text-overflow: ellipsis; // ... 표시되게끔... 근데 지금 안 뜸
   &::-webkit-scrollbar {
     display: none;
   }
