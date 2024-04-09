@@ -2,26 +2,28 @@ import React from "react";
 import styled from "styled-components";
 
 const CardWrapper = styled.div`
-  width: 680px;
-  height: 589px;
+  width: auto;
+  height: auto;
   background-color: black;
-  border-radius: 10px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  padding: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 const TopSection = styled.div`
   display: flex;
   height: 375px;
   width: 100%;
-  padding: 30px;
+  margin-bottom: 30px;
 `;
 
 const BottomSection = styled.div`
   display: grid;
-  width: 100%;
+  width: auto;
   grid-template-columns: repeat(4, 155px);
   justify-content: center;
   align-items: center;
@@ -29,38 +31,39 @@ const BottomSection = styled.div`
 `;
 
 const MainImage = styled.img`
-  width: 301px;
+  width: 300px;
   height: 100%;
   object-fit: cover;
+  border-radius: 20px;
 `;
 
 const TitleContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px;
-  width: calc(100% - 301px);
+  margin-left: 20px;
+  margin-right: 5px;
+  width: calc(100% - 300px);
 `;
 
 const CardTitle = styled.h2`
   font-size: 45px;
   color: #ffffff;
-  width: 111px;
-  height: 54px;
+  width: 100%;
+  height: 55px;
   margin: 0;
-  white-space: nowrap;
+  white-space: nowrap; // 한 줄 정렬
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; // 생략 부호
 `;
 
 const CardText = styled.p`
   font-size: 20px;
   color: #ffffff;
-  height: 288px;
+  height: auto;
   margin-right: 10px;
-  overflow-y: auto;
+  overflow-y: auto; // 이거 스크롤 내리면 내용이 더 뜨게 할 건지 결정 안 할 거라면 hidden으로 바꾸기
   &::-webkit-scrollbar {
-    // 이거 스크롤이 되게 할 건지 아님 넘치는 글은 안 뜨게 할 건지
     display: none;
   }
 `;
