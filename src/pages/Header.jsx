@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import writeIcon from "../assets/img/icons/writeicon.svg";
@@ -7,6 +7,8 @@ import logoImage from "../assets/img/logo.png";
 import profileImage from "../assets/img/profile.png";
 
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   return (
     <HeaderContainer id="header" role="banner">
       <LogoLink to="/">
@@ -28,19 +30,27 @@ const Header = () => {
       </MenuList>
       <HeaderMenu>
         <HeaderMenuItem>
-          <HeaderMenuIcon src={writeIcon} alt="Write Icon" />
-          <MenuLink to="/write">글쓰기</MenuLink>
+          <IconAndTextContainer>
+            <HeaderMenuIcon src={writeIcon} alt="Write Icon" />
+            <MenuText>글쓰기</MenuText>
+          </IconAndTextContainer>
         </HeaderMenuItem>
         <HeaderMenuItem>
-          <HeaderMenuIcon src={notifyIcon} alt="Notify Icon" />
-          <MenuLink to="/notify">알림</MenuLink>
+          <IconAndTextContainer>
+            <HeaderMenuIcon src={notifyIcon} alt="Notify Icon" />
+            <MenuText>알림</MenuText>
+          </IconAndTextContainer>
         </HeaderMenuItem>
-        <HeaderMenuItem>
-          <MenuLink to="/write">로그인</MenuLink>
-        </HeaderMenuItem>
-        <ProfileLink to="/mypage">
-          <ProfileImage src={profileImage} alt="Profile Image" />
-        </ProfileLink>
+        {/* 로그인 O -> 프로필 이미지 / 로그인 X -> "로그인" 텍스트 */}
+        {isLoggedIn ? (
+          <ProfileLink to="/mypage">
+            <ProfileImage src={profileImage} alt="Profile Image" />
+          </ProfileLink>
+        ) : (
+          <HeaderMenuItem>
+            <MenuText to="/login">로그인</MenuText>
+          </HeaderMenuItem>
+        )}
       </HeaderMenu>
     </HeaderContainer>
   );
@@ -48,29 +58,19 @@ const Header = () => {
 
 export default Header;
 
-// const HeaderContainer = styled.header`
-//   position: fixed;
-//   width: 1374px;
-//   height: 300px;
-//   padding-top: 50px;
-//   padding-left: 50px;
-//   z-index: 100;
-//   display: flex;
-//   flex-direction: row;
-//   align-items: left;
-//   justify-content: flex-start; // 요소들을 컨테이너의 왼쪽으로 정렬 (justify-content default)
-// `;
-
 const HeaderContainer = styled.header`
   position: absolute;
   z-index: 100;
   width: 100%;
   height: 104px;
-  padding-top: 50px;
-  padding-left: 50px;
+  padding: 50px 50px 0 50px;
   transition: opacity 0.5s;
   letter-spacing: 0;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
 `;
 
 const LogoImage = styled.img`
@@ -91,23 +91,18 @@ const MenuList = styled.ul`
   list-style-type: none;
   display: flex;
   justify-content: space-between; // 아이템들 사이 간격 동일하게 만들어줌
-  align-items: left;
-`;
-
-const HeaderMenu = styled.ul`
-  width: auto;
-  height: 55px;
-  list-style-type: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: right;
+  align-items: center;
+  padding-left: 0;
+  margin-left: 50px;
+  flex-wrap: nowrap;
 `;
 
 const MenuItem = styled.li`
-  width: 200px;
+  margin-right: 30px;
   display: flex;
-  align-items: left;
+  align-items: center;
   justify-content: center;
+  min-width: 100px;
 `;
 
 const MenuLink = styled(Link)`
@@ -117,22 +112,52 @@ const MenuLink = styled(Link)`
   align-items: center;
   width: 100%;
   justify-content: center;
+  font-weight: bold;
+`;
+
+const HeaderMenu = styled.ul`
+  margin-left: auto;
+  height: 55px;
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-end; // 오른쪽 정렬
+  align-items: center;
+  flex-wrap: nowrap;
+`;
+
+const HeaderMenuItem = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: start; // 왼쪽 정렬
+  margin-right: 20px;
+  min-width: 100px;
+`;
+
+const IconAndTextContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 const HeaderMenuIcon = styled.img`
   width: 24px;
   height: 24px;
-  margin-right: 15px;
-  margin-left: 80px;
-  justify-content: start;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 24px;
 `;
 
-const HeaderMenuItem = styled.li``;
+const MenuText = styled.span`
+  font-weight: bold;
+  height: 24px;
+`;
 
 const ProfileImage = styled.img`
   width: 50px;
-  height: auto;
-  margin-left: ;
+  height: 50px;
+  border-radius: 50%; // 프로필 이미지 동그랗게
 `;
 
 const ProfileLink = styled(Link)`
