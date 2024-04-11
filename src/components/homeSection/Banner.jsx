@@ -1,68 +1,49 @@
 import React from "react";
 import styled from "styled-components";
 
-const BannerWrapper = styled.div`
-  width: 2000px;
-  height: 615px; // Bottom 컴포넌트의 위치를 고려하지 않고 전체 배너 높이를 설정
-  position: relative;
-  display: flex;
-  overflow: hidden; // 내용이 벗어나지 않도록 처리
-`;
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation} from 'swiper/modules';
 
-const ImageBackground = styled.div`
-  width: 100%;
-  height: 532px;
-  background-image: url(${(props) => props.image});
-  background-size: cover;
-  border-radius: 20px;
-  background-position: center;
-  position: relative; // 상대적 위치 설정
-  align-items: flex-end;
-`;
-
-const Bottom = styled.div`
-  position: absolute;
-  left: 50%; // 정중앙을 맞추기 위함
-  transform: translateX(
-    -50%
-  ); //Bottom이 50% 갔지만 Bottom의 중앙이 살짝 오른쪽에 가있기 때문에 왼쪽으로 살짝 옮겨줘야함.
-  bottom: 30px; // Bottom의 높이 절반인 830px만큼 위로 올림으로써 하단 살짝 위에 위치하게 함
-  border: 3px solid blue;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 20px;
-  width: 487px;
-  height: 176px; // Bottom의 높이 설정
-  background-color: white; // Bottom 배경색 추가
-`;
-
-const ContentTitle = styled.p`
-  font-size: 25px;
-  color: black;
-  margin: 0;
-  margin-top: 3px;
-  margin-bottom: 10px;
-`;
-
-const ContentWriter = styled.p`
-  font-size: 15px;
-  color: pink;
-  margin: 0;
-`;
-
-const Banner = ({ imageUrl, contentTitle, contentWriter }) => {
+const Banner = () => {
   return (
     <BannerWrapper>
-      <ImageBackground image={imageUrl} />
-      <Bottom>
-        <ContentTitle>{contentTitle}</ContentTitle>
-        <ContentWriter>{contentWriter}</ContentWriter>
-      </Bottom>
+      <Swiper navigation={true} modules={[Navigation]} className="mySwiper"
+      slidesPerView={1} // 한 번에 보여줄 슬라이드 수
+      >
+        <StyledSwiperSlide>Slide 1</StyledSwiperSlide>
+        <StyledSwiperSlide>Slide 2</StyledSwiperSlide>
+        <StyledSwiperSlide>Slide 3</StyledSwiperSlide>
+        <StyledSwiperSlide>Slide 4</StyledSwiperSlide>
+        <StyledSwiperSlide>Slide 5</StyledSwiperSlide>
+        <StyledSwiperSlide>Slide 6</StyledSwiperSlide>
+        <StyledSwiperSlide>Slide 7</StyledSwiperSlide>
+        <StyledSwiperSlide>Slide 8</StyledSwiperSlide>
+        <StyledSwiperSlide>Slide 9</StyledSwiperSlide>
+      </Swiper>
     </BannerWrapper>
   );
 };
 
 export default Banner;
+
+const BannerWrapper = styled.div`
+  min-width: 1280px;
+  height: 640px;
+  position: relative;
+  margin: 0 auto;
+  display:flex;
+  overflow: hidden;
+`;
+
+const StyledSwiperSlide = styled(SwiperSlide)`
+  display: flex;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px; // 글자 크기 조정
+`;
+
+// 추가적으로 .mySwiper 클래스를 사용하여 CSS를 정의할 수 있음
+// 예: .mySwiper .swiper-slide { 스타일 규칙 }
