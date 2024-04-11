@@ -4,31 +4,65 @@ import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper/modules';
 
 const Banner = () => {
   return (
     <BannerWrapper>
-      <Swiper navigation={true} modules={[Navigation]} className="mySwiper"
+      <Swiper navigation={false} modules={[Navigation, Autoplay]} className="mySwiper"
         slidesPerView={1} // 한 번에 보여줄 슬라이드 수
         loop={true}
-        speed={600}
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        speed={1100}
       >
         <StyledSwiperSlide>
-          <BannerContent bgcolor="#C5D9FF" image="https://github.com/KEA-4th-TEAM-BOOT/FrontEnd/assets/118448112/4b71f001-1421-493d-a4ae-4222aa5f41f8">
-            <BannerHeding>오디오 블로그</BannerHeding>
+          <BannerContent bgcolor="#C5D9FF" image="https://github.com/KEA-4th-TEAM-BOOT/FrontEnd/assets/118448112/8299fe2a-f9d3-4f3c-8895-86a27dc233a1">
+            <BannerScene>
+            <BannerHeding>
+            <b>
+            오디오 블로그
+            </b>
+            <br/>
+            블로그를 들어보세요.
+            </BannerHeding>
+            <BannerDescription>
+            VODA의 오디오 블로그 지금 바로 체험해보세요.
+            </BannerDescription>
+            </BannerScene>
           </BannerContent>
         </StyledSwiperSlide>
 
         <StyledSwiperSlide>
-        <BannerContent bgcolor="#DAFFF4">
-          2
+          <BannerContent bgcolor="#C5D9FF" image="https://github.com/KEA-4th-TEAM-BOOT/FrontEnd/assets/118448112/b9448b49-2d6d-4953-bf9c-e07707d01577">
+            <BannerScene>
+            <BannerHeding>
+            <b>
+            실시간 트렌드
+            </b>
+            <br/>
+            오디오로 읽어보세요
+            </BannerHeding>
+            <BannerDescription>
+            VODA의 오디오 블로그 지금 바로 체험해보세요.
+            </BannerDescription>
+            </BannerScene>
           </BannerContent>
         </StyledSwiperSlide>
 
         <StyledSwiperSlide>
-        <BannerContent bgcolor="#FAC5FF">
-        3
+          <BannerContent bgcolor="#C5D9FF" image="https://github.com/KEA-4th-TEAM-BOOT/FrontEnd/assets/118448112/31e5aeb9-7d05-4b1c-8de3-eaa18fae6503">
+            <BannerScene>
+            <BannerHeding>
+            <b>
+            AI 추천 블로그
+            </b>
+            <br/>
+            VODA에서 바로 재생
+            </BannerHeding>
+            <BannerDescription>
+            VODA의 오디오 블로그 지금 바로 체험해보세요.
+            </BannerDescription>
+            </BannerScene>
           </BannerContent>
         </StyledSwiperSlide>
 
@@ -42,7 +76,6 @@ export default Banner;
 const BannerWrapper = styled.div`
   min-width: 1280px;
   height: 640px;
-  background-position: 50% 50%;
   position: relative;
   margin: 0 auto;
   display:flex;
@@ -66,14 +99,24 @@ const BannerContent = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   display: table-cell;
+  padding: 40px 0 0;
+  background-position: 50% 50%;
   vertical-align: middle;
 `;
 
+const BannerScene = styled.div`
+position: relative;
+width: 1080px;
+margin-left : 255px;
+text-align: left;
+`;
+
 const BannerHeding = styled.strong`
-  position: relative;
-  width: 1080px;
-  margin: 0 auto;
-  text-align: left;
+font-weight: 400;
+font-size: 54px;
+line-height: 65px;
+color: #000;
+letter-spacing: -1.8px;
 `
 
 const BannerDescription = styled.p`
