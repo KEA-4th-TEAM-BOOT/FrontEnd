@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import writeIcon from "../assets/img/icons/writeicon.svg";
-
+import notifyIcon from "../assets/img/icons/notifyicon.svg";
 import logoImage from "../assets/img/logo.png";
 import profileImage from "../assets/img/profile.png";
 
@@ -27,13 +27,17 @@ const Header = () => {
         </MenuItem>
       </MenuList>
       <HeaderMenu>
-        <MenuItem>
+        <HeaderMenuItem>
           <HeaderMenuIcon src={writeIcon} alt="Write Icon" />
           <MenuLink to="/write">글쓰기</MenuLink>
-        </MenuItem>
-        <MenuItem>
+        </HeaderMenuItem>
+        <HeaderMenuItem>
+          <HeaderMenuIcon src={notifyIcon} alt="Notify Icon" />
+          <MenuLink to="/notify">알림</MenuLink>
+        </HeaderMenuItem>
+        <HeaderMenuItem>
           <MenuLink to="/write">로그인</MenuLink>
-        </MenuItem>
+        </HeaderMenuItem>
         <ProfileLink to="/mypage">
           <ProfileImage src={profileImage} alt="Profile Image" />
         </ProfileLink>
@@ -44,17 +48,29 @@ const Header = () => {
 
 export default Header;
 
+// const HeaderContainer = styled.header`
+//   position: fixed;
+//   width: 1374px;
+//   height: 300px;
+//   padding-top: 50px;
+//   padding-left: 50px;
+//   z-index: 100;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: left;
+//   justify-content: flex-start; // 요소들을 컨테이너의 왼쪽으로 정렬 (justify-content default)
+// `;
+
 const HeaderContainer = styled.header`
-  position: fixed;
-  width: 1374px;
-  height: 300px;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 104px;
   padding-top: 50px;
   padding-left: 50px;
-  z-index: 10000;
+  transition: opacity 0.5s;
+  letter-spacing: 0;
   display: flex;
-  flex-direction: row;
-  align-items: left;
-  justify-content: flex-start; // 요소들을 컨테이너의 왼쪽으로 정렬 (justify-content default)
 `;
 
 const LogoImage = styled.img`
@@ -94,14 +110,6 @@ const MenuItem = styled.li`
   justify-content: center;
 `;
 
-const HeaderMenuIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  margin-right: 15px;
-  margin-left: 80px;
-  justify-content: start;
-`;
-
 const MenuLink = styled(Link)`
   text-decoration: none;
   color: black;
@@ -110,6 +118,16 @@ const MenuLink = styled(Link)`
   width: 100%;
   justify-content: center;
 `;
+
+const HeaderMenuIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+  margin-left: 80px;
+  justify-content: start;
+`;
+
+const HeaderMenuItem = styled.li``;
 
 const ProfileImage = styled.img`
   width: 50px;
