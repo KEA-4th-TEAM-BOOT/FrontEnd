@@ -14,9 +14,12 @@ const Footer = () => {
     <FooterWrapper>
       <FooterContent>
         <FooterDescription>
-          <Logo src="https://cdn.builder.io/api/v1/image/assets/TEMP/50b4a1227f4c0fcc1e84e9b9a61c9fe0954f65ea2122fd2f6fb605753ffadc1d?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Auda Logo" />
+          <Logo
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/50b4a1227f4c0fcc1e84e9b9a61c9fe0954f65ea2122fd2f6fb605753ffadc1d?apiKey=a9a9d68966df47cab33790d709ea20f1&"
+            alt="Auda Logo"
+          />
           <DescriptionText>
-          사용자가 자신의 블로그에 글을 작성하면, Auda 서비스
+            사용자가 자신의 블로그에 글을 작성하면, Auda 서비스
             <br />를 통해 해당 글을 음성으로 들을 수 있습니다. 글 뿐만 아
             <br /> 니라, 사진과 동영상도 음성으로 설명해줍니다.
             <br />
@@ -25,22 +28,29 @@ const Footer = () => {
         <FooterLinks>
           <FooterLinksTitle>Quick Link</FooterLinksTitle>
           {footerLinks.map((link) => (
-            <FooterLink to={link.url}>
-              {link.label}
-            </FooterLink>
+            <FooterLink to={link.url}>{link.label}</FooterLink>
           ))}
         </FooterLinks>
         <FooterContact>
           <FooterContactTitle>Information</FooterContactTitle>
           <FooterContactItem>
-            <ContactIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/3c5b8461d2e64a9206a01483d290d1eb8123b1055a0da5c495b2dbe1647bf503?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Phone Icon" />
+            <ContactIcon
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/3c5b8461d2e64a9206a01483d290d1eb8123b1055a0da5c495b2dbe1647bf503?apiKey=a9a9d68966df47cab33790d709ea20f1&"
+              alt="Phone Icon"
+            />
             <ContactText>02-1234-1234</ContactText>
           </FooterContactItem>
           <FooterContactItem>
-            <ContactIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/92b8881bfc19871b474955c54eae889f65274d77386918d90957f89c34466e3b?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Email Icon" />
+            <ContactIcon
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/92b8881bfc19871b474955c54eae889f65274d77386918d90957f89c34466e3b?apiKey=a9a9d68966df47cab33790d709ea20f1&"
+              alt="Email Icon"
+            />
             <ContactText>official.auda@gmail.com</ContactText>
           </FooterContactItem>
-          <SocialIcons src="https://cdn.builder.io/api/v1/image/assets/TEMP/b02c81b282eb4f659dd63a213afa3170e0a423d344e2b6b563e300e1ce9afd87?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Social Media Icons" />
+          <SocialIcons
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/b02c81b282eb4f659dd63a213afa3170e0a423d344e2b6b563e300e1ce9afd87?apiKey=a9a9d68966df47cab33790d709ea20f1&"
+            alt="Social Media Icons"
+          />
         </FooterContact>
       </FooterContent>
     </FooterWrapper>
@@ -50,11 +60,11 @@ const Footer = () => {
 const FooterWrapper = styled.footer`
   display: flex;
   justify-content: center;
-  width: 1374px;
+  width: 100%;
   font-size: 18px;
   color: #666;
   font-weight: 500;
-  padding: 30px;
+  margin-bottom: 120px;
 `;
 
 const FooterContent = styled.div`
