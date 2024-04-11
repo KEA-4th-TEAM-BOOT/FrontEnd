@@ -9,38 +9,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
-// styled-components를 사용하여 ContentWrapper 컴포넌트 스타일을 정의합니다.
-const ContentWrapper = styled.div`
-  height: auto;
-  position:relative;
-  padding-top:107px;
-  padding-left:197px;
-  padding-right:197px;
-`;
-
-// ContentTitle 컴포넌트의 스타일을 정의합니다.
-const ContentTitle = styled.div`
-  font-size: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-`;
-
-const Buttons = styled.button`
-  background-color: white;
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  margin-left: 10px; /* 왼쪽 마진 추가 */
-  border: none; /* 테두리 제거 */
-  cursor: pointer; /* 마우스 오버 시 커서 변경 */
-  &:disabled {
-    background-color: #ccc; /* 비활성화 시 배경색 변경 */
-    cursor: default; /* 비활성화 시 커서 변경 */
-  }
-`;
-
 // Content 컴포넌트를 정의합니다.
 const Content = () => {
   // Swiper 인스턴스를 참조하기 위한 ref를 생성합니다.
@@ -120,7 +88,13 @@ const Content = () => {
       >
         {/* 슬라이드들을 정의합니다. */}
         <SwiperSlide>
-          <AudioCard />
+          <AudioCard
+            imageUrl="https://t1.kakaocdn.net/thumb/C630x354.fwebp.q100/?fname=https%3A%2F%2Ft1.kakaocdn.net%2Fkakaocorp%2Fkakaocorp%2Fadmin%2Fnumeral%2Fb70b3d39018b00001.png"
+            category="라이프스타일"
+            title="한국의 벚꽃이 일본의 국화가 된 이유"
+            writer="관계자외 출입 금지"
+            tag="#벚꽃"
+          />
         </SwiperSlide>
         <SwiperSlide>
           <AudioCard />
@@ -162,3 +136,35 @@ const Content = () => {
 
 // 컴포넌트를 내보냅니다.
 export default Content;
+
+// styled-components를 사용하여 ContentWrapper 컴포넌트 스타일을 정의합니다.
+const ContentWrapper = styled.div`
+  height: auto;
+  position:relative;
+  padding-top:107px;
+  padding-left:197px;
+  padding-right:197px;
+`;
+
+// ContentTitle 컴포넌트의 스타일을 정의합니다.
+const ContentTitle = styled.div`
+  font-size: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const Buttons = styled.button`
+  background-color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  margin-left: 10px; /* 왼쪽 마진 추가 */
+  border: none; /* 테두리 제거 */
+  cursor: pointer; /* 마우스 오버 시 커서 변경 */
+  &:disabled {
+    background-color: #ccc; /* 비활성화 시 배경색 변경 */
+    cursor: default; /* 비활성화 시 커서 변경 */
+  }
+`;
