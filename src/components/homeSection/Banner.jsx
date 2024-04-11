@@ -11,6 +11,7 @@ const Banner = () => {
     <BannerWrapper>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper"
         slidesPerView={1} // 한 번에 보여줄 슬라이드 수
+        speed={600}
       >
         <StyledSwiperSlide>
           <BannerContent bgcolor="#C5D9FF">
