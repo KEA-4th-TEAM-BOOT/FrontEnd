@@ -1,14 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import writeIcon from "../assets/img/icons/writeicon.svg";
 
 import logoImage from "../assets/img/logo.png";
 import profileImage from "../assets/img/profile.png";
-import homeIcon from "../assets/img/icons/homeicon.svg";
-import searchIcon from "../assets/img/icons/searchicon.svg";
-import feedIcon from "../assets/img/icons/feedicon.svg";
-import followIcon from "../assets/img/icons/followicon.svg";
-import writeIcon from "../assets/img/icons/writeicon.svg";
 
 const Header = () => {
   return (
@@ -18,45 +14,30 @@ const Header = () => {
       </LogoLink>
       <MenuList>
         <MenuItem>
-          <MenuLink to="/">
-            <MenuIcon src={homeIcon} alt="Home Icon" />
-            메인
-          </MenuLink>
+          <MenuLink to="/">메인</MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink to="/search">
-            <MenuIcon src={searchIcon} alt="Search Icon" />
-            검색
-          </MenuLink>
+          <MenuLink to="/search">검색</MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink to="/feed">
-            <MenuIcon src={feedIcon} alt="Feed Icon" />
-            피드
-          </MenuLink>
+          <MenuLink to="/feed">피드</MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink to="/follow">
-            <MenuIcon src={followIcon} alt="Follow Icon" />
-            팔로잉
-          </MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink to="/write">
-            <MenuIcon src={writeIcon} alt="Write Icon" />
-            글쓰기
-          </MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink to="/write">
-            <MenuIcon alt="Write Icon" />
-            로그인
-          </MenuLink>
+          <MenuLink to="/follow">팔로잉</MenuLink>
         </MenuItem>
       </MenuList>
-      <ProfileLink to="/mypage">
-        <ProfileImage src={profileImage} alt="Profile Image" />
-      </ProfileLink>
+      <HeaderMenu>
+        <MenuItem>
+          <HeaderMenuIcon src={writeIcon} alt="Write Icon" />
+          <MenuLink to="/write">글쓰기</MenuLink>
+        </MenuItem>
+        <MenuItem>
+          <MenuLink to="/write">로그인</MenuLink>
+        </MenuItem>
+        <ProfileLink to="/mypage">
+          <ProfileImage src={profileImage} alt="Profile Image" />
+        </ProfileLink>
+      </HeaderMenu>
     </HeaderContainer>
   );
 };
@@ -65,17 +46,15 @@ export default Header;
 
 const HeaderContainer = styled.header`
   position: fixed;
-  left: 0;
-  top: 0;
-  width: 260px; // 수정할 때 Main.jsx에 있는 ContentMain 부분도 수정하기
-  height: calc(100% - 120px);
-  overflow-y: auto;
+  width: 1374px;
+  height: 300px;
+  padding-top: 50px;
+  padding-left: 50px;
   z-index: 10000;
-  border-right: 2px solid #aaa;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: row;
+  align-items: left;
+  justify-content: flex-start; // 요소들을 컨테이너의 왼쪽으로 정렬 (justify-content default)
 `;
 
 const LogoImage = styled.img`
@@ -85,35 +64,37 @@ const LogoImage = styled.img`
 
 const LogoLink = styled(Link)`
   text-decoration: none;
-  color: black;
   display: flex;
-  align-items: center;
   width: 100px;
-  height: 90px;
+  height: 55px;
 `;
 
 const MenuList = styled.ul`
-  width: 100%;
+  width: auto;
+  height: 55px;
   list-style-type: none;
-  padding: 0;
+  display: flex;
+  justify-content: space-between; // 아이템들 사이 간격 동일하게 만들어줌
+  align-items: left;
+`;
+
+const HeaderMenu = styled.ul`
+  width: auto;
+  height: 55px;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
 `;
 
 const MenuItem = styled.li`
-  width: 100%;
-  margin-top: 5px;
-  padding: 12px 0;
+  width: 200px;
   display: flex;
-  align-items: center;
+  align-items: left;
   justify-content: center;
-  &:hover {
-    background: rgba(141, 141, 141, 0.2);
-    color: white;
-    transition: 0.5s;
-    border-radius: 50px;
-  }
 `;
 
-const MenuIcon = styled.img`
+const HeaderMenuIcon = styled.img`
   width: 24px;
   height: 24px;
   margin-right: 15px;
@@ -127,21 +108,19 @@ const MenuLink = styled(Link)`
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: start;
+  justify-content: center;
 `;
 
 const ProfileImage = styled.img`
   width: 50px;
   height: auto;
-  margin-top: 100px;
+  margin-left: ;
 `;
 
 const ProfileLink = styled(Link)`
   text-decoration: none;
-  color: black;
   display: flex;
   align-items: center;
   width: 50px;
   height: auto;
-  margin-top: 20px;
 `;
