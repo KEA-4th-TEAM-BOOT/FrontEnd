@@ -11,10 +11,11 @@ const Banner = () => {
     <BannerWrapper>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper"
         slidesPerView={1} // 한 번에 보여줄 슬라이드 수
+        loop={true}
         speed={600}
       >
         <StyledSwiperSlide>
-          <BannerContent bgcolor="#C5D9FF">
+          <BannerContent bgcolor="#C5D9FF" image="https://github.com/KEA-4th-TEAM-BOOT/FrontEnd/assets/118448112/4b71f001-1421-493d-a4ae-4222aa5f41f8">
             <BannerHeding>오디오 블로그</BannerHeding>
           </BannerContent>
         </StyledSwiperSlide>
@@ -41,15 +42,17 @@ export default Banner;
 const BannerWrapper = styled.div`
   min-width: 1280px;
   height: 640px;
+  background-position: 50% 50%;
   position: relative;
   margin: 0 auto;
   display:flex;
   overflow: hidden;
+  box-sizing: content-box;
 `;
 
 const StyledSwiperSlide = styled(SwiperSlide)`
   display: table;
-  width: auto;
+  height: 640px;
   position: relative;
   justify-content: center;
   align-items: center;
@@ -57,12 +60,12 @@ const StyledSwiperSlide = styled(SwiperSlide)`
 `;
 
 const BannerContent = styled.div`
-  width:100%;
   height:100%;
   position:relative;
-  background-color: ${(props) => props.bgcolor};
+  background-image: url(${props => props.image});
+  background-size: cover;
+  background-repeat: no-repeat;
   display: table-cell;
-  padding: 40px 0 0;
   vertical-align: middle;
 `;
 
