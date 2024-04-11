@@ -13,6 +13,8 @@ import "swiper/css/scrollbar";
 const ContentWrapper = styled.div`
   width: 1374px;
   height: auto;
+  padding: 30px;
+  padding-bottom: 120px;
 `;
 
 // ContentTitle 컴포넌트의 스타일을 정의합니다.

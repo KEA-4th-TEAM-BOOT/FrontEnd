@@ -8,6 +8,7 @@ import Not from './pages/Not'
 import Home from './pages/Home'
 import Player from './components/Player'
 import Header from './pages/Header'
+import Footer from './pages/Footer'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react'
 import './App.css';
@@ -28,10 +29,11 @@ const App = () => {
           <Route path='/mypage' element={<Mypage />} />
           <Route path='*' element={<Not />} />
         </Routes>
+        <Footer />
         <Player />
       </Suspense>
     </BrowserRouter>
-    
+
   );
 }
 
