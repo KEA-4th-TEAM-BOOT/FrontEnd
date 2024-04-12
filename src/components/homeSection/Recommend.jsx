@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 const RecommendWrapper = styled.section`
   width: 1374px;
   height: auto;
-  padding: 30px;
+  padding-top: 107px;
+  padding-left: 197px;
+  padding-right: 197px;
 `;
 
 const Header = styled.div`
