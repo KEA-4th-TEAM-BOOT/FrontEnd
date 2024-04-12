@@ -3,12 +3,13 @@ import styled from "styled-components";
 import Photocard from "../card/Photocard";
 import gotofollowIcon from "../../assets/img/icons/moreicon.svg";
 import { Link } from "react-router-dom";
-import follow from "../../pages/Follow";
 
 const FollowingWrapper = styled.section`
   width: 1374px;
   height: auto;
-  padding: 30px;
+  padding-top: 107px;
+  padding-left: 197px;
+  padding-right: 197px;
 `;
 
 const Header = styled.div`
