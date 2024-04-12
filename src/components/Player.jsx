@@ -43,7 +43,6 @@ const FootPlayer = styled.div`
   background-color: #181818;
   display: flex;
   align-items: center;
-  padding: 0 20px;
   z-index: 10000;
 `;
 
