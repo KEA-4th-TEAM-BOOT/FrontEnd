@@ -64,7 +64,7 @@ const FooterWrapper = styled.footer`
   font-size: 18px;
   color: #666;
   font-weight: 500;
-  margin-bottom: 120px;
+  margin-bottom: 80px;
 `;
 
 const FooterContent = styled.div`

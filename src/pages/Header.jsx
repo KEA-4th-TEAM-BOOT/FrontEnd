@@ -63,7 +63,7 @@ const HeaderContainer = styled.header`
   z-index: 100;
   width: 100%;
   height: 104px;
-  padding: 50px 50px 0 50px;
+  padding: 10px 50px 0 50px;
   transition: opacity 0.5s;
   letter-spacing: 0;
   display: flex;
