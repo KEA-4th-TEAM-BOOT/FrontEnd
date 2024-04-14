@@ -5,7 +5,7 @@ import gotofeedIcon from "../../assets/img/icons/moreicon.svg";
 import { Link } from "react-router-dom";
 
 const RecommendWrapper = styled.section`
-  width: 1374px;
+  min-width: 1280px;
   height: auto;
   padding-top: 107px;
   padding-left: 197px;
