@@ -88,22 +88,48 @@ const Content = () => {
       >
         {/* 슬라이드들을 정의합니다. */}
         <SwiperSlide>
-          <AudioCard
+          {/* <AudioCard
             imageUrl="https://t1.kakaocdn.net/thumb/C630x354.fwebp.q100/?fname=https%3A%2F%2Ft1.kakaocdn.net%2Fkakaocorp%2Fkakaocorp%2Fadmin%2Fnumeral%2Fb70b3d39018b00001.png"
             category="라이프스타일"
             title="한국의 벚꽃이 일본의 국화가 된 이유"
             writer="관계자외 출입 금지"
             tag="#벚꽃"
+          /> */}
+          ,
+          <AudioCard
+            imageUrl="https://upload.wikimedia.org/wikipedia/en/4/4c/Halsey_-_Badlands.png"
+            category="NEW FOR YOU"
+            title="My New Arrivals"
+            writer="Deine Freunde, Moderat"
+            tag="# Tag1"
           />
         </SwiperSlide>
         <SwiperSlide>
-          <AudioCard />
+          <AudioCard
+            imageUrl="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSlthi3Ss3fmc4HgzkrL-5HfDLfdZFvW8N2o9omKXNXNJu-RxVU"
+            category="NEW TRACK FOR YOU"
+            title="Coexist"
+            writer="Album by the XX"
+            tag="# Tag1"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <AudioCard />
+          <AudioCard
+            imageUrl="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTMATmyeAAbmMBWQl7k9Sy3q_xCz9-NimlzHygS5k4xov9yyiqA"
+            category="NEW ALBUM"
+            title="After Hours"
+            writer="The Weekend"
+            tag="# Tag1"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <AudioCard />
+          <AudioCard
+            imageUrl="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRjlUhv8Nek6yMkzivUQFT8pdJ0qjdzfD6oswjgnKgGn-L92cBK"
+            category="BASED ON YOUR LIKES"
+            title="If You Wait"
+            writer="London Grammar"
+            tag="# Tag1"
+          />
         </SwiperSlide>
         <SwiperSlide>
           <AudioCard />
@@ -139,7 +165,7 @@ export default Content;
 
 // styled-components를 사용하여 ContentWrapper 컴포넌트 스타일을 정의합니다.
 const ContentWrapper = styled.div`
-  min-width:1280px;
+  min-width: 1280px;
   height: auto;
   position: relative;
   padding-top: 107px;
