@@ -1,7 +1,13 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill, {Quill} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import styled from "styled-components";
+import '../assets/editor.css'
+import { ImageDrop } from "quill-image-drop-module";
+import ImageResize from 'quill-image-resize';
+
+Quill.register("modules/imageDrop", ImageDrop);
+Quill.register('modules/ImageResize', ImageResize);
 
 const Write = () => {
   const quillRef = useRef();
@@ -17,6 +23,7 @@ const Write = () => {
 
   const handleSubmit = (event) => {
     alert();
+    console.log(content);
     event.preventDefault();
   }
 
@@ -44,7 +51,14 @@ const Write = () => {
           [{ list: "ordered" }, { list: "bullet" }],
           [{ color: [] }, { background: [] }],
           [{ align: [] }, "link", "image", "video"],
-        ],
+        ], 
+      },
+      ImageResize: {
+        parchment: Quill.import('parchment')
+      },
+      imageDrop: true, 
+      clipboard: {
+        matchVisual: false
       },
     };
   }, []);
@@ -72,50 +86,51 @@ const Write = () => {
           />
 
         </EditorDiv>
-        <button onClick={() => setIsOpen(!isOpen)}>
+        <WriteButton onClick={() => setIsOpen(!isOpen)}>
           작성
-        </button>
+        </WriteButton>
         <WriteForm isOpen={isOpen} onSubmit={handleSubmit} ref={dropDownRef}>
-        <label>
-          카테고리:
-          <select value={category} onChange={e => setCategory(e.target.value)}>
-            <option value="news">뉴스</option>
-            <option value="blog">블로그</option>
-            <option value="tutorial">튜토리얼</option>
-          </select>
-        </label>
-        <br />
-        <label>
-          공개 범위:
-          <input type="radio" name="visibility" value="public" checked={visibility === 'public'} onChange={() => setVisibility('public')} /> 전체 공개
-          <input type="radio" name="visibility" value="follow" checked={visibility === 'follow'} onChange={() => setVisibility('follow')} /> 팔로우 공개
-          <input type="radio" name="visibility" value="private" checked={visibility === 'private'} onChange={() => setVisibility('private')} /> 비공개
-        </label>
-        <br />
-        <label>
-          주제:
-          <input type="radio" name="topic" value="life" checked={topic === 'life'} onChange={() => setTopic('life')} /> 라이프
-          <input type="radio" name="topic" value="culture" checked={topic === 'culture'} onChange={() => setTopic('culture')} /> 문화
-          <input type="radio" name="topic" value="travel" checked={topic === 'travel'} onChange={() => setTopic('travel')} /> 여행
+          <label>
+            카테고리:
+            <select value={category} onChange={e => setCategory(e.target.value)}>
+              <option value="category1">카테고리 1</option>
+              <option value="category2">카테고리 2</option>
+              <option value="category3">카테고리 3</option>
+              <option value="category4">카테고리 4</option>
+            </select>
+          </label>
           <br />
-          <input type="radio" name="topic" value="sport" checked={topic === 'sport'} onChange={() => setTopic('sport')} /> 스포츠
-          <input type="radio" name="topic" value="column" checked={topic === 'column'} onChange={() => setTopic('column')} /> 시사
-          <input type="radio" name="topic" value="etc" checked={topic === 'etc'} onChange={() => setTopic('etc')} /> 기타
+          <label>
+            공개 범위:
+            <input type="radio" name="visibility" value="public" checked={visibility === 'public'} onChange={() => setVisibility('public')} /> 전체 공개
+            <input type="radio" name="visibility" value="follow" checked={visibility === 'follow'} onChange={() => setVisibility('follow')} /> 팔로우 공개
+            <input type="radio" name="visibility" value="private" checked={visibility === 'private'} onChange={() => setVisibility('private')} /> 비공개
+          </label>
+          <br />
+          <label>
+            주제:
+            <input type="radio" name="topic" value="life" checked={topic === 'life'} onChange={() => setTopic('life')} /> 라이프
+            <input type="radio" name="topic" value="culture" checked={topic === 'culture'} onChange={() => setTopic('culture')} /> 문화
+            <input type="radio" name="topic" value="travel" checked={topic === 'travel'} onChange={() => setTopic('travel')} /> 여행
+            <br />
+            <input type="radio" name="topic" value="sport" checked={topic === 'sport'} onChange={() => setTopic('sport')} /> 스포츠
+            <input type="radio" name="topic" value="column" checked={topic === 'column'} onChange={() => setTopic('column')} /> 시사
+            <input type="radio" name="topic" value="etc" checked={topic === 'etc'} onChange={() => setTopic('etc')} /> 기타
 
-        </label>
-        <br />
-        <label>
-          대표 사진:
-          <input type="file" onChange={e => setFileImage(e.target.files[0])} />
-        </label>
-        <br />
-        <label>
-          음성 선택:
-          <input type="file" onChange={e => setFileAudio(e.target.files[0])} />
-        </label>
-        <br />
-        <button type="submit">업로드</button>
-      </WriteForm>
+          </label>
+          <br />
+          <label>
+            대표 사진:
+            <input type="file" onChange={e => setFileImage(e.target.files[0])} />
+          </label>
+          <br />
+          <label>
+            음성 선택:
+            <input type="file" onChange={e => setFileAudio(e.target.files[0])} />
+          </label>
+          <br />
+          <button type="submit">업로드</button>
+        </WriteForm>
       </EditorDivWrppaer>
 
 
@@ -183,9 +198,15 @@ const WriteForm = styled.form`
   margin: 0;
   background: white;
   border-radius: 20px;
+  border:1px solid;
   position: absolute;
   bottom: 23px;
   left: 59%;
   display: ${props => props.isOpen ? 'table' : 'none'};
 `;
 
+const WriteButton= styled.button`
+border-radius: 20px;
+background-color: transparent;
+font-size:19px;
+`;

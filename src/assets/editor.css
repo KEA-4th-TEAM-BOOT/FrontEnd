@@ -1,6 +1,6 @@
 .ql-container {
-    border-width: 0;
+    border-width: 0 !important;
   }
   .ql-toolbar {
-    border-width: 0;
+    border-width: 0 !important;
   }
