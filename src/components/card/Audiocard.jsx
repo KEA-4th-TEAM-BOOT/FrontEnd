@@ -1,18 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const AudioCard = ({ imageUrl, category, title, writer, tag }) => {
   return (
     <CardWrapper>
-      <ImageBackground image={imageUrl}>
-      </ImageBackground>
+      <ImageBackground image={imageUrl}></ImageBackground>
       <BlurOverlay>
         <Category>{category}</Category>
         <Title>{title}</Title>
         <Writer>{writer}</Writer>
         <Tag>{tag}</Tag>
       </BlurOverlay>
-      <PlayButton aria-label="Play" >▶️</PlayButton>
+      <PlayButton aria-label="Play">▶️</PlayButton>
     </CardWrapper>
   );
 };
@@ -24,14 +23,15 @@ const CardWrapper = styled.div`
   display: flex;
   width: 300px;
   height: 442px;
-  border-radius: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 `;
 
 const ImageBackground = styled.div`
   width: 100%;
   height: 100%;
-  background-image: url(${props => props.image});
+  background-image: url(${(props) => props.image});
   background-size: cover;
   background-position: center;
   display: flex;
@@ -76,7 +76,6 @@ const Category = styled.h2`
   font-size: 11px;
   color: pink;
   margin: 0;
-  
 `;
 
 const Title = styled.h1`
@@ -86,7 +85,6 @@ const Title = styled.h1`
   margin-top: 3px;
   margin-bottom: 10px;
 `;
-
 
 const Writer = styled.p`
   font-size: 10px;
