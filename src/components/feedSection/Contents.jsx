@@ -649,7 +649,7 @@ export default Contents;
 
 const ContentsWrapper = styled.div`
   margin: 200px auto;
-  max-width: 1200px;
+  max-width: 1400px;
 `;
 
 const Title = styled.h2`
@@ -670,7 +670,7 @@ const SelectContainer = styled.div`
 const Categories = styled.div`
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 10px 0;
 `;
 
 const CategoryButton = styled.button`
@@ -679,28 +679,29 @@ const CategoryButton = styled.button`
   border-bottom: ${(props) => (props.active ? "2px solid black" : "none")};
   color: #000;
   cursor: pointer;
-  padding: 8px 16px;
-  margin: 0 10px;
+  padding: 10px 20px;
+  margin: 30px 10px;
   font-weight: ${(props) => (props.active ? "700" : "400")};
+  font-size: 20px;
 `;
 
 const SortSelect = styled.select`
-  padding: 10px;
+  padding: 5px;
   border: none;
   background: transparent;
   font-weight: bold;
+  font-size: 20px;
   color: #000;
   cursor: pointer;
   &:focus {
     outline: none;
   }
-  padding-right: 10px;
 `;
 
 const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 50px;
   @media (max-width: 1200px) {
     grid-template-columns: repeat(3, 1fr);
   }
