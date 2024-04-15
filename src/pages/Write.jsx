@@ -16,7 +16,7 @@ const Write = () => {
           [{ header: 1 }, { header: 2 } ],
           [{ header: [3, 4, false] }],
           ["bold", "italic", "underline", "strike"],
-          ["blockquote","code"],
+          ["blockquote","code-block"],
           [{ list: "ordered" }, { list: "bullet" }],
           [{ color: [] }, { background: [] }],
           [{ align: [] }, "link", "image", "video"],
@@ -34,11 +34,11 @@ const Write = () => {
       <EditorDivWrppaer>
       새 게시글 작성
       <EditorDiv>
-        <input placeholder='제목을 입력하세요'/>
+        <TitleInput placeholder='제목을 입력하세요'/>
         <hr />
-        <input placeholder='#을 이용하여 태그를 입력하세요'/>
+        <TagInput placeholder='#을 이용하여 태그를 입력하세요'/>
         <ReactQuill
-        style={{height: "400px" }}
+        style={{height: "400px",border:"none" }}
         placeholder="Quill Content"
         theme="snow"
         ref={quillRef}
@@ -80,5 +80,28 @@ text-align:left;
 
 const EditorDiv = styled.div`
 width:1166px;
+padding-left:53px;
+padding-right:53px;
 background-color: #F3F4FF;
+`;
+
+const TitleInput = styled.input`
+width:100%; 
+border-width:0;
+height:52px;
+margin-top:34px;
+margin-bottom:20px; 
+font-size:52px;
+background-color: transparent;
+&:focus {outline:none;}
+`;
+
+const TagInput = styled.input`
+width:100%;
+border-width:0;
+font-size:33px;
+margin-top:31px;
+margin-bottom:18px;
+background-color: transparent;
+&:focus {outline:none;}  
 `;
