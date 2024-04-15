@@ -22,7 +22,7 @@ const Header = () => {
           <MenuLink to="/search">검색</MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink to="/feed">피드</MenuLink>
+          <MenuLink to="/feed">콘텐츠</MenuLink>
         </MenuItem>
         <MenuItem>
           <MenuLink to="/follow">팔로잉</MenuLink>
@@ -30,10 +30,18 @@ const Header = () => {
       </MenuList>
       <HeaderMenu>
         <HeaderMenuItem>
-          <IconAndTextContainer>
-            <HeaderMenuIcon src={writeIcon} alt="Write Icon" />
-            <MenuText>글쓰기</MenuText>
-          </IconAndTextContainer>
+          <Link
+            to="/write"
+            style={{
+              textDecoration: "none",
+              color: "black",
+            }}
+          >
+            <IconAndTextContainer>
+              <HeaderMenuIcon src={writeIcon} alt="Write Icon" />
+              <MenuText>글쓰기</MenuText>
+            </IconAndTextContainer>
+          </Link>
         </HeaderMenuItem>
         <HeaderMenuItem>
           <IconAndTextContainer>
