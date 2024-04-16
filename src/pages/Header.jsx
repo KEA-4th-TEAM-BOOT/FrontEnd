@@ -5,9 +5,15 @@ import writeIcon from "../assets/img/icons/writeicon.svg";
 import notifyIcon from "../assets/img/icons/notifyicon.svg";
 import logoImage from "../assets/img/logo.png";
 import profileImage from "../assets/img/profile.png";
+import LoginPage from "../components/login/LoginPage";
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleModal = () => {
+    setIsOpen(!isOpen)
+  };
 
   return (
     <HeaderContainer id="header" role="banner">
@@ -56,7 +62,10 @@ const Header = () => {
           </ProfileLink>
         ) : (
           <HeaderMenuItem>
-            <MenuText to="/login">로그인</MenuText>
+            <MenuText onClick={handleModal}>로그인</MenuText>
+            {isOpen === false? null : 
+            <LoginPage />
+            }
           </HeaderMenuItem>
         )}
       </HeaderMenu>
@@ -160,6 +169,7 @@ const HeaderMenuIcon = styled.img`
 const MenuText = styled.span`
   font-weight: bold;
   height: 24px;
+  cursor: pointer;
 `;
 
 const ProfileImage = styled.img`
