@@ -27,7 +27,7 @@ const Banner = () => {
               <BannerHeding>
                 <b>오디오 블로그</b>
                 <br />
-                블로그를 들어보세요.
+                블로그를 들어보세요
               </BannerHeding>
               <BannerDescription>
                 VODA의 오디오 블로그 지금 바로 체험해보세요.
