@@ -92,9 +92,9 @@ const LoginContent = styled.section`
 `;
 
 const Divider = styled.hr`
-  border: 2px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: rgba(0, 0, 0, 0.3);
-  width: 100%;
+  width: 80%;
   margin: 0;
 
   @media (max-width: 991px) {
@@ -105,7 +105,8 @@ const Divider = styled.hr`
 const LoginTitle = styled.h2`
   color: #000;
   text-align: center;
-  margin: 25px 0 0 68px;
+  align-self: start;
+  margin: 25px 0 0 90px;
   font: 700 24px Pretendard, sans-serif;
 
   @media (max-width: 991px) {
@@ -161,9 +162,10 @@ const LoginButton = styled.button`
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 1);
   background-color: #fff;
-  margin-top: 11px;
+  margin-top: 23px;
   padding: 15px 35px;
   cursor: pointer;
+  height: 100%;
 
   @media (max-width: 991px) {
     white-space: initial;
