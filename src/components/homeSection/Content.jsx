@@ -164,12 +164,13 @@ export default Content;
 
 // styled-components를 사용하여 ContentWrapper 컴포넌트 스타일을 정의합니다.
 const ContentWrapper = styled.div`
-  min-width: 1280px;
+  width: 1374px;
   height: auto;
   position: relative;
   padding-top: 107px;
   padding-left: 197px;
   padding-right: 197px;
+  margin: 0 auto;
 `;
 
 // ContentTitle 컴포넌트의 스타일을 정의합니다.
