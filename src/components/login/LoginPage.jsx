@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { Link } from "react-router-dom";
@@ -7,10 +7,15 @@ import ResetPassword from "../reset/ResetPassword";
 const LoginPage = () => {
   const setModal = useSetRecoilState(modalState);
 
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckClick = () =>{
+    setIsChecked(!isChecked);
+  }
+
   const handleSignUpClick = () => {
       setModal({
           isOpen: false,
-          content: "",
           props: {} // 필요한 경우 추가 props 전달
       });
   };
@@ -42,7 +47,7 @@ const LoginPage = () => {
             <span>Kakao Login</span>
           </KakaoLoginButton>
           <RememberLoginCheckbox>
-            <Checkbox />
+            <Checkbox type="radio"  checked={isChecked} onClick={handleCheckClick} />
             <label>로그인 상태 유지</label>
           </RememberLoginCheckbox>
         </SocialLoginSection>
@@ -209,7 +214,7 @@ const RememberLoginCheckbox = styled.label`
   cursor: pointer;
 `;
 
-const Checkbox = styled.span`
+const Checkbox = styled.input`
   background-color: #e0e0e0;
   border-radius: 50%;
   width: 24px;
