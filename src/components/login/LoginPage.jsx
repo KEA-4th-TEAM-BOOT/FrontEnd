@@ -80,9 +80,8 @@ const LoginContent = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 709px;
   margin-top: 27px;
-  padding: 0 200px;
 
   @media (max-width: 991px) {
     max-width: 100%;
