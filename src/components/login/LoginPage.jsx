@@ -1,69 +1,62 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useSetRecoilState } from "recoil";
+import { Link } from "react-router-dom";
+import { modalState } from "../../recoil/modal";
+import ResetPassword from "../reset/ResetPassword";
 const LoginPage = () => {
-    return (
-        <Container>
-            <Background>
-                <LoginContainer>
-                    <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0fb7d19420b49620e44ffec33f9f352942121ed9df81e5d43ba13a237c88fde?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo" />
-                    <LoginContent>
-                        <Divider />
-                        <LoginTitle>이메일 로그인</LoginTitle>
-                        <LoginForm>
-                            <InputGroup>
-                                <EmailInput type="email" placeholder="aaaa@gmail.com" />
-                                <PasswordInput type="password" placeholder="**********" />
-                            </InputGroup>
-                            <LoginButton>로그인</LoginButton>
-                        </LoginForm>
-                        <SocialLoginSection>
-                            <KakaoLoginButton>
-                                <KakaoLogo src="https://cdn.builder.io/api/v1/image/assets/TEMP/66a3379e7d4746622c955ea521cf5d8bcf63b86037eabc25fd9ad363ab291199?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Kakao Logo" />
-                                <span>Kakao Login</span>
-                            </KakaoLoginButton>
-                            <RememberLoginCheckbox>
-                                <Checkbox />
-                                <label>로그인 상태 유지</label>
-                            </RememberLoginCheckbox>
-                        </SocialLoginSection>
-                        <AdditionalOptions>
-                            <ResetPasswordLink>비밀번호 재설정</ResetPasswordLink>
-                            <SignUpSection>
-                                <SignUpText>회원이 아니신가요?</SignUpText>
-                                <SignUpLink>회원가입</SignUpLink>
-                            </SignUpSection>
-                        </AdditionalOptions>
-                    </LoginContent>
-                </LoginContainer>
-            </Background>
-        </Container>
-    );
+  const setModal = useSetRecoilState(modalState);
+
+  const handleSignUpClick = () => {
+      setModal({
+          isOpen: false,
+          content: "",
+          props: {} // 필요한 경우 추가 props 전달
+      });
+  };
+
+  const handleResetClick = () => {
+    setModal({
+        isOpen: true,
+        content: ResetPassword,
+        props: {} // 필요한 경우 추가 props 전달
+    });
 };
 
-const Container = styled.div`
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
-
-const Background = styled.div`
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255,255,255,0.15);
-    backdrop-filter: blur(5px);
-    
-`;
+  return (
+    <LoginContainer>
+      <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0fb7d19420b49620e44ffec33f9f352942121ed9df81e5d43ba13a237c88fde?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo" />
+      <LoginContent>
+        <Divider />
+        <LoginTitle>이메일 로그인</LoginTitle>
+        <LoginForm>
+          <InputGroup>
+            <EmailInput type="email" placeholder="aaaa@gmail.com" />
+            <PasswordInput type="password" placeholder="**********" />
+          </InputGroup>
+          <LoginButton>로그인</LoginButton>
+        </LoginForm>
+        <SocialLoginSection>
+          <KakaoLoginButton>
+            <KakaoLogo src="https://cdn.builder.io/api/v1/image/assets/TEMP/66a3379e7d4746622c955ea521cf5d8bcf63b86037eabc25fd9ad363ab291199?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Kakao Logo" />
+            <span>Kakao Login</span>
+          </KakaoLoginButton>
+          <RememberLoginCheckbox>
+            <Checkbox />
+            <label>로그인 상태 유지</label>
+          </RememberLoginCheckbox>
+        </SocialLoginSection>
+        <AdditionalOptions>
+          <ResetPasswordLink onClick={handleResetClick}>비밀번호 재설정</ResetPasswordLink>
+          <SignUpSection>
+            <SignUpText>회원이 아니신가요?</SignUpText>
+            <SignUpLink to="/singup" onClick={handleSignUpClick}>회원가입</SignUpLink>
+          </SignUpSection>
+        </AdditionalOptions>
+      </LoginContent>
+    </LoginContainer>
+  );
+};
 
 const LoginContainer = styled.main`
   border-radius: 5.879px;
@@ -259,7 +252,7 @@ const SignUpText = styled.span`
   flex-grow: 1;
 `;
 
-const SignUpLink = styled.a`
+const SignUpLink = styled(Link)`
   font-family: Pretendard, sans-serif;
   text-decoration: none;
   cursor: pointer;
