@@ -69,7 +69,6 @@ const LoginContainer = styled.main`
   max-width: 708px;
   padding: 32px 0;
   margin: auto; /* 추가: 자동으로 모든 방향에서 중앙 정렬 */
-  margin-top: 15% /* 나중에 전역모달 선언시 삭제 예정 */
 `;
 
 const LogoImage = styled.img`
@@ -83,7 +82,7 @@ const LoginContent = styled.section`
   align-items: center;
   width: 100%;
   margin-top: 27px;
-  padding: 0 41px;
+  padding: 0 200px;
 
   @media (max-width: 991px) {
     max-width: 100%;

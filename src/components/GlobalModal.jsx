@@ -40,6 +40,10 @@ const ModalBackdrop = styled.div`
 `;
 
 const ModalContentWrapper = styled.div`
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
 `
 
 export default GlobalModal;
