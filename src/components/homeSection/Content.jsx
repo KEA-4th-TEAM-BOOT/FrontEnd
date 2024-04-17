@@ -95,7 +95,6 @@ const Content = () => {
             writer="관계자외 출입 금지"
             tag="#벚꽃"
           /> */}
-          ,
           <AudioCard
             imageUrl="https://upload.wikimedia.org/wikipedia/en/4/4c/Halsey_-_Badlands.png"
             category="NEW FOR YOU"
