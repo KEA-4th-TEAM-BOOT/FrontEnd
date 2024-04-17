@@ -5,11 +5,12 @@ import gotofeedIcon from "../../assets/img/icons/moreicon.svg";
 import { Link } from "react-router-dom";
 
 const RecommendWrapper = styled.section`
-  min-width: 1280px;
+  width: 1374px;
   height: auto;
   padding-top: 107px;
   padding-left: 197px;
   padding-right: 197px;
+  margin: 0 auto;
 `;
 
 const Header = styled.div`
