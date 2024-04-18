@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+
+import FollowTop from "../components/followSection/FollowTop";
+import FollowBottom from "../components/followSection/FollowBottom";
 
 const Follow = () => {
   return (
-    <>Follow</>
-  )
-}
+    <>
+      <FollowTop />
+      <FollowBottom />
+    </>
+  );
+};
 
-export default Follow
+export default Follow;

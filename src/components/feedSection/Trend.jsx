@@ -109,7 +109,7 @@ const TrendSection = styled.section`
 const Title = styled.h2`
   margin-top: 104px;
   color: #000;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   margin-left: 250px;
   font-size: 60px;
   font-weight: bold;
