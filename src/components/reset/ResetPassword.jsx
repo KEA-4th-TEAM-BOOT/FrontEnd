@@ -1,19 +1,13 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { useSetRecoilState } from "recoil";
 import { modalState } from "../../recoil/modal";
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Signup from '../../pages/Signup';
-import { useForm } from 'react-hook-form';
 
 const ResetPassword = () => {
   const setModal = useSetRecoilState(modalState);
-  const { register, handleSubmit } = useForm()
-
-  // 등록하기 함수 -> handleSubmit이 조종해주는 함수 
-  const onClickSubmit = (data) => {
-    console.log(data)
-  }
+  const [isVerificationVisible, setIsVerificationVisible] = useState(false);
 
   const handleSignUpClick = () => {
     setModal({
@@ -33,8 +27,17 @@ const ResetPassword = () => {
           <EmailInputWrapper>
             <EmailInput type="email" placeholder="가입하신 이메일 주소를 입력하세요" />
           </EmailInputWrapper>
-          <SendVerificationButton>인증번호 발송</SendVerificationButton>
-        </EmailInputContainer>
+          <SendVerificationButton onClick={() => setIsVerificationVisible(true)}>인증번호 발송</SendVerificationButton>
+          </EmailInputContainer>
+          {isVerificationVisible && (
+          <VerificationInputContainer>
+            <VerificationWrapper>
+            <VerificationInput type="text" placeholder="인증번호를 입력하세요" />
+            </VerificationWrapper>
+            <VerifyButton>인증번호 확인</VerifyButton>
+          </VerificationInputContainer>
+        )}
+
         <SignUpPrompt>
           <SignUpText>회원이 아니신가요?</SignUpText>
           <SignUpLink onClick={handleSignUpClick}>회원가입</SignUpLink>
@@ -147,7 +150,7 @@ const SendVerificationButton = styled.button`
   }
 `;
 
-const SignUpPrompt = styled.div`
+const SignUpPrompt = styled.section`
   align-self: end;
   display: flex;
   gap: 20px;
@@ -171,6 +174,48 @@ const SignUpLink = styled(Link)`
   font-family: Pretendard, sans-serif;
   text-decoration: none;
   cursor: pointer;
+`;
+
+const VerificationInputContainer = styled.div`
+  align-self: center;
+  display: flex;
+  width: 100%;
+  max-width: 550px;
+  gap: 20px;
+  margin-top: 20px; // 인증번호 입력란과 버튼
+`;
+
+const VerificationWrapper = styled.div`
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 19px;
+  color: #000;
+  flex-grow: 1;
+  flex-basis: 0;
+  width: fit-content;
+  position: relative;
+`;
+
+const VerificationInput = styled.input`
+font-family: Pretendard, sans-serif;
+padding: 10px;
+border: 1px solid rgba(0, 0, 0, 0.1);
+`;
+
+const VerifyButton = styled.button`
+justify-content: center;
+border-radius: 8.845px;
+border: 1px solid rgba(0, 0, 0, 0.5);
+background-color: #fff;
+color: #131313;
+text-align: center;
+padding: 14px 19px;
+font: 15px Syncopate, sans-serif;
+cursor:pointer;
+@media (max-width: 991px) {
+  padding: 0 20px;
+}
 `;
 
 export default ResetPassword

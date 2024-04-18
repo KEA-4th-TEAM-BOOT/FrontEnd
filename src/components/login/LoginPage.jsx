@@ -73,7 +73,6 @@ const LoginContainer = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 708px;
   padding: 32px 0;
   margin: auto; /* 추가: 자동으로 모든 방향에서 중앙 정렬 */
 `;
