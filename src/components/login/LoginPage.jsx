@@ -4,6 +4,8 @@ import { useSetRecoilState } from "recoil";
 import { Link } from "react-router-dom";
 import { modalState } from "../../recoil/modal";
 import ResetPassword from "../reset/ResetPassword";
+import Signup from "../../pages/Signup";
+
 const LoginPage = () => {
   const setModal = useSetRecoilState(modalState);
 
@@ -14,12 +16,12 @@ const LoginPage = () => {
   }
 
   const handleSignUpClick = () => {
-      setModal({
-          isOpen: false,
-          props: {} // 필요한 경우 추가 props 전달
-      });
-  };
-
+    setModal({
+        isOpen: true,
+        content: Signup,
+        props: {} // 필요한 경우 추가 props 전달
+    });
+};
   const handleResetClick = () => {
     setModal({
         isOpen: true,
@@ -55,7 +57,7 @@ const LoginPage = () => {
           <ResetPasswordLink onClick={handleResetClick}>비밀번호 재설정</ResetPasswordLink>
           <SignUpSection>
             <SignUpText>회원이 아니신가요?</SignUpText>
-            <SignUpLink to="/singup" onClick={handleSignUpClick}>회원가입</SignUpLink>
+            <SignUpLink onClick={handleSignUpClick}>회원가입</SignUpLink>
           </SignUpSection>
         </AdditionalOptions>
       </LoginContent>

@@ -3,37 +3,45 @@ import { useSetRecoilState } from "recoil";
 import { modalState } from "../../recoil/modal";
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Signup from '../../pages/Signup';
+import { useForm } from 'react-hook-form';
 
 const ResetPassword = () => {
-    const setModal = useSetRecoilState(modalState);
+  const setModal = useSetRecoilState(modalState);
+  const { register, handleSubmit } = useForm()
 
-    const handleSignUpClick = () => {
-        setModal({
-            isOpen: false,
-            content: "",
-            props: {} // 필요한 경우 추가 props 전달
-        });
-    };
+  // 등록하기 함수 -> handleSubmit이 조종해주는 함수 
+  const onClickSubmit = (data) => {
+    console.log(data)
+  }
 
-    return (
-        <ResetContainer>
-            <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0fb7d19420b49620e44ffec33f9f352942121ed9df81e5d43ba13a237c88fde?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo" />
-            <ResetContent>
-                <Divider />
-                <PageTitle>비밀번호 재설정</PageTitle>
-                <EmailInputContainer>
-                    <EmailInputWrapper>
-                       <EmailInput type="email" placeholder="가입하신 이메일 주소를 입력하세요" />
-                    </EmailInputWrapper>
-                    <SendVerificationButton>인증번호 발송</SendVerificationButton>
-                </EmailInputContainer>
-                <SignUpPrompt>
-                    <SignUpText>회원이 아니신가요?</SignUpText>
-                    <SignUpLink to="/singup" onClick={handleSignUpClick}>회원가입</SignUpLink>
-                </SignUpPrompt>
-            </ResetContent>
-        </ResetContainer>
-    )
+  const handleSignUpClick = () => {
+    setModal({
+      isOpen: true,
+      content: Signup,
+      props: {} // 필요한 경우 추가 props 전달
+    });
+  };
+
+  return (
+    <ResetContainer>
+      <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0fb7d19420b49620e44ffec33f9f352942121ed9df81e5d43ba13a237c88fde?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo" />
+      <ResetContent>
+        <Divider />
+        <PageTitle>비밀번호 재설정</PageTitle>
+        <EmailInputContainer>
+          <EmailInputWrapper>
+            <EmailInput type="email" placeholder="가입하신 이메일 주소를 입력하세요" />
+          </EmailInputWrapper>
+          <SendVerificationButton>인증번호 발송</SendVerificationButton>
+        </EmailInputContainer>
+        <SignUpPrompt>
+          <SignUpText>회원이 아니신가요?</SignUpText>
+          <SignUpLink onClick={handleSignUpClick}>회원가입</SignUpLink>
+        </SignUpPrompt>
+      </ResetContent>
+    </ResetContainer>
+  )
 }
 
 const ResetContainer = styled.main`
@@ -59,6 +67,7 @@ const ResetContent = styled.section`
   flex-direction: column;
   align-items: center;
   width: 709px;
+  height: 400px;
   margin-top: 27px;
 
   @media (max-width: 991px) {
@@ -104,7 +113,7 @@ const EmailInputContainer = styled.div`
   }
 `;
 
-const EmailInputWrapper = styled.div`
+const EmailInputWrapper = styled.form`
   align-self: center;
   display: flex;
   flex-direction: column;

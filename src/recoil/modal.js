@@ -8,3 +8,15 @@ export const modalState = atom({
         props: {}
     }
 });
+
+export const userData = atom({
+    key: 'userData',
+    default: {
+      email: '',
+      isVerified: false,
+      name: '',
+      nickname: '',
+      blogLink: '',
+      hasAgreedToPrivacyPolicy: false
+    }
+  });
