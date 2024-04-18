@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import Photocard from "../card/Photocard";
-import gotofollowIcon from "../../assets/img/icons/moreicon.svg";
-import { Link } from "react-router-dom";
 
-const Following = () => {
-  const cardData = [
+import PhotoCard from "../card/Photocard";
+
+const FollowTop = () => {
+  const photoCardData = [
     {
       images: [
         "https://lh5.googleusercontent.com/p/AF1QipN-CN6qlIZYm3sgIfj7QNumuWcbjLb_FMwY4n8u=w360-h240-n-k-no",
@@ -33,64 +32,57 @@ const Following = () => {
   ];
 
   return (
-    <FollowingWrapper>
-      <Header>
-        <Title>팔로잉</Title>
-        <Link to="/follow">
-          <GoToFollow src={gotofollowIcon} alt="Go to follow" />
-        </Link>
-      </Header>
-      <PhotocardWrapper>
-        {cardData.map((data, index) => (
-          <Photocard
-            key={index}
-            images={data.images}
-            title={data.title}
-            content={data.content}
-          />
-        ))}
-      </PhotocardWrapper>
-    </FollowingWrapper>
+    <TopSection>
+      <Title>팔로잉 게시물</Title>
+      <TopContainer>
+        <PhotoCardContainer>
+          {photoCardData.map((data, index) => (
+            <PhotoCard key={index} {...data} />
+          ))}
+        </PhotoCardContainer>
+      </TopContainer>
+    </TopSection>
   );
 };
 
-export default Following;
+export default FollowTop;
 
-const FollowingWrapper = styled.section`
-  width: 1374px;
-  height: auto;
-  padding-top: 107px;
-  padding-left: 197px;
-  padding-right: 197px;
+const TopSection = styled.section`
+  background-color: rgba(153, 213, 255, 0.29);
+  height: 640px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.h2`
+  margin-top: 104px;
+  color: #000;
+  margin-bottom: 50px;
+  margin-left: 250px;
+  font-size: 60px;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+`;
+
+const TopContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 1600px;
   margin: 0 auto;
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const Title = styled.h1`
-  font-size: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-`;
-
-const GoToFollow = styled.img`
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
-const PhotocardWrapper = styled.div`
+const PhotoCardContainer = styled.div`
   display: flex;
   width: 100%;
-  overflow: hidden;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  width: 1500px;
+  gap: 20px;
 `;

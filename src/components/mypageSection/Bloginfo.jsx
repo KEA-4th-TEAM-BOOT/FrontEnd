@@ -37,9 +37,7 @@ const Bloginfo = () => {
           </Nickname>
           <Introduction>{profileData.intro}</Introduction>
           <StatsWrapper>
-            <Stat
-              onClick={handleFollowersClick}
-            >{`게시물 ${profileData.postCount}`}</Stat>
+            <Stat>{`게시물 ${profileData.postCount}`}</Stat>
             <Stat
               onClick={handleFollowersClick}
             >{`팔로워 ${profileData.followersCount}`}</Stat>

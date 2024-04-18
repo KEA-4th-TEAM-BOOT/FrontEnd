@@ -648,7 +648,7 @@ const Contents = () => {
 export default Contents;
 
 const ContentsWrapper = styled.div`
-  margin: 200px auto;
+  margin: 250px auto;
   max-width: 1400px;
 `;
 
