@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
-
 import likeOIcon from "../../src/assets/img/icons/likeOwhiteicon.svg";
 import likeXIcon from "../../src/assets/img/icons/likeXwhiteicon.svg";
 import repeatIcon from "../../src/assets/img/icons/repeaticon.svg";

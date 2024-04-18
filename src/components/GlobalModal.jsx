@@ -41,6 +41,8 @@ const ModalBackdrop = styled.div`
 
 const ModalContentWrapper = styled.div`
 position: fixed;
+width:710px;
+height:550px;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);

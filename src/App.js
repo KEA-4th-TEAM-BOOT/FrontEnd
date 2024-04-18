@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import Player from './components/Player'
 import Header from './pages/Header'
 import Footer from './pages/Footer'
+import Signup from './pages/Signup'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react'
 import './App.css';
@@ -36,6 +37,9 @@ const App = () => {
           <Footer />
           <Player />
         </Suspense>
+        <Routes>
+          
+        </Routes>
       </BrowserRouter>
     </RecoilRoot>
   );
