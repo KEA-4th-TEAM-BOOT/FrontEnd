@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 
 import FollowTop from "../components/followSection/FollowTop";
 import FollowBottom from "../components/followSection/FollowBottom";
+import NoFollow from "../components/followSection/NoFollow";
 
 const Follow = () => {
+  const [hasFollow, setHasFollow] = useState(false);
+
   return (
     <>
-      <FollowTop />
-      <FollowBottom />
+      {hasFollow ? (
+        <>
+          <FollowTop />
+          <FollowBottom />
+        </>
+      ) : (
+        <NoFollow />
+      )}
     </>
   );
 };
