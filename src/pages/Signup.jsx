@@ -7,8 +7,8 @@ const Signup = () => {
 
   return (
     <SignupContainer>
+       <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0fb7d19420b49620e44ffec33f9f352942121ed9df81e5d43ba13a237c88fde?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo" />
       <SignupContent>
-        <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0fb7d19420b49620e44ffec33f9f352942121ed9df81e5d43ba13a237c88fde?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo" />
         <Divider />
         <PageTitle>회원 가입</PageTitle>
         <EmailInputContainer>
