@@ -19,7 +19,7 @@ const ResetPassword = () => {
 
   return (
     <ResetContainer>
-      <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0fb7d19420b49620e44ffec33f9f352942121ed9df81e5d43ba13a237c88fde?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo" />
+      <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/9565e099702b1ee404f6921020b6b1b5dcddadd9ff9592d2d29ec55681eec0e9?apiKey=a9a9d68966df47cab33790d709ea20f1&" loading="lazy" alt="Logo" />
       <ResetContent>
         <Divider />
         <PageTitle>비밀번호 재설정</PageTitle>

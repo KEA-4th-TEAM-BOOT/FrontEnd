@@ -2,14 +2,16 @@ import React,{useState} from "react";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { Link } from "react-router-dom";
-import { modalState } from "../../recoil/modal";
+import { modalState, UserData } from "../../recoil/modal";
 import ResetPassword from "../reset/ResetPassword";
 import Signup from "../../pages/Signup";
 
 const LoginPage = () => {
   const setModal = useSetRecoilState(modalState);
-
+  const setUserData = useSetRecoilState(UserData);
   const [isChecked, setIsChecked] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleCheckClick = () =>{
     setIsChecked(!isChecked);
@@ -30,22 +32,52 @@ const LoginPage = () => {
     });
 };
 
+const handleLogin = () => {
+  if(email==="test@gmail.com"&&password==="test1234!")
+  {
+    setUserData({
+      email: {email},
+      password: {password},
+      isLogin: true
+    });
+
+    setModal({
+      isOpen: false
+    })
+  }
+};
+
+const handleFormSubmit = (event) => {
+  event.preventDefault(); // 폼 제출 시 페이지 새로고침 방지
+  handleLogin(); // 로그인 처리 함수 호출
+};
+
   return (
     <LoginContainer>
-      <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0fb7d19420b49620e44ffec33f9f352942121ed9df81e5d43ba13a237c88fde?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo" />
+      <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/9565e099702b1ee404f6921020b6b1b5dcddadd9ff9592d2d29ec55681eec0e9?apiKey=a9a9d68966df47cab33790d709ea20f1&" loading="lazy" alt="Logo" />
       <LoginContent>
         <Divider />
         <LoginTitle>이메일 로그인</LoginTitle>
-        <LoginForm>
+        <LoginForm onSubmit={handleFormSubmit}>
           <InputGroup>
-            <EmailInput type="email" placeholder="aaaa@gmail.com" />
-            <PasswordInput type="password" placeholder="**********" />
+            <EmailInput 
+            type="email" 
+            placeholder="aaaa@gmail.com" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            />
+            <PasswordInput 
+            type="password" 
+            placeholder="**********" 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            />
           </InputGroup>
-          <LoginButton>로그인</LoginButton>
+          <LoginButton type="submit">로그인</LoginButton>
         </LoginForm>
         <SocialLoginSection>
           <KakaoLoginButton>
-            <KakaoLogo src="https://cdn.builder.io/api/v1/image/assets/TEMP/66a3379e7d4746622c955ea521cf5d8bcf63b86037eabc25fd9ad363ab291199?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Kakao Logo" />
+            <KakaoLogo src="https://cdn.builder.io/api/v1/image/assets/TEMP/66a3379e7d4746622c955ea521cf5d8bcf63b86037eabc25fd9ad363ab291199?apiKey=a9a9d68966df47cab33790d709ea20f1&" loading="lazy" alt="Kakao Logo" />
             <span>Kakao Login</span>
           </KakaoLoginButton>
           <RememberLoginCheckbox>
