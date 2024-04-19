@@ -54,6 +54,7 @@ const TopSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 `;
 
 const Title = styled.h2`
