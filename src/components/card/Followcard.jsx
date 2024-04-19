@@ -46,6 +46,7 @@ const ProfileImage = styled.img`
   height: 220px;
   border-radius: 10px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  object-fit: fill;
 `;
 
 const InfoContainer = styled.div`

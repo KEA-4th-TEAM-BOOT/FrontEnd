@@ -6,21 +6,20 @@ import notifyIcon from "../assets/img/icons/notifyicon.svg";
 import logoImage from "../assets/img/logo.png";
 import profileImage from "../assets/img/profile.png";
 import LoginPage from "../components/login/LoginPage";
-import { useSetRecoilState } from 'recoil';
-import { modalState } from '../recoil/modal';
+import { useSetRecoilState } from "recoil";
+import { modalState } from "../recoil/modal";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const setModal = useSetRecoilState(modalState);
 
-    const handleLoginClick = () => {
-        setModal({
-            isOpen: true,
-            content: LoginPage,
-            props: {} // 필요한 경우 추가 props 전달
-        });
-    };
-
+  const handleLoginClick = () => {
+    setModal({
+      isOpen: true,
+      content: LoginPage,
+      props: {}, // 필요한 경우 추가 props 전달
+    });
+  };
 
   return (
     <HeaderContainer id="header" role="banner">
@@ -69,7 +68,7 @@ const Header = () => {
           </ProfileLink>
         ) : (
           <HeaderMenuItem>
-             <MenuText onClick={handleLoginClick}>로그인</MenuText>
+            <MenuText onClick={handleLoginClick}>로그인</MenuText>
           </HeaderMenuItem>
         )}
       </HeaderMenu>
@@ -84,7 +83,7 @@ const HeaderContainer = styled.header`
   z-index: 100;
   width: 100%;
   height: 104px;
-  padding: 0 50px 0 50px;
+  padding: 0 0 0 50px;
   transition: opacity 0.5s;
   letter-spacing: 0;
   display: flex;

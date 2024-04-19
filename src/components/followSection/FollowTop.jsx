@@ -60,7 +60,7 @@ const Title = styled.h2`
   margin-top: 104px;
   color: #000;
   margin-bottom: 50px;
-  margin-left: 250px;
+  margin-left: 200px;
   font-size: 60px;
   font-weight: bold;
   text-align: left;

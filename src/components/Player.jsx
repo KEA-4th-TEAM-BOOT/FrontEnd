@@ -88,7 +88,7 @@ const Player = () => {
     setShowVolumeSlider(!showVolumeSlider);
   };
 
-  const videoUrl = "https://youtu.be/GWp8KMYZzY0?feature=shared";
+  const videoUrl = "https://youtu.be/C9RI-OXMyu4?si=2LkNYwVFqBv40Gkp";
 
   return (
     <FootPlayer>
