@@ -3,6 +3,8 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 import "../assets/editor.css";
+import profileImage from "../assets/img/profile.png";
+import aiWriteImage from "../assets/img/AiWrite.png"
 import { ImageDrop } from "quill-image-drop-module";
 import ImageResize from "quill-image-resize";
 
@@ -65,18 +67,18 @@ const Write = () => {
 
   return (
     <>
-      <WriteBannerDiv>
-        <WriteHeading>글쓰기</WriteHeading>
-      </WriteBannerDiv>
-      <hr />
+    <HeaderWrapper>
+      <HeaderContent>
+        <Logo src="https://cdn.builder.io/api/v1/image/assets/TEMP/543de14573fe9c7c84b4a61f46eb3455b4166ec4754a4652786099ef87fed3a8?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo" />
+        <Title>새 게시물 작성</Title>
+      </HeaderContent>
+      <ProfileImage src={profileImage} alt="Profile" />
+    </HeaderWrapper>
       <EditorDivWrppaer>
-        새 게시글 작성
         <EditorDiv>
           <TitleInput placeholder="제목을 입력하세요" />
-          <hr />
-          <TagInput placeholder="#을 이용하여 태그를 입력하세요" />
           <ReactQuill
-            style={{ height: "600px", border: "none" }}
+            style={{ height: "590px", border: "none" }}
             placeholder="Quill Content"
             theme="snow"
             ref={quillRef}
@@ -86,149 +88,76 @@ const Write = () => {
           />
         </EditorDiv>
         <WriteButton onClick={() => setIsOpen(!isOpen)}>작성</WriteButton>
-        <WriteForm isOpen={isOpen} onSubmit={handleSubmit} ref={dropDownRef}>
-          <label>
-            카테고리:
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="category1">카테고리 1</option>
-              <option value="category2">카테고리 2</option>
-              <option value="category3">카테고리 3</option>
-              <option value="category4">카테고리 4</option>
-            </select>
-          </label>
-          <br />
-          <label>
-            공개 범위:
-            <input
-              type="radio"
-              name="visibility"
-              value="public"
-              checked={visibility === "public"}
-              onChange={() => setVisibility("public")}
-            />{" "}
-            전체 공개
-            <input
-              type="radio"
-              name="visibility"
-              value="follow"
-              checked={visibility === "follow"}
-              onChange={() => setVisibility("follow")}
-            />{" "}
-            팔로우 공개
-            <input
-              type="radio"
-              name="visibility"
-              value="private"
-              checked={visibility === "private"}
-              onChange={() => setVisibility("private")}
-            />{" "}
-            비공개
-          </label>
-          <br />
-          <label>
-            주제:
-            <input
-              type="radio"
-              name="topic"
-              value="life"
-              checked={topic === "life"}
-              onChange={() => setTopic("life")}
-            />{" "}
-            라이프
-            <input
-              type="radio"
-              name="topic"
-              value="culture"
-              checked={topic === "culture"}
-              onChange={() => setTopic("culture")}
-            />{" "}
-            문화
-            <input
-              type="radio"
-              name="topic"
-              value="travel"
-              checked={topic === "travel"}
-              onChange={() => setTopic("travel")}
-            />{" "}
-            여행
-            <br />
-            <input
-              type="radio"
-              name="topic"
-              value="sport"
-              checked={topic === "sport"}
-              onChange={() => setTopic("sport")}
-            />{" "}
-            스포츠
-            <input
-              type="radio"
-              name="topic"
-              value="column"
-              checked={topic === "column"}
-              onChange={() => setTopic("column")}
-            />{" "}
-            시사
-            <input
-              type="radio"
-              name="topic"
-              value="etc"
-              checked={topic === "etc"}
-              onChange={() => setTopic("etc")}
-            />{" "}
-            기타
-          </label>
-          <br />
-          <label>
-            대표 사진:
-            <input
-              type="file"
-              onChange={(e) => setFileImage(e.target.files[0])}
-            />
-          </label>
-          <br />
-          <label>
-            음성 선택:
-            <input
-              type="file"
-              onChange={(e) => setFileAudio(e.target.files[0])}
-            />
-          </label>
-          <br />
-          <button type="submit">업로드</button>
-        </WriteForm>
+        <AIButtonImage src={aiWriteImage} />  
       </EditorDivWrppaer>
+      <UploadContainer>
+      <UploadHeader>
+        <UploadHeaderContent>
+          <VoiceModelButton>
+            <VoiceModelIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf28a1ae65431fb5474ce7b914eed5dd3008ce69e040ae6088b2c36bac06f537?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Voice Model Icon" />
+            <VoiceModelText>음성모델 추가</VoiceModelText>
+          </VoiceModelButton>
+          <TagButton>
+            <TagIcon>#</TagIcon>
+            <TagText>태그 추가</TagText>
+          </TagButton>
+          <UploadButtonWrapper>
+      <UploadIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/2748014229f70fd255044c5ab3356e2e4a8826c78e73e590eb2a6846b14227e3?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Upload icon" />
+      <UploadText>업로드</UploadText>
+    </UploadButtonWrapper>
+        </UploadHeaderContent>
+      </UploadHeader>
+    </UploadContainer>
     </>
   );
 };
 
 export default Write;
 
-const WriteBannerDiv = styled.div`
-  //background-color: rgba(153, 213, 255, 0.29);
-  height: 200px;
-  padding: 20px;
+const HeaderWrapper = styled.header`
+  border-bottom: 1px solid rgba(228, 228, 228, 1);
+  background-color: #fff;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
+  padding: 5px 53px 5px 0;
+  
+  @media (max-width: 991px) {
+    padding: 5px 20px;
+  }
 `;
 
-const WriteHeading = styled.h1`
-  margin-top: 104px;
+const HeaderContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 48px;
+`;
+
+const Logo = styled.img`
+  width: 98px;
+  padding-left: 53px;
+  aspect-ratio: 2.63;
+  object-fit: contain;
+`;
+
+const Title = styled.h1`
+  font-family: Syncopate, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
   color: #000;
-  margin-bottom: 50px;
-  margin-left: 200px;
-  font-size: 60px;
-  font-weight: bold;
-  text-align: left;
-  width: 100%;
+  margin: 0;
+`;
+
+const ProfileImage = styled.img`
+  width: 51px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 
 const EditorDivWrppaer = styled.div`
   min-width: 1280px;
+  margin:102px auto;
   height: 930px;
   display: flex;
   flex-direction: column;
@@ -238,37 +167,32 @@ const EditorDivWrppaer = styled.div`
 `;
 
 const EditorDiv = styled.div`
-  width: 1166px;
-  height: 930px;
+  width: 968px;
+  height: 775px;
   padding-left: 53px;
   padding-right: 53px;
-  background-color: #f3f4ff;
+  background-color: #ffffff;
 `;
 
 const TitleInput = styled.input`
   width: 100%;
   border-width: 0;
   height: 52px;
-  margin-top: 34px;
-  margin-bottom: 20px;
-  font-size: 52px;
+  margin-top: 28px;
+  margin-bottom: 70px;
+  font-size: 41px;
   background-color: transparent;
   &:focus {
     outline: none;
   }
 `;
 
-const TagInput = styled.input`
-  width: 100%;
-  border-width: 0;
-  font-size: 33px;
-  margin-top: 31px;
-  margin-bottom: 18px;
-  background-color: transparent;
-  &:focus {
-    outline: none;
-  }
+const AIButtonImage = styled.img`
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;  
 `;
+
 
 const WriteForm = styled.form`
   width: 500px;
@@ -288,4 +212,101 @@ const WriteButton = styled.button`
   border-radius: 20px;
   background-color: transparent;
   font-size: 19px;
+`;
+
+const UploadContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: var(--Black, #000);
+  font-weight: 700;
+  text-align: center;
+  justify-content: center;
+`;
+
+const UploadHeader = styled.header`
+  background-color: #f2f5ff;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+  padding: 16px 0;
+
+  @media (max-width: 991px) {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+`;
+
+const UploadHeaderContent = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+`;
+
+const VoiceModelButton = styled.button`
+  display: flex;
+  gap: 7px;
+  font-size: 16px;
+  margin: auto 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
+const VoiceModelIcon = styled.img`
+  aspect-ratio: 1;
+  object-fit: auto;
+  object-position: center;
+  width: 29px;
+`;
+
+const VoiceModelText = styled.span`
+  font-family: Syncopate, sans-serif;
+  margin: auto 0;
+`;
+
+const TagButton = styled.button`
+  align-self: start;
+  display: flex;
+  gap: 7px;
+  padding: 7px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
+const TagIcon = styled.span`
+  font: 27px Pretendard, sans-serif;
+`;
+
+const TagText = styled.span`
+  font: 16px Syncopate, sans-serif;
+  margin: auto 0;
+`;
+
+const UploadButtonWrapper = styled.button`
+  border-radius: 22.655px;
+  border: 1px solid rgba(0, 0, 0, 1);
+  background-color: #fff;
+  display: flex;
+  gap: 14px;
+  font-size: 16px;
+  color: #000;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: center;
+  padding: 6px 17px;
+  cursor: pointer;
+`;
+
+const UploadIcon = styled.img`
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+`;
+
+const UploadText = styled.span`
+  font-family: Syncopate, sans-serif;
+  margin: auto 0;
 `;
