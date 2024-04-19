@@ -21,7 +21,7 @@ const Banner = () => {
         <StyledSwiperSlide>
           <BannerContent
             bgcolor="#C5D9FF"
-            image="https://github.com/KEA-4th-TEAM-BOOT/FrontEnd/assets/118448112/8299fe2a-f9d3-4f3c-8895-86a27dc233a1"
+            image="https://cdn.builder.io/api/v1/image/assets/TEMP/88f2c77a2875834435755ac67f56c25eaa8da2c2ed756b2a4b69437c04c9d006?apiKey=a9a9d68966df47cab33790d709ea20f1&"
           >
             <BannerScene>
               <BannerHeding>
@@ -39,7 +39,7 @@ const Banner = () => {
         <StyledSwiperSlide>
           <BannerContent
             bgcolor="#C5D9FF"
-            image="https://github.com/KEA-4th-TEAM-BOOT/FrontEnd/assets/118448112/b9448b49-2d6d-4953-bf9c-e07707d01577"
+            image="https://cdn.builder.io/api/v1/image/assets/TEMP/522049669d5314d0166a72a972c440a9a97064791f89d8af2ca55af33b44766f?apiKey=a9a9d68966df47cab33790d709ea20f1&"
           >
             <BannerScene>
               <BannerHeding>
@@ -57,7 +57,7 @@ const Banner = () => {
         <StyledSwiperSlide>
           <BannerContent
             bgcolor="#C5D9FF"
-            image="https://github.com/KEA-4th-TEAM-BOOT/FrontEnd/assets/118448112/31e5aeb9-7d05-4b1c-8de3-eaa18fae6503"
+            image="https://cdn.builder.io/api/v1/image/assets/TEMP/3def259ef8a152984b8ceb2b0a0a006df851f579e8c3430dbc0148b665466b5d?apiKey=a9a9d68966df47cab33790d709ea20f1&"
           >
             <BannerScene>
               <BannerHeding>
