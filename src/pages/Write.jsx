@@ -1,13 +1,13 @@
-import React, { useMemo, useRef, useState, useEffect } from 'react';
-import ReactQuill, {Quill} from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import React, { useMemo, useRef, useState, useEffect } from "react";
+import ReactQuill, { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
-import '../assets/editor.css'
+import "../assets/editor.css";
 import { ImageDrop } from "quill-image-drop-module";
-import ImageResize from 'quill-image-resize';
+import ImageResize from "quill-image-resize";
 
 Quill.register("modules/imageDrop", ImageDrop);
-Quill.register('modules/ImageResize', ImageResize);
+Quill.register("modules/ImageResize", ImageResize);
 
 const Write = () => {
   const quillRef = useRef();
@@ -15,9 +15,9 @@ const Write = () => {
   const dropDownRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const [category, setCategory] = useState('');
-  const [visibility, setVisibility] = useState('');
-  const [topic, setTopic] = useState('');
+  const [category, setCategory] = useState("");
+  const [visibility, setVisibility] = useState("");
+  const [topic, setTopic] = useState("");
   const [fileImage, setFileImage] = useState(null);
   const [fileAudio, setFileAudio] = useState(null);
 
@@ -25,7 +25,7 @@ const Write = () => {
     alert();
     console.log(content);
     event.preventDefault();
-  }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -51,14 +51,14 @@ const Write = () => {
           [{ list: "ordered" }, { list: "bullet" }],
           [{ color: [] }, { background: [] }],
           [{ align: [] }, "link", "image", "video"],
-        ], 
+        ],
       },
       ImageResize: {
-        parchment: Quill.import('parchment')
+        parchment: Quill.import("parchment"),
       },
-      imageDrop: true, 
+      imageDrop: true,
       clipboard: {
-        matchVisual: false
+        matchVisual: false,
       },
     };
   }, []);
@@ -72,9 +72,9 @@ const Write = () => {
       <EditorDivWrppaer>
         새 게시글 작성
         <EditorDiv>
-          <TitleInput placeholder='제목을 입력하세요' />
+          <TitleInput placeholder="제목을 입력하세요" />
           <hr />
-          <TagInput placeholder='#을 이용하여 태그를 입력하세요' />
+          <TagInput placeholder="#을 이용하여 태그를 입력하세요" />
           <ReactQuill
             style={{ height: "600px", border: "none" }}
             placeholder="Quill Content"
@@ -84,15 +84,15 @@ const Write = () => {
             onChange={setContent}
             modules={modules}
           />
-
         </EditorDiv>
-        <WriteButton onClick={() => setIsOpen(!isOpen)}>
-          작성
-        </WriteButton>
+        <WriteButton onClick={() => setIsOpen(!isOpen)}>작성</WriteButton>
         <WriteForm isOpen={isOpen} onSubmit={handleSubmit} ref={dropDownRef}>
           <label>
             카테고리:
-            <select value={category} onChange={e => setCategory(e.target.value)}>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
               <option value="category1">카테고리 1</option>
               <option value="category2">카테고리 2</option>
               <option value="category3">카테고리 3</option>
@@ -102,38 +102,104 @@ const Write = () => {
           <br />
           <label>
             공개 범위:
-            <input type="radio" name="visibility" value="public" checked={visibility === 'public'} onChange={() => setVisibility('public')} /> 전체 공개
-            <input type="radio" name="visibility" value="follow" checked={visibility === 'follow'} onChange={() => setVisibility('follow')} /> 팔로우 공개
-            <input type="radio" name="visibility" value="private" checked={visibility === 'private'} onChange={() => setVisibility('private')} /> 비공개
+            <input
+              type="radio"
+              name="visibility"
+              value="public"
+              checked={visibility === "public"}
+              onChange={() => setVisibility("public")}
+            />{" "}
+            전체 공개
+            <input
+              type="radio"
+              name="visibility"
+              value="follow"
+              checked={visibility === "follow"}
+              onChange={() => setVisibility("follow")}
+            />{" "}
+            팔로우 공개
+            <input
+              type="radio"
+              name="visibility"
+              value="private"
+              checked={visibility === "private"}
+              onChange={() => setVisibility("private")}
+            />{" "}
+            비공개
           </label>
           <br />
           <label>
             주제:
-            <input type="radio" name="topic" value="life" checked={topic === 'life'} onChange={() => setTopic('life')} /> 라이프
-            <input type="radio" name="topic" value="culture" checked={topic === 'culture'} onChange={() => setTopic('culture')} /> 문화
-            <input type="radio" name="topic" value="travel" checked={topic === 'travel'} onChange={() => setTopic('travel')} /> 여행
+            <input
+              type="radio"
+              name="topic"
+              value="life"
+              checked={topic === "life"}
+              onChange={() => setTopic("life")}
+            />{" "}
+            라이프
+            <input
+              type="radio"
+              name="topic"
+              value="culture"
+              checked={topic === "culture"}
+              onChange={() => setTopic("culture")}
+            />{" "}
+            문화
+            <input
+              type="radio"
+              name="topic"
+              value="travel"
+              checked={topic === "travel"}
+              onChange={() => setTopic("travel")}
+            />{" "}
+            여행
             <br />
-            <input type="radio" name="topic" value="sport" checked={topic === 'sport'} onChange={() => setTopic('sport')} /> 스포츠
-            <input type="radio" name="topic" value="column" checked={topic === 'column'} onChange={() => setTopic('column')} /> 시사
-            <input type="radio" name="topic" value="etc" checked={topic === 'etc'} onChange={() => setTopic('etc')} /> 기타
-
+            <input
+              type="radio"
+              name="topic"
+              value="sport"
+              checked={topic === "sport"}
+              onChange={() => setTopic("sport")}
+            />{" "}
+            스포츠
+            <input
+              type="radio"
+              name="topic"
+              value="column"
+              checked={topic === "column"}
+              onChange={() => setTopic("column")}
+            />{" "}
+            시사
+            <input
+              type="radio"
+              name="topic"
+              value="etc"
+              checked={topic === "etc"}
+              onChange={() => setTopic("etc")}
+            />{" "}
+            기타
           </label>
           <br />
           <label>
             대표 사진:
-            <input type="file" onChange={e => setFileImage(e.target.files[0])} />
+            <input
+              type="file"
+              onChange={(e) => setFileImage(e.target.files[0])}
+            />
           </label>
           <br />
           <label>
             음성 선택:
-            <input type="file" onChange={e => setFileAudio(e.target.files[0])} />
+            <input
+              type="file"
+              onChange={(e) => setFileAudio(e.target.files[0])}
+            />
           </label>
           <br />
           <button type="submit">업로드</button>
         </WriteForm>
       </EditorDivWrppaer>
-
-
     </>
   );
 };
@@ -141,15 +207,24 @@ const Write = () => {
 export default Write;
 
 const WriteBannerDiv = styled.div`
-  min-width: 1280px;
-  height: 331px;
+  //background-color: rgba(153, 213, 255, 0.29);
+  height: 200px;
+  padding: 20px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
 `;
 
 const WriteHeading = styled.h1`
-  padding-left: 288px;
-  padding-top: 58px;
-  font-size: 83px;
+  margin-top: 104px;
+  color: #000;
+  margin-bottom: 50px;
+  margin-left: 200px;
+  font-size: 60px;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
 `;
 
 const EditorDivWrppaer = styled.div`
@@ -164,10 +239,10 @@ const EditorDivWrppaer = styled.div`
 
 const EditorDiv = styled.div`
   width: 1166px;
-  height:930px;
+  height: 930px;
   padding-left: 53px;
   padding-right: 53px;
-  background-color: #F3F4FF;
+  background-color: #f3f4ff;
 `;
 
 const TitleInput = styled.input`
@@ -178,7 +253,9 @@ const TitleInput = styled.input`
   margin-bottom: 20px;
   font-size: 52px;
   background-color: transparent;
-  &:focus { outline: none; }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const TagInput = styled.input`
@@ -188,25 +265,27 @@ const TagInput = styled.input`
   margin-top: 31px;
   margin-bottom: 18px;
   background-color: transparent;
-  &:focus { outline: none; }
+  &:focus {
+    outline: none;
+  }
 `;
 
 const WriteForm = styled.form`
-  width:500px;
-  height:450px;
+  width: 500px;
+  height: 450px;
   padding: 0;
   margin: 0;
   background: white;
   border-radius: 20px;
-  border:1px solid;
+  border: 1px solid;
   position: absolute;
   bottom: 23px;
   left: 59%;
-  display: ${props => props.isOpen ? 'table' : 'none'};
+  display: ${(props) => (props.isOpen ? "table" : "none")};
 `;
 
-const WriteButton= styled.button`
-border-radius: 20px;
-background-color: transparent;
-font-size:19px;
+const WriteButton = styled.button`
+  border-radius: 20px;
+  background-color: transparent;
+  font-size: 19px;
 `;
