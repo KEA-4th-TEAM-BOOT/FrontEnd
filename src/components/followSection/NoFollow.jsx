@@ -79,6 +79,7 @@ const PageContainer = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 `;
 
 const ContentSection = styled.section`
@@ -109,6 +110,7 @@ const SectionBackground = styled.section`
   background-color: rgba(0, 150, 255, 0.2);
   padding: 20px;
   width: 100%;
+  margin-bottom: 150px;
   align-self: center;
 `;
 

@@ -650,6 +650,7 @@ export default Contents;
 const ContentsWrapper = styled.div`
   margin: 250px auto;
   max-width: 1400px;
+  box-sizing: border-box;
 `;
 
 const Title = styled.h2`
