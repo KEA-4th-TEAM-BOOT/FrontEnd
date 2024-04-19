@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import writeIcon from "../assets/img/icons/writeicon.svg";
@@ -6,13 +6,13 @@ import notifyIcon from "../assets/img/icons/notifyicon.svg";
 import logoImage from "../assets/img/logo.png";
 import profileImage from "../assets/img/profile.png";
 import LoginPage from "../components/login/LoginPage";
-import { useSetRecoilState } from "recoil";
-import { modalState } from "../recoil/modal";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { modalState,UserData } from "../recoil/modal";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const setModal = useSetRecoilState(modalState);
-
+  const LoginState = useRecoilValue(UserData);
   const handleLoginClick = () => {
     setModal({
       isOpen: true,
@@ -20,7 +20,9 @@ const Header = () => {
       props: {}, // 필요한 경우 추가 props 전달
     });
   };
-
+  useEffect(() => {
+    setIsLoggedIn(LoginState.isLogin);
+  }, [LoginState.isLogin]);
   return (
     <HeaderContainer id="header" role="banner">
       <LogoLink to="/">

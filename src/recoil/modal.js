@@ -9,7 +9,7 @@ export const modalState = atom({
     }
 });
 
-export const userData = atom({
+export const SignupUserData = atom({
     key: 'userData',
     default: {
       email: '',
@@ -20,3 +20,12 @@ export const userData = atom({
       hasAgreedToPrivacyPolicy: false
     }
   });
+
+export const UserData = atom({
+  key: 'userData',
+  default:{
+    email: '',
+    password: '',
+    isLogin: false
+  }
+});
