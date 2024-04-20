@@ -4,45 +4,6 @@ import Postcard from "../card/Postcard";
 import gotofeedIcon from "../../assets/img/icons/moreicon.svg";
 import { Link } from "react-router-dom";
 
-const RecommendWrapper = styled.section`
-  width: 1374px;
-  height: auto;
-  padding-top: 107px;
-  padding-left: 197px;
-  padding-right: 197px;
-  margin: 0 auto;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const Title = styled.h1`
-  font-size: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-`;
-
-const GoToFeed = styled.img`
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
-const PostcardWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  overflow: hidden;
-  justify-content: space-between;
-`;
-
 const Recommend = () => {
   const cardData = [
     {
@@ -123,3 +84,42 @@ const Recommend = () => {
 };
 
 export default Recommend;
+
+const RecommendWrapper = styled.section`
+  width: 1374px;
+  height: auto;
+  padding-top: 107px;
+  padding-left: 197px;
+  padding-right: 197px;
+  margin: 0 auto;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const Title = styled.h1`
+  font-size: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const GoToFeed = styled.img`
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
+const PostcardWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  justify-content: space-between;
+`;
