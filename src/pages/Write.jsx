@@ -7,6 +7,7 @@ import profileImage from "../assets/img/profile.png";
 import aiWriteImage from "../assets/img/AiWrite.png"
 import { ImageDrop } from "quill-image-drop-module";
 import ImageResize from "quill-image-resize";
+import WriteHeader from "../components/WriteSection/WriteHeader";
 
 Quill.register("modules/imageDrop", ImageDrop);
 Quill.register("modules/ImageResize", ImageResize);
@@ -16,12 +17,6 @@ const Write = () => {
   const [content, setContent] = useState("");
   const dropDownRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-
-  const [category, setCategory] = useState("");
-  const [visibility, setVisibility] = useState("");
-  const [topic, setTopic] = useState("");
-  const [fileImage, setFileImage] = useState(null);
-  const [fileAudio, setFileAudio] = useState(null);
 
   const handleSubmit = (event) => {
     alert();
@@ -67,13 +62,7 @@ const Write = () => {
 
   return (
     <>
-    <HeaderWrapper>
-      <HeaderContent>
-        <Logo src="https://cdn.builder.io/api/v1/image/assets/TEMP/543de14573fe9c7c84b4a61f46eb3455b4166ec4754a4652786099ef87fed3a8?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo" />
-        <Title>새 게시물 작성</Title>
-      </HeaderContent>
-      <ProfileImage src={profileImage} alt="Profile" />
-    </HeaderWrapper>
+    <WriteHeader />
       <EditorDivWrppaer>
         <EditorDiv>
           <TitleInput placeholder="제목을 입력하세요" />
@@ -87,21 +76,21 @@ const Write = () => {
             modules={modules}
           />
         </EditorDiv>
-        <WriteButton onClick={() => setIsOpen(!isOpen)}>작성</WriteButton>
         <AIButtonImage src={aiWriteImage} />  
       </EditorDivWrppaer>
+      <UploadForm isOpen={isOpen} onSubmit={handleSubmit} ref={dropDownRef} />
       <UploadContainer>
       <UploadHeader>
         <UploadHeaderContent>
-          <VoiceModelButton>
+          <VoiceModelButton onClick={() => setIsOpen(!isOpen)}>
             <VoiceModelIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf28a1ae65431fb5474ce7b914eed5dd3008ce69e040ae6088b2c36bac06f537?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Voice Model Icon" />
             <VoiceModelText>음성모델 추가</VoiceModelText>
           </VoiceModelButton>
-          <TagButton>
+          <TagButton onClick={() => setIsOpen(!isOpen)}>
             <TagIcon>#</TagIcon>
             <TagText>태그 추가</TagText>
           </TagButton>
-          <UploadButtonWrapper>
+          <UploadButtonWrapper onClick={() => setIsOpen(!isOpen)}>
       <UploadIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/2748014229f70fd255044c5ab3356e2e4a8826c78e73e590eb2a6846b14227e3?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Upload icon" />
       <UploadText>업로드</UploadText>
     </UploadButtonWrapper>
@@ -114,50 +103,11 @@ const Write = () => {
 
 export default Write;
 
-const HeaderWrapper = styled.header`
-  border-bottom: 1px solid rgba(228, 228, 228, 1);
-  background-color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 53px 5px 0;
-  
-  @media (max-width: 991px) {
-    padding: 5px 20px;
-  }
-`;
 
-const HeaderContent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 48px;
-`;
-
-const Logo = styled.img`
-  width: 98px;
-  padding-left: 53px;
-  aspect-ratio: 2.63;
-  object-fit: contain;
-`;
-
-const Title = styled.h1`
-  font-family: Syncopate, sans-serif;
-  font-size: 25px;
-  font-weight: 700;
-  color: #000;
-  margin: 0;
-`;
-
-const ProfileImage = styled.img`
-  width: 51px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  object-fit: cover;
-`;
 
 const EditorDivWrppaer = styled.div`
   min-width: 1280px;
-  margin:102px auto;
+  padding-top:102px;
   height: 930px;
   display: flex;
   flex-direction: column;
@@ -194,24 +144,15 @@ const AIButtonImage = styled.img`
 `;
 
 
-const WriteForm = styled.form`
-  width: 500px;
-  height: 450px;
+const UploadForm = styled.form`
+  width: 100%;
+  height: 345px;
   padding: 0;
   margin: 0;
-  background: white;
-  border-radius: 20px;
+  background: #F2F5FF;
   border: 1px solid;
-  position: absolute;
-  bottom: 23px;
-  left: 59%;
+  position: relative;
   display: ${(props) => (props.isOpen ? "table" : "none")};
-`;
-
-const WriteButton = styled.button`
-  border-radius: 20px;
-  background-color: transparent;
-  font-size: 19px;
 `;
 
 const UploadContainer = styled.div`
@@ -231,7 +172,8 @@ const UploadHeader = styled.header`
   align-items: end;
   justify-content: center;
   padding: 16px 0;
-
+  bottom:0;
+  position:absolute;  
   @media (max-width: 991px) {
     max-width: 100%;
     padding: 0 20px;
