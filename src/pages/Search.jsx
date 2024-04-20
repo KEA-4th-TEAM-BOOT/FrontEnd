@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import Searchbar from "../components/searchSection/Searchbar";
+import Searchlist from "../components/searchSection/Searchlist";
 
 const Search = () => {
   return (
-    <>Search</>
-  )
-}
+    <>
+      <Searchbar />
+      <Searchlist />
+    </>
+  );
+};
 
-export default Search
+export default Search;
