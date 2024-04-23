@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import AIMessage from "./AIMessage";
 import UserMessage from "./UserMessage";
@@ -6,7 +6,7 @@ import UserMessage from "./UserMessage";
 const AIWrite = () => {
   const [userInput, setUserInput] = useState("");
   const [messages, setMessages] = useState([]);
-
+  const containerRef = useRef(null); // 스크롤을 위한 컨테이너 참조
   const handleInput = (event) => {
     setUserInput(event.target.value);
   };
@@ -20,15 +20,36 @@ const AIWrite = () => {
     setUserInput(""); // 입력 필드 초기화
   };
 
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new MutationObserver(() => {
+      // 스크롤을 맨 아래로 이동
+      container.scrollTop = container.scrollHeight;
+    });
+
+    // observer를 설정하여 AIPrompt 내부의 모든 변화를 감지
+    observer.observe(container, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    return () => observer.disconnect(); // 컴포넌트 언마운트 시 observer 해제
+  }, []);
   return (
     <ChatBotBox>
-      <MessageList>
-        <AIMessage key = "0" text="어떤 주제로 블로그의 글을 작성할까요?" />
+      <MessageList ref={containerRef}>
+        <AIMessage
+          messageType="0"
+          text="어떤 주제로 블로그의 글을 작성할까요?"
+        />
         {messages.map((message, index) =>
           message.type === "user" ? (
             <UserMessage key={index} text={message.text} />
           ) : (
-            <AIMessage key={index} text={message.text} />
+            <AIMessage key={index} messageType={index} text={message.text} />
           )
         )}
       </MessageList>

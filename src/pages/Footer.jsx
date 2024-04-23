@@ -6,7 +6,7 @@ const footerLinks = [
   { label: "Main", url: "/" },
   { label: "Search", url: "/search" },
   { label: "Feed", url: "/feed" },
-  { label: "Following", url: "/following" },
+  { label: "Following", url: "/follow" },
 ];
 
 const Footer = () => {
@@ -19,7 +19,7 @@ const Footer = () => {
             alt="Auda Logo"
           />
           <DescriptionText>
-            사용자가 자신의 블로그에 글을 작성하면, Auda 서비스
+            사용자가 자신의 블로그에 글을 작성하면, VODA 서비스
             <br />를 통해 해당 글을 음성으로 들을 수 있습니다. 글 뿐만 아
             <br /> 니라, 사진과 동영상도 음성으로 설명해줍니다.
             <br />
