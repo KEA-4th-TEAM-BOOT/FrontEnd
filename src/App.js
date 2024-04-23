@@ -1,11 +1,14 @@
-import Search from './pages/Search'
+import FAQ from './pages/FAQ'
 import Feed from './pages/Feed'
 import Follow from './pages/Follow'
-import FAQ from './pages/FAQ'
-import Write from './pages/Write'
+import Home from './pages/Home'
 import Mypage from './pages/Mypage'
 import Not from './pages/Not'
-import Home from './pages/Home'
+import Post from './pages/Post'
+import Search from './pages/Search'
+import Setting from './pages/Setting'
+import Signup from './pages/Signup'
+import Write from './pages/Write'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react'
 import './App.css';
@@ -28,6 +31,9 @@ const App = () => {
               <Route path='/follow' element={<Follow />} />
               <Route path='/FAQ' element={<FAQ />} />
               <Route path='/mypage' element={<Mypage />} />
+              <Route path='/post' element={<Post />} />
+              <Route path='/setting' element={<Setting />} />
+              <Route path='/signup' element={<Signup />} />
               <Route path='*' element={<Not />} />
             </Route>
             <Route element={<MinimalLayout />}>
