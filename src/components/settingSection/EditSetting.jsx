@@ -10,7 +10,7 @@ const EditSetting = ({ userInfo }) => {
     blogUrl = "aaaa@gmail.com",
     nickname = "바다",
     introduction = "안녕",
-    voiceFileUrl = "",
+    voiceFileUrl = "https://youtu.be/UOY-WsXkgTI?si=9UHO67R3mUWy9yOJ",
   } = userInfo || {};
 
   const [profileImage, setProfileImage] = useState(profileImageUrl);
@@ -18,28 +18,28 @@ const EditSetting = ({ userInfo }) => {
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
   const [userNickname, setUserNickname] = useState(nickname);
   const [userIntroduction, setUserIntroduction] = useState(introduction);
-  const [userVoiceFile, setUserVoiceFile] = useState(voiceFileUrl);
+  const [userVoiceFile, setUserVoiceFile] = useState({
+    file: null,
+    url: voiceFileUrl,
+  });
 
-  const fileInputRef = useRef(null);
+  const ImageFileInputRef = useRef(null);
+  const VoiceFileInputRef = useRef(null);
 
   const handleProfileImageChange = (e) => {
     const file = e.target.files[0];
-    const imageUrl = URL.createObjectURL(file);
-    // setProfileImage(imageUrl);
-  };
-
-  const handleNicknameChange = (e) => {
-    setUserNickname(e.target.value);
-  };
-
-  const handleIntroductionChange = (e) => {
-    setUserIntroduction(e.target.value);
+    if (file && file.type.substr(0, 5) === "image") {
+      const imageUrl = URL.createObjectURL(file);
+      setProfileImage(imageUrl);
+    }
   };
 
   const handleVoiceFileChange = (e) => {
     const file = e.target.files[0];
-    const voiceUrl = URL.createObjectURL(file);
-    setUserVoiceFile(voiceUrl);
+    if (file) {
+      const voiceUrl = URL.createObjectURL(file);
+      setUserVoiceFile({ file, url: voiceUrl });
+    }
   };
 
   const resetToDefaultImage = () => {
@@ -48,8 +48,12 @@ const EditSetting = ({ userInfo }) => {
     );
   };
 
+  const openVoiceFileSelector = () => {
+    VoiceFileInputRef.current.click();
+  };
+
   const deleteVoiceFile = () => {
-    // setVoiceFile(null);
+    setUserVoiceFile({ file: null, url: "" });
   };
 
   const maxCharLimit = 200;
@@ -64,12 +68,11 @@ const EditSetting = ({ userInfo }) => {
           </ProfileLeft>
           <ProfileImage src={profileImage} alt="Profile" />
           <ProfileRight>
-            {" "}
             <FileInputLabel htmlFor="profile-upload">파일 선택</FileInputLabel>
-            <FileInput
+            <ImageFileInput
               id="profile-upload"
               type="file"
-              ref={fileInputRef}
+              ref={ImageFileInputRef}
               onChange={handleProfileImageChange}
               accept="image/*"
             />
@@ -138,20 +141,36 @@ const EditSetting = ({ userInfo }) => {
             <CategoryEdit />
           </CategorySection>
           <VoiceFileSection>
-            <Label>음성 파일</Label>
+            <Label>나의 음성 모델</Label>
             <VoiceContainer>
               <ButtonWrapper>
-                <VoiceInputLabel htmlFor="profile-upload">
+                <VoiceInputLabel
+                  htmlFor="profile-upload"
+                  onClick={openVoiceFileSelector}
+                >
                   파일 선택
                 </VoiceInputLabel>
-                <FileInput
+                <VoiceFileInput
+                  id="voice-upload"
                   type="file"
+                  ref={VoiceFileInputRef}
                   onChange={handleVoiceFileChange}
                   accept="audio/*"
+                  style={{ display: "none" }}
                 />
                 <DeleteButton onClick={deleteVoiceFile}>파일 삭제</DeleteButton>
               </ButtonWrapper>
               <FileInfo>확장자 : mp3, wav / 용량: 10MB 이하</FileInfo>
+              <FileDisplayContainer>
+                {userVoiceFile.file ? (
+                  <FileDisplayText>
+                    {userVoiceFile.file.name} -{" "}
+                    {(userVoiceFile.file.size / 1024 / 1024).toFixed(2)} MB
+                  </FileDisplayText>
+                ) : (
+                  <PlaceholderText>음성 파일을 업로드해주세요.</PlaceholderText>
+                )}
+              </FileDisplayContainer>
             </VoiceContainer>
           </VoiceFileSection>
         </InformationSection>
@@ -236,7 +255,7 @@ const FileInputLabel = styled.label`
   text-align: center;
 `;
 
-const FileInput = styled.input`
+const ImageFileInput = styled.input`
   display: none;
 `;
 
@@ -356,6 +375,21 @@ const VoiceFileSection = styled.div`
   margin-bottom: 10px;
 `;
 
+const VoiceFileInput = styled.input`
+  display: none;
+`;
+
+const FileDisplayContainer = styled.div`
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -367,10 +401,23 @@ const VoiceContainer = styled.div`
 `;
 
 const FileInfo = styled.span`
-  font-size: 14px;
+  font-size: 15px;
   color: #888;
   text-align: left;
   margin-top: 5px;
+`;
+
+const FileDisplayText = styled(FileInfo)`
+  margin-top: 0;
+  font-weight: 400;
+  color: #666;
+`;
+
+const PlaceholderText = styled(FileInfo)`
+  margin-top: 0;
+  font-weight: 400;
+  color: #666;
+  color: rgba(107, 114, 128);
 `;
 
 const VoiceInputLabel = styled.button`
