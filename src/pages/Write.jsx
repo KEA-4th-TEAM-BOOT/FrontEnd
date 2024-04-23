@@ -3,11 +3,11 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 import "../assets/editor.css";
-import profileImage from "../assets/img/profile.png";
 import aiWriteImage from "../assets/img/AiWrite.png"
 import { ImageDrop } from "quill-image-drop-module";
 import ImageResize from "quill-image-resize";
 import WriteHeader from "../components/WriteSection/WriteHeader";
+import UploadSection from "../components/WriteSection/UploadSection";
 
 Quill.register("modules/imageDrop", ImageDrop);
 Quill.register("modules/ImageResize", ImageResize);
@@ -17,12 +17,6 @@ const Write = () => {
   const [content, setContent] = useState("");
   const dropDownRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleSubmit = (event) => {
-    alert();
-    console.log(content);
-    event.preventDefault();
-  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -68,7 +62,7 @@ const Write = () => {
           <TitleInput placeholder="제목을 입력하세요" />
           <ReactQuill
             style={{ height: "590px", border: "none" }}
-            placeholder="Quill Content"
+            placeholder="당신의 글을 들려주세요"
             theme="snow"
             ref={quillRef}
             value={content}
@@ -76,9 +70,13 @@ const Write = () => {
             modules={modules}
           />
         </EditorDiv>
-        <AIButtonImage src={aiWriteImage} />  
+        <AIButtonSection>
+        <AIButtonImage src={aiWriteImage} />
+        </AIButtonSection> 
       </EditorDivWrppaer>
-      <UploadForm isOpen={isOpen} onSubmit={handleSubmit} ref={dropDownRef} />
+      <UploadForm isOpen={isOpen} ref={dropDownRef} >
+        <UploadSection />
+        </UploadForm>
       <UploadContainer>
       <UploadHeader>
         <UploadHeaderContent>
@@ -137,6 +135,14 @@ const TitleInput = styled.input`
   }
 `;
 
+const AIButtonSection = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+`;
+
 const AIButtonImage = styled.img`
   aspect-ratio: 1;
   object-fit: contain;
@@ -149,9 +155,11 @@ const UploadForm = styled.form`
   height: 345px;
   padding: 0;
   margin: 0;
+  bottom:0;
   background: #F2F5FF;
   border: 1px solid;
-  position: relative;
+  position: fixed;
+  z-index:10;
   display: ${(props) => (props.isOpen ? "table" : "none")};
 `;
 

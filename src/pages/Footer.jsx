@@ -15,7 +15,7 @@ const Footer = () => {
       <FooterContent>
         <FooterDescription>
           <Logo
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/50b4a1227f4c0fcc1e84e9b9a61c9fe0954f65ea2122fd2f6fb605753ffadc1d?apiKey=a9a9d68966df47cab33790d709ea20f1&"
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&"
             alt="Auda Logo"
           />
           <DescriptionText>

@@ -26,7 +26,7 @@ const Header = () => {
   return (
     <HeaderContainer id="header" role="banner">
       <LogoLink to="/">
-        <LogoImage src={logoImage} alt="Logo Image" />
+        <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo Image" />
       </LogoLink>
       <MenuList>
         <MenuItem>
@@ -96,14 +96,14 @@ const HeaderContainer = styled.header`
 `;
 
 const LogoImage = styled.img`
-  width: 100px;
-  height: 55px;
+width: 144px;
+height: 55px;
 `;
 
 const LogoLink = styled(Link)`
   text-decoration: none;
   display: flex;
-  width: 100px;
+  width: 144px;
   height: 55px;
 `;
 
@@ -114,8 +114,7 @@ const MenuList = styled.ul`
   display: flex;
   justify-content: space-between; // 아이템들 사이 간격 동일하게 만들어줌
   align-items: center;
-  padding-left: 0;
-  margin-left: 50px;
+  padding-left: 50px;
   flex-wrap: nowrap;
 `;
 
