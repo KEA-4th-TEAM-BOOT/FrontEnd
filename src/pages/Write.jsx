@@ -3,6 +3,7 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 import "../assets/editor.css";
+import UploadButton from "../assets/img/icons/upload_button.svg";
 import aiWriteImage from "../assets/img/AiWrite.png";
 import { ImageDrop } from "quill-image-drop-module";
 import ImageResize from "quill-image-resize";
@@ -19,7 +20,7 @@ const Write = () => {
   const dropDownRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isSideOpen, setIsSideOpen] = useState(false);
-  
+
   const toggleSidebar = () => {
     setIsSideOpen(!isSideOpen); // isOpen 상태를 토글합니다.
   };
@@ -77,13 +78,13 @@ const Write = () => {
           />
         </EditorDiv>
         <AIButtonSection onClick={toggleSidebar}>
-            <AIButtonImage  src={aiWriteImage} />
-          </AIButtonSection>
+          <AIButtonImage src={aiWriteImage} />
+        </AIButtonSection>
         <Sidebar isSideOpen={isSideOpen}>
           <AIWrite />
         </Sidebar>
       </EditorDivWrppaer>
-      
+
       <UploadForm isOpen={isOpen} ref={dropDownRef}>
         <UploadSection />
       </UploadForm>
@@ -102,11 +103,7 @@ const Write = () => {
               <TagText>태그 추가</TagText>
             </TagButton>
             <UploadButtonWrapper onClick={() => setIsOpen(!isOpen)}>
-              <UploadIcon
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/2748014229f70fd255044c5ab3356e2e4a8826c78e73e590eb2a6846b14227e3?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-                alt="Upload icon"
-              />
-              <UploadText>업로드</UploadText>
+              <UploadIcon src={UploadButton} />
             </UploadButtonWrapper>
           </UploadHeaderContent>
         </UploadHeader>
@@ -133,11 +130,10 @@ const EditorDiv = styled.div`
   height: 775px;
   padding-left: 53px;
   padding-right: 53px;
-  padding-top:102px;
+  padding-top: 102px;
   background-color: #ffffff;
   position: relative; // 여기에 relative를 추가했으므로 AIButtonSection을 이 위치에 고정시킬 수 있습니다.
 `;
-
 
 const TitleInput = styled.input`
   width: 100%;
@@ -159,8 +155,8 @@ const AIButtonSection = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position:relative;
-  cursor:pointer;
+  position: relative;
+  cursor: pointer;
 `;
 
 const AIButtonImage = styled.img`
@@ -171,6 +167,9 @@ const AIButtonImage = styled.img`
 
 const UploadForm = styled.form`
   width: 100%;
+  margin: auto; /* 좌우 중앙 정렬 */
+  display: flex;
+  align-item: center;
   height: 345px;
   padding: 0;
   margin: 0;
@@ -253,37 +252,23 @@ const TagText = styled.span`
   margin: auto 0;
 `;
 
-const UploadButtonWrapper = styled.button`
-  border-radius: 22.655px;
-  border: 1px solid rgba(0, 0, 0, 1);
-  background-color: #fff;
-  display: flex;
-  gap: 14px;
-  font-size: 16px;
-  color: #000;
-  font-weight: 700;
-  white-space: nowrap;
-  text-align: center;
-  padding: 6px 17px;
+const UploadButtonWrapper = styled.div`
   cursor: pointer;
 `;
 
 const UploadIcon = styled.img`
-  width: 23px;
-  height: 23px;
-  object-fit: contain;
-`;
-
-const UploadText = styled.span`
-  font-family: Syncopate, sans-serif;
-  margin: auto 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 4px;
 `;
 
 const Sidebar = styled.aside`
-  width:${props => props.isSideOpen ? '500px' : '0px'}; // 사이드바의 너비
+  width: ${(props) => (props.isSideOpen ? "500px" : "0px")}; // 사이드바의 너비
   height: 100%; // 전체 높이
   background: #f2f5ff; // 배경색
-  transform: translateX(${props => props.isSideOpen ? '0' : '100%'}); // 사이드바 토글
+  transform: translateX(
+    ${(props) => (props.isSideOpen ? "0" : "100%")}
+  ); // 사이드바 토글
   transition: transform 0.3s ease-in-out; // 부드러운 애니메이션 효과
   z-index: 0; // 다른 요소들 위에 표시
 `;
