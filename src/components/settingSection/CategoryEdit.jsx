@@ -110,6 +110,7 @@ const CategoryEdit = () => {
             <MainCategoryTitle>카테고리 전체 보기</MainCategoryTitle>
             <TotalPosts>(15)</TotalPosts>
           </Header>
+          <Divider />
           {categories.map((category) => [
             renderCategoryItem(category),
             category.subCategories &&
@@ -125,14 +126,9 @@ const CategoryEdit = () => {
 
 export default CategoryEdit;
 
-const CategoryEditContainer = styled.div`
-  padding-top: 150px;
-  width: 50%;
-`;
+const CategoryEditContainer = styled.div``;
 
 const CategoryContainer = styled.div`
-  background-color: #f5f5f5;
-  padding: 100px;
   width: 350px;
 `;
 
@@ -163,20 +159,29 @@ const DeleteBtn = styled.button`
 `;
 
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  padding: 0 20px;
+  display: center;
+  margin-bottom: 10px;
+  padding: 0 10px;
 `;
 
 const MainCategoryTitle = styled.span`
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 400;
   margin-right: 8px;
+
+  padding-left: 10px;
+`;
+
+const Divider = styled.hr`
+  border: none;
+  height: 1px;
+  background-color: #eee;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
 `;
 
 const TotalPosts = styled.span`
-  font-size: 15px;
+  font-size: 17px;
   color: #888;
 `;
 
@@ -185,7 +190,7 @@ const ContainerHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 `;
 
 const CategoryList = styled.ul`
@@ -194,7 +199,7 @@ const CategoryList = styled.ul`
   background: #fff;
   border-radius: 10px;
   border: 1px solid #ccc;
-  padding: 20px 0;
+  padding: 10px 0;
 `;
 
 const CategoryListItem = styled.li`
@@ -207,24 +212,24 @@ const CategoryListItem = styled.li`
 `;
 
 const CategoryName = styled.span`
-  font-size: 15px;
+  font-size: 16px;
   margin-right: 10px;
   flex-grow: 1;
-  margin-left: 20px;
+  margin-left: 10px;
   padding-left: 10px;
   background: ${({ isEditing }) => (isEditing ? "#fff" : "transparent")};
 `;
 
 const PostCount = styled.span`
-  font-size: 13px;
-  margin-left: 10px;
+  font-size: 16px;
+  margin-left: 5px;
 `;
 
 const EditableText = styled.input`
   border: none;
   width: auto;
   outline: none;
-  font-size: 15px;
+  font-size: 16px;
   padding: 0;
   &:focus {
     outline: none;
