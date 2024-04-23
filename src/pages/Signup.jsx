@@ -13,7 +13,7 @@ const Signup = () => {
         <PageTitle>회원 가입</PageTitle>
         <EmailInputContainer>
           <EmailInputWrapper>
-            <EmailInput type="email" placeholder="가입하신 이메일 주소를 입력하세요" />
+            <EmailInput type="e`mail" placeholder="가입하신 이메일 주소를 입력하세요" />
           </EmailInputWrapper>
           <SendVerificationButton onClick={() => setIsVerificationVisible(true)}>
             인증번호 발송

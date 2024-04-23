@@ -6,7 +6,7 @@ import NoFollow from "../components/followSection/NoFollow";
 
 const Follow = () => {
   const [hasFollow, setHasFollow] = useState(true);
-
+  
   return (
     <>
       {hasFollow ? (
