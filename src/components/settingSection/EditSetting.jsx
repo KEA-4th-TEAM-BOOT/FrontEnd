@@ -162,11 +162,13 @@ const EditSetting = ({ userInfo }) => {
               </ButtonWrapper>
               <FileInfo>확장자 : mp3, wav / 용량: 10MB 이하</FileInfo>
               <FileDisplayContainer>
-                {userVoiceFile.file && (
+                {userVoiceFile.file ? (
                   <FileDisplayText>
                     {userVoiceFile.file.name} -{" "}
                     {(userVoiceFile.file.size / 1024 / 1024).toFixed(2)} MB
                   </FileDisplayText>
+                ) : (
+                  <PlaceholderText>음성 파일을 업로드해주세요.</PlaceholderText>
                 )}
               </FileDisplayContainer>
             </VoiceContainer>
@@ -407,6 +409,15 @@ const FileInfo = styled.span`
 
 const FileDisplayText = styled(FileInfo)`
   margin-top: 0;
+  font-weight: 400;
+  color: #666;
+`;
+
+const PlaceholderText = styled(FileInfo)`
+  margin-top: 0;
+  font-weight: 400;
+  color: #666;
+  color: rgba(107, 114, 128);
 `;
 
 const VoiceInputLabel = styled.button`
