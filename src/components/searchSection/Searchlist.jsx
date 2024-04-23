@@ -78,7 +78,7 @@ const searchCardData = [
 const Searchlist = () => {
   return (
     <ListContainer>
-      <TopDivider />
+      {/* <TopDivider /> */}
       {searchCardData.map((card, index) => (
         <React.Fragment key={index}>
           <SearchCard
@@ -110,13 +110,13 @@ const ListContainer = styled.div`
   margin: 0 auto;
 `;
 
-const TopDivider = styled.hr`
-  border: none;
-  height: 2px;
-  background-color: #000;
-  width: calc(100% + 200px);
-  margin: 0 0 20px 0;
-`;
+// const TopDivider = styled.hr`
+//   border: none;
+//   height: 2px;
+//   background-color: #000;
+//   width: calc(100% + 200px);
+//   margin: 0 0 20px 0;
+// `;
 
 const Divider = styled.hr`
   border: none;

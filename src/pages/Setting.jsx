@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import EditSetting from "../components/settingSection/EditSetting";
 
 const Setting = () => {
   return (
-    <>Setting</>
-  )
-}
+    <>
+      <EditSetting />
+    </>
+  );
+};
 
-export default Setting
+export default Setting;
