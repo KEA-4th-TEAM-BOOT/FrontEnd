@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import PostPlayIcon from "../../assets/img/icons/postplayicon.svg";
+import postPlayIcon from "../../assets/img/icons/postplayicon.svg";
 
 const PostHeader = () => {
   const postInfoData = [
@@ -25,7 +25,10 @@ const PostHeader = () => {
       <HeaderWrapper>
         <BlogTitle>{nickname} 님의 블로그</BlogTitle>
         <Category>{category}</Category>
-        <PostTitle>{title}</PostTitle>
+        <TitleWrapper>
+          <PostPlayIcon src={postPlayIcon} />
+          <PostTitle>{title}</PostTitle>
+        </TitleWrapper>
         <TagsContainer>
           {tags.map((tag, index) => (
             <Tag key={index}>{tag}</Tag>
@@ -68,6 +71,19 @@ const HeaderWrapper = styled.section`
   width: 70%;
 `;
 
+const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 0 50px;
+  width: 100%;
+`;
+
+const PostPlayIcon = styled.img`
+width: 50px;
+height; 50px;
+cursor: pointer;
+`;
+
 const BlogTitle = styled.h2`
   margin-top: 0;
   color: #000;
@@ -89,7 +105,7 @@ const PostTitle = styled.div`
   color: #212529;
   font-size: 40px;
   font-weight: bold;
-  padding: 30px 50px;
+  padding: 30px 20px;
 `;
 
 const TagsContainer = styled.div`
