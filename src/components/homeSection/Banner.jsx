@@ -21,7 +21,7 @@ const Banner = () => {
         <StyledSwiperSlide>
           <BannerContent
             bgcolor="#C5D9FF"
-            image="https://cdn.builder.io/api/v1/image/assets/TEMP/88f2c77a2875834435755ac67f56c25eaa8da2c2ed756b2a4b69437c04c9d006?apiKey=a9a9d68966df47cab33790d709ea20f1&"
+            image="https://cdn.builder.io/api/v1/image/assets/TEMP/6066deb538ac84795d77caf084a6a64edfc28ba050a44e62cd884f137d642e45?apiKey=a9a9d68966df47cab33790d709ea20f1&"
           >
             <BannerScene>
               <BannerHeding>

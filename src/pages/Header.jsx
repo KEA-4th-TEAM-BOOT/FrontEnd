@@ -130,6 +130,7 @@ const MenuItem = styled.li`
 
 const MenuLink = styled(Link)`
   text-decoration: none;
+  font-size: 18px;
   color: black;
   display: flex;
   align-items: center;
@@ -174,6 +175,7 @@ const HeaderMenuIcon = styled.img`
 
 const MenuText = styled.span`
   font-weight: bold;
+  font-size: 18px;
   height: 24px;
   cursor: pointer;
 `;

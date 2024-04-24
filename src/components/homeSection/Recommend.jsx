@@ -8,51 +8,51 @@ const Recommend = () => {
   const cardData = [
     {
       imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ84XJ11EH8OT_vAIMGZzHhEJfqrytT-0HdOtn0_THIkNuDDHlm",
-      category: "LifeStyle",
+        "https://cdn.kormedi.com/wp-content/uploads/2023/06/unnamed-file-152.jpg",
+      category: "라이프스타일",
       likes: true,
       likesCount: 120,
       commentsCount: 5,
-      title: "Interesting title for this content",
+      title: "건강한 삶을 위한 아침 루틴 5가지",
       content:
-        "Walking, I was able to organize my thoughts. For a while, I forgot about the complicated things and had a healing time in nature. I thought I should come out for a walk from time to time to calm my mind.",
-      author: "Ellie grace",
+        "아침에 일어나서 물 한 컵 마시기, 30분 동안 요가하기, 영양가 있는 아침 식사 준비, 단기 목표 설정, 간단한 명상으로 하루를 시작하세요.",
+      author: "김민준",
     },
     {
       imageUrl:
-        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRKV62NLux3dmZ_W5J0ND9hjOIorF1XOujoVrLkDfPDRyyu8ttD",
-      category: "Travel",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThyf5EaOpriDROZ5FUflHj_Mf8B_5T6ZADs9e_ZTf8bg&s",
+      category: "여행",
       likes: false,
       likesCount: 120,
       commentsCount: 5,
-      title: "Interesting title for this content",
+      title: "비밀의 섬, 제주도 숨은 명소 탐방",
       content:
-        "Walking, I was able to organize my thoughts. For a while, I forgot about the complicated things and had a healing time in nature. I thought I should come out for a walk from time to time to calm my mind.",
-      author: "Ellie grace",
+        "제주도의 숨겨진 명소들을 찾아서 특별한 여행을 경험하세요. 해안 절경, 숨겨진 카페, 조용한 산책로 등 제주도만의 매력을 발견할 수 있습니다.",
+      author: "이서윤 ",
     },
     {
       imageUrl:
-        "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTJkPj5SQf1g4oP99v1BjYvzZPGoV-5zmkBZEsHX0MqZnOD0oX1",
-      category: "Culture",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR66zfCdw8vh7yEUBpHwx6Df6xdQhrEKZWGD4adrPSyTg&s",
+      category: "문화",
       likes: false,
       likesCount: 120,
       commentsCount: 5,
-      title: "Interesting title for this content",
+      title: "서울에서 즐기는 전통 문화 체험",
       content:
-        "Walking, I was able to organize my thoughts. For a while, I forgot about the complicated things and had a healing time in nature. I thought I should come out for a walk from time to time to calm my mind.",
-      author: "Ellie grace",
+        "서울의 전통 문화 체험은 한국의 뿌리를 느낄 수 있는 최고의 방법입니다. 국립중앙박물관 방문, 한복 입기 체험, 전통 차 시음 등 다양한 활동을 즐겨보세요.",
+      author: "박지호",
     },
     {
       imageUrl:
-        "https://media.istockphoto.com/id/1322517295/ko/%EC%82%AC%EC%A7%84/%EC%82%AC%EC%9D%B4%EB%B2%84-%EB%B3%B4%EC%95%88-it-%EC%97%94%EC%A7%80%EB%8B%88%EC%96%B4%EB%8A%94-%EC%9D%B8%ED%84%B0%EB%84%B7%EC%97%90%EC%84%9C-%ED%95%B4%EC%BB%A4%EB%A1%9C%EB%B6%80%ED%84%B0-%EC%82%AC%EC%9D%B4%EB%B2%84-%EA%B3%B5%EA%B2%A9%EC%9C%BC%EB%A1%9C%EB%B6%80%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%EB%A5%BC-%EB%B3%B4%ED%98%B8%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%B4-%EB%85%B8%EB%A0%A5%ED%95%98%EA%B3%A0-%EC%9E%88%EC%8A%B5%EB%8B%88%EB%8B%A4-%EC%98%A8%EB%9D%BC%EC%9D%B8-%EA%B0%9C%EC%9D%B8-%EC%A0%95%EB%B3%B4-%EB%B3%B4%ED%98%B8-%EB%B0%8F-%EA%B0%9C%EC%9D%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B3%B4%ED%98%B8%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%95%88%EC%A0%84%ED%95%9C.jpg?s=612x612&w=0&k=20&c=qylfFLcgLa3_sDMd5rrAYUTVu1pv4OowYZ_S0XLrPGo=",
+        "https://news.samsungdisplay.com/wp-content/uploads/2021/12/1223_%EC%9D%B4%EB%AF%B8%EC%A7%801.jpg",
       category: "IT",
       likes: true,
       likesCount: 120,
       commentsCount: 5,
-      title: "Interesting title for this content",
+      title: "미래를 바꿀 5가지 기술 트렌드",
       content:
-        "Walking, I was able to organize my thoughts. For a while, I forgot about the complicated things and had a healing time in nature. I thought I should come out for a walk from time to time to calm my mind.",
-      author: "Ellie grace",
+        "인공 지능의 발전, 사물 인터넷(IoT) 확산, 가상 현실(VR)과 증강 현실(AR)의 결합, 자율 주행 차의 상용화, 그리고 지속 가능한 에너지 기술이 미래의 IT 트렌드를 주도할 것입니다.",
+      author: "최현우",
     },
   ];
 
