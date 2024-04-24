@@ -6,9 +6,9 @@ import likeX from "../../assets/img/icons/likeXicon.svg";
 import comment from "../../assets/img/icons/commenticon.svg";
 
 const categoryColors = {
-  LifeStyle: "#FF983A",
-  Travel: "#3A7DFF",
-  Culture: "#00A023",
+  라이프스타일: "#FF983A",
+  여행: "#3A7DFF",
+  문화: "#00A023",
   IT: "#F4D259",
 };
 

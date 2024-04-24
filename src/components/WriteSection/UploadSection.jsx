@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import UploadButtonImg from "../../assets/img/icons/uploadbutton.svg";
+import { useNavigate } from "react-router-dom";
+
 const UploadSection = (props) => {
   const [visibility, setVisibility] = useState("public"); // or 'private'
   const [voice, setVoice] = useState("");
@@ -8,6 +10,12 @@ const UploadSection = (props) => {
   const [topic, setTopic] = useState("");
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
+  const navigate = useNavigate();
+
+  const onhandleSubmit = () => {
+    alert("업로드 되었습니다.");
+    navigate("/post1");
+  };
 
   const onhandletag = (e) => {
     if (e.key === "Enter" && tagItem.trim()) {
@@ -210,7 +218,7 @@ const UploadSection = (props) => {
           <Txtthumb>대표이미지 추가</Txtthumb>
         </Innerbox>
       </Boxthumb>
-      <UploadButtonWrapper>
+      <UploadButtonWrapper onClick={onhandleSubmit}>
         <UploadButton src={UploadButtonImg} />
       </UploadButtonWrapper>
     </>

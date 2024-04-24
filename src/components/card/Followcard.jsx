@@ -25,7 +25,6 @@ const FollowCard = ({
 export default FollowCard;
 
 const CardContainer = styled.div`
-  background-color: #fff;
   border-radius: 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 350px;
