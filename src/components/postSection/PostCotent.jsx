@@ -53,7 +53,7 @@ const PostCotent = () => {
         <Category />
       </CategorySection>
       <ContentSection>
-        <ContentDisplay>{postData.content}</ContentDisplay>
+        <ContentDisplay>콘텐츠{postData.content}</ContentDisplay>
         <PostBtnWrapper>
           <LikeInfo onClick={toggleLike}>
             {postData.isLiked ? (
@@ -80,6 +80,7 @@ const PostCotent = () => {
             alt={postData.user.nickname}
           />
         </ProfileWrapper>
+        <Comment />
       </ContentSection>
     </ContentWrapper>
   );
@@ -107,6 +108,7 @@ const ContentSection = styled.section`
 `;
 
 const ContentDisplay = styled.div`
+  margin: 30px 0;
   font-size: 16px;
   color: #333;
   margin-bottom: 20px;
@@ -143,7 +145,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 83%;
+  border-radius: 10px;
 `;
 
 const InfoContainer = styled.div`
