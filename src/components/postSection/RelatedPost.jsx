@@ -1,7 +1,7 @@
 import React from "react";
 
 const RelatedPost = () => {
-  return <div>RelatedPost</div>;
+  return <div></div>;
 };
 
 export default RelatedPost;

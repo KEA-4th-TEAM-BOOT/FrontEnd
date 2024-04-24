@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
+import PostPlayIcon from "../../assets/img/icons/postplayicon.svg";
+
 const PostHeader = () => {
   const postInfoData = [
     {
       nickname: "제주파",
-      category: "일상",
+      category: "라이프스타일",
       title: "거친 자연을 품은 제주도 오름",
-      tags: ["# 제주", "# 일상", "# 제주도", "# 오름", "# 자연"],
+      tags: ["# 제주", "# 일상", "# 오름", "# 자연"],
       profileImage:
         "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTaWksGAUsmDHd-Zmfu6-6TgiH0qtw23poll21guIBMfSvCXsDf",
       date: "2024.03.01",
