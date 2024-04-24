@@ -1,6 +1,6 @@
 <div align="center">
 
-<h2> 🎧️ 글을 듣고 보다, 보다 🎧️ </h2>
+<h2> 🎧️ 글을 보고 듣다, 보다 🎧️ </h2>
 <h3> 원하는 목소리로 글을 들어봐요 </h3>
 
 <img width="958" alt="image" src="https://github.com/TravelRole/roleTravel-frontend/assets/91375979/8797eecd-72bf-459a-a931-1bdcc126178f">
