@@ -1,6 +1,6 @@
 <div align="center">
 
-<h2> ✈️ 글을 듣고 보다, 보다 ✈️ </h2>
+<h2> 🎧️ 글을 듣고 보다, 보다 🎧️ </h2>
 <h3> 원하는 목소리로 글을 들어봐요 </h3>
 
 <img width="958" alt="image" src="https://github.com/TravelRole/roleTravel-frontend/assets/91375979/8797eecd-72bf-459a-a931-1bdcc126178f">
@@ -11,7 +11,7 @@
 
 <br/>
 
-<h2> ✈️ 여행역할의 핵심기능 </h2>
+<h2> 🎧️ VODA의 핵심기능 </h2>
 <h4> 1️⃣ 방생성 기능 및 초대기능 </h4>
 
 <span > 1. 여행 스페이스를 생성합니다. </span> <br/>
@@ -134,26 +134,29 @@
 ## ⚒️ 기술 스택
 
 ```
-    "@reduxjs/toolkit": "^1.9.3",
+    "@hookform/resolvers": "^3.3.4",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.8",
+    "quill-image-drop-module": "^1.0.3",
+    "quill-image-resize": "^3.0.9",
+    "quill-image-resize-module": "^3.0.0",
     "react": "^18.2.0",
-    "react-circular-progressbar": "^2.1.0",
-    "react-copy-to-clipboard": "^5.1.0",
-    "react-datepicker": "^4.10.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.8.0",
-    "react-js-pagination": "^3.0.3",
-    "react-kakao-maps-sdk": "^1.1.8",
-    "react-redux": "^8.0.5",
-    "react-router-dom": "^6.9.0",
-    "react-scripts": "5.0.1",
-    "react-spinners": "^0.13.8",
-    "react-time-picker": "^6.0.4",
-    "react-toastify": "^9.1.2",
-    "styled-components": "^5.3.6",
-    "swiper": "^9.2.3",
-    @mui/material": "^5.11.16",
-    @reduxjs/toolkit": "^1.9.3",
-    "axios": "^1.3.4",
+    "react-helmet-async": "^2.0.4",
+    "react-hook-form": "^7.51.3",
+    "react-icons": "^5.0.1",
+    "react-player": "^2.16.0",
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "^5.0.1",
+    "react-type-animation": "^3.2.0",
+    "recoil": "^0.7.7",
+    "styled-components": "^6.1.8",
+    "swiper": "^11.1.0",
+    "web-vitals": "^2.1.4",
+    "yup": "^1.4.0"
 ```
 
 <h2> 📁 폴더 구조 </h2>
@@ -198,8 +201,8 @@ npm run start
 
 <h2> ✍️ 아쉬웠던점 </h2>
 
-1. 초기세팅의 부재
+1. 디자인 패턴 부재
 2. 깃브랜치 전략 부재
-3. 설계부족으로인한 스파게티코드 다량발생
+3. 리액트가 다들 처음이라 스파게티 코드 등 최적화 해야할 요소 다량발생
 
 
