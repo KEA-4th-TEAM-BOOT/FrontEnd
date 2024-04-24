@@ -17,11 +17,17 @@ const PostCotent = () => {
       isFollowing: false,
       profileImage: "https://grayround.com/common/img/default_profile.png",
     },
+    content: {
+      text1:
+        "아직 길들여지지 않은 말이라는 뜻의 '새몰메'라는 옛 이름을 가지고 부소오름은 이름처럼 오름 또한 다소 거친 자연을 품고 있다.",
+      image1:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1xa5_TTy86kBnuq3u-ebBAklk11Z5DkIaeYraiW9sJ7CtioPJ",
+    },
   };
 
   const [postData, setPostData] = useState(PostData);
-  const [isLiked, setIsLiked] = useState(false);
-  const [likes, setLikes] = useState(0);
+  // const [isLiked, setIsLiked] = useState(false);
+  // const [likes, setLikes] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
 
   const toggleLike = () => {
@@ -53,7 +59,8 @@ const PostCotent = () => {
         <Category />
       </CategorySection>
       <ContentSection>
-        <ContentDisplay>콘텐츠{postData.content}</ContentDisplay>
+        <ContentDisplayText>{postData.content.text1}</ContentDisplayText>
+        <ContentDisplayImage src={postData.content.image1} alt="Content" />
         <PostBtnWrapper>
           <LikeInfo onClick={toggleLike}>
             {postData.isLiked ? (
@@ -112,6 +119,16 @@ const ContentDisplay = styled.div`
   font-size: 16px;
   color: #333;
   margin-bottom: 20px;
+`;
+
+const ContentDisplayText = styled.div`
+  margin: 20px 0;
+  font-size: 20px;
+`;
+
+const ContentDisplayImage = styled.img`
+  width: 300px;
+  height: 300px;
 `;
 
 const PostBtnWrapper = styled.div`
