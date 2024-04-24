@@ -3,7 +3,7 @@
 <h2> 🎧️ 글을 보고 듣다, 보다 🎧️ </h2>
 <h3> 원하는 목소리로 글을 들어봐요 </h3>
 
-<img width="958" alt="image" src="https://github.com/TravelRole/roleTravel-frontend/assets/91375979/8797eecd-72bf-459a-a931-1bdcc126178f">
+<img width="958" alt="image" src="https://github.com/KEA-4th-TEAM-BOOT/FrontEnd/assets/118448112/e4ec1199-e3d2-43be-959e-af5eb8cc8a18">
 <img width="958" alt="image" src="https://github.com/TravelRole/roleTravel-frontend/assets/91375979/bbe3ec1e-6289-4126-91d5-2f301ecc1ee6">
 <img width="958" alt="image" src="https://github.com/TravelRole/roleTravel-frontend/assets/91375979/8827fd7e-7e0e-4af3-b41b-db4c9a551090">
 
