@@ -4,8 +4,8 @@ import styled from "styled-components";
 const CardWrapper = styled.div`
   width: auto;
   height: auto;
-  background-color: black;
   border-radius: 20px;
+  border: 1px solid;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -48,7 +48,7 @@ const TitleContentWrapper = styled.div`
 
 const CardTitle = styled.h2`
   font-size: 45px;
-  color: #ffffff;
+  color: black;
   width: 100%;
   height: 55px;
   margin: 0;
@@ -59,7 +59,7 @@ const CardTitle = styled.h2`
 
 const CardText = styled.p`
   font-size: 20px;
-  color: #ffffff;
+  color: black;
   height: auto;
   margin-right: 10px;
   overflow-y: hidden; // 이거 스크롤 내리면 내용이 더 뜨게 할 건지 결정. 할 거라면 auto으로 바꾸기

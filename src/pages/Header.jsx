@@ -3,11 +3,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import writeIcon from "../assets/img/icons/writeicon.svg";
 import notifyIcon from "../assets/img/icons/notifyicon.svg";
-import logoImage from "../assets/img/logo.png";
 import profileImage from "../assets/img/profile.png";
 import LoginPage from "../components/login/LoginPage";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { modalState,UserData } from "../recoil/modal";
+import { modalState, UserData } from "../recoil/modal";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,7 +25,10 @@ const Header = () => {
   return (
     <HeaderContainer id="header" role="banner">
       <LogoLink to="/">
-        <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&" alt="Logo Image" />
+        <LogoImage
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&"
+          alt="Logo Image"
+        />
       </LogoLink>
       <MenuList>
         <MenuItem>
@@ -96,8 +98,8 @@ const HeaderContainer = styled.header`
 `;
 
 const LogoImage = styled.img`
-width: 144px;
-height: 55px;
+  width: 144px;
+  height: 55px;
 `;
 
 const LogoLink = styled(Link)`

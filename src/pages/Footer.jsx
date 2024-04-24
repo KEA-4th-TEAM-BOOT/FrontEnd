@@ -126,7 +126,6 @@ const FooterLink = styled(Link)`
   margin-top: 18px;
 
   &:first-of-type {
-    margin-top: 64px;
   }
 
   @media (max-width: 991px) {
@@ -138,7 +137,6 @@ const FooterLink = styled(Link)`
 
 const FooterContact = styled.div`
   display: flex;
-  margin-top: 9px;
   flex-direction: column;
   white-space: nowrap;
 
