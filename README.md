@@ -102,40 +102,30 @@
 
 </div>
 
-## 👩‍💻 여행역할
+## 👩‍💻 VODA Role
 
 <table align="center">
     <tr align="center">
         <td style="min-width: 150px;">
             <a href="https://github.com/imsmallgirl">
-              <img src="https://avatars.githubusercontent.com/u/108922353?v=4" width="200">
+              <img src= width="200">
               <br />
             </a>
         </td>
         <td style="min-width: 150px;" background-color="white">
             <a href="https://github.com/Chanwoo-Jeong">
-              <img src="https://avatars.githubusercontent.com/u/91375979?v=4" width="200">
+              <img src= width="200">
               <br />
             </a> 
         </td>
-        <td style="min-width: 150px;">
-            <a href="https://github.com/chaeyun-sim">
-              <img src="https://avatars.githubusercontent.com/u/111689342?v=4" width="200" >
-              <br />
-            </a>
-        </td>     
     </tr>
     <tr align="center">
         <td>
-            💛 유진 💛 <br/>
+             민지  <br/>
             Web FE
       </td>
         <td>
-            💚 찬우 💚 <br />
-            Web FE
-        </td>
-        <td>
-            🤍 채윤 🤍<br />
+             규원  <br />
             Web FE
         </td>
     </tr>
