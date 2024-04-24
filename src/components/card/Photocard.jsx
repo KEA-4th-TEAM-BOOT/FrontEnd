@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const CardWrapper = styled.div`
+  background-color: white;
   width: auto;
   height: auto;
   border-radius: 20px;
-  border: 1px solid;
+  border: 1px solid #ddd;
   overflow: hidden;
   display: flex;
   flex-direction: column;

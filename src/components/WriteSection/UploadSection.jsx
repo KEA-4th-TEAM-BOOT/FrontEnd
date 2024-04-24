@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import UploadButtonImg from "../../assets/img/icons/upload_button.svg";
+import UploadButtonImg from "../../assets/img/icons/uploadbutton.svg";
 const UploadSection = (props) => {
   const [visibility, setVisibility] = useState("public"); // or 'private'
   const [voice, setVoice] = useState("");
