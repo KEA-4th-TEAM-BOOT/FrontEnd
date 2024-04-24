@@ -3,7 +3,7 @@ import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 import "../assets/editor.css";
-import UploadButton from "../assets/img/icons/upload_button.svg";
+import UploadButton from "../assets/img/icons/uploadbutton.svg";
 import aiWriteImage from "../assets/img/AiWrite.png";
 import { ImageDrop } from "quill-image-drop-module";
 import ImageResize from "quill-image-resize";
