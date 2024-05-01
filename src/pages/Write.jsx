@@ -89,24 +89,26 @@ const Write = () => {
         <UploadSection />
       </UploadForm>
       <UploadContainer>
-        <UploadHeader>
-          <UploadHeaderContent>
-            <VoiceModelButton onClick={() => setIsOpen(!isOpen)}>
-              <VoiceModelIcon
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf28a1ae65431fb5474ce7b914eed5dd3008ce69e040ae6088b2c36bac06f537?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-                alt="Voice Model Icon"
-              />
-              <VoiceModelText>음성모델 추가</VoiceModelText>
-            </VoiceModelButton>
-            <TagButton onClick={() => setIsOpen(!isOpen)}>
-              <TagIcon>#</TagIcon>
-              <TagText>태그 추가</TagText>
-            </TagButton>
-            <UploadButtonWrapper onClick={() => setIsOpen(!isOpen)}>
-              <UploadIcon src={UploadButton} />
-            </UploadButtonWrapper>
-          </UploadHeaderContent>
-        </UploadHeader>
+        <UploadWrapper>
+          <UploadHeader>
+            <UploadHeaderContent>
+              <VoiceModelButton onClick={() => setIsOpen(!isOpen)}>
+                <VoiceModelIcon
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf28a1ae65431fb5474ce7b914eed5dd3008ce69e040ae6088b2c36bac06f537?apiKey=a9a9d68966df47cab33790d709ea20f1&"
+                  alt="Voice Model Icon"
+                />
+                <VoiceModelText>음성모델 추가</VoiceModelText>
+              </VoiceModelButton>
+              <TagButton onClick={() => setIsOpen(!isOpen)}>
+                <TagIcon>#</TagIcon>
+                <TagText>태그 추가</TagText>
+              </TagButton>
+              <UploadButtonWrapper onClick={() => setIsOpen(!isOpen)}>
+                <UploadIcon src={UploadButton} />
+              </UploadButtonWrapper>
+            </UploadHeaderContent>
+          </UploadHeader>
+        </UploadWrapper>
       </UploadContainer>
     </>
   );
@@ -127,6 +129,7 @@ const EditorDivWrppaer = styled.div`
 
 const EditorDiv = styled.div`
   width: 968px;
+  display: block;
   height: 775px;
   padding-left: 53px;
   padding-right: 53px;
@@ -182,6 +185,12 @@ const UploadForm = styled.form`
 `;
 
 const UploadContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+`;
+
+const UploadWrapper = styled.div`
   display: flex;
   flex-direction: column;
   color: var(--Black, #000);
@@ -266,6 +275,7 @@ const Sidebar = styled.aside`
   width: ${(props) => (props.isSideOpen ? "500px" : "0px")}; // 사이드바의 너비
   height: 100%; // 전체 높이
   background: #f2f5ff; // 배경색
+  float: right;
   transform: translateX(
     ${(props) => (props.isSideOpen ? "0" : "100%")}
   ); // 사이드바 토글
