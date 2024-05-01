@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import SubmittedModal from "./SubmittedModal";
 
 const ReportModal = ({ closeModal }) => {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = () => {
+    setSubmitted(true);
+  };
+
+  const handleClose = () => {
+    setSubmitted(false);
+    closeModal();
+  };
+
   return (
     <ModalOverlay onClick={closeModal}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
@@ -13,7 +25,8 @@ const ReportModal = ({ closeModal }) => {
         <ReportInfo>
           답변까지 작성일 기준 최대 24시간 소요됩니다. (공휴일 제외)
         </ReportInfo>
-        <PostReportBtn onClick={closeModal}>등록하기</PostReportBtn>
+        <PostReportBtn onClick={handleSubmit}>등록하기</PostReportBtn>
+        {submitted && <SubmittedModal close={handleClose} />}
       </ModalContainer>
     </ModalOverlay>
   );
