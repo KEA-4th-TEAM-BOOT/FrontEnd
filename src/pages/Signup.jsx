@@ -1,8 +1,9 @@
-import * as React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import termsImg from "../assets/img/icons/termsicon.svg";
 
 const schema = yup
   .object({
@@ -60,7 +61,7 @@ const Signup = () => {
     mode: "onChange",
   });
 
-  const [emailVerified, setEmailVerified] = React.useState(false);
+  const [emailVerified, setEmailVerified] = useState(false);
 
   const onSubmit = (data) => console.log(data);
 
@@ -69,406 +70,292 @@ const Signup = () => {
     setEmailVerified(true);
   };
 
-  return (
-    <Container>
-      <FormWrapper>
-        <Title>회원가입</Title>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Label>이름</Label>
-          <Input {...register("name")} />
-          <Error>{errors.name?.message}</Error>
-          <Divider />
+  const handleConfirmCode = () => {
+    console.log("Confirming code: ", getValues("confirmationCode"));
+    // 여기에 인증번호 확인 API 호출 로직 추가
+    // 인증번호가 맞는지 여부에 따라 setEmailVerified를 사용하여 emailVerified 값을 업데이트
+  };
 
-          <Label>이메일</Label>
-          <EmailWrapper>
-            <Email>{getValues("email") || "aaaa@gmail.com"}</Email>
-            <EmailButton type="button" onClick={handleVerifyEmail}>
-              {emailVerified ? "재인증" : "인증"}
-            </EmailButton>
-          </EmailWrapper>
-          <Error>{errors.email?.message}</Error>
-          <Divider />
+  const handleVerifyBlogUrl = () => {
+    console.log("Verifying blog URL: ", getValues("blogUrl"));
+    // 여기에 블로그 URL 중복 확인 API 호출 로직 추가
+  };
+
+  return (
+    <SignupWrapper>
+      <Title>회원가입</Title>
+      <FormWrapper>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <FormSection>
+            <FormLabel>이름</FormLabel>
+            <FormGroup>
+              <InputWrapper>
+                <DisplayName
+                  {...register("name")}
+                  placeholder="이름을 입력하세요"
+                />
+              </InputWrapper>
+              <WidthMarker>이름을 입력하세요</WidthMarker>
+              {errors["name"] && <Error>{errors["name"].message}</Error>}
+            </FormGroup>
+          </FormSection>
+
+          <FormSection>
+            <FormLabel>이메일</FormLabel>
+            <FormGroup>
+              <InputWrapper>
+                <DisplayName
+                  {...register("email")}
+                  placeholder="이메일을 입력하세요"
+                />
+                <VerifyButton
+                  onClick={handleVerifyEmail}
+                  disabled={emailVerified}
+                >
+                  인증
+                </VerifyButton>
+              </InputWrapper>
+              <WidthMarker>이메일을 입력하세요</WidthMarker>
+              {errors["email"] && <Error>{errors["email"].message}</Error>}
+            </FormGroup>
+          </FormSection>
 
           {emailVerified && (
-            <>
-              <Label>인증번호</Label>
-              <VerificationWrapper>
-                <VerificationCode {...register("confirmationCode")} />
-                <VerifyButton>확인</VerifyButton>
-              </VerificationWrapper>
-              <Error>{errors.confirmationCode?.message}</Error>
-              <Divider />
-            </>
+            <FormSection>
+              <FormLabel>인증번호</FormLabel>
+              <FormGroup>
+                <InputWrapper>
+                  <DisplayName
+                    {...register("confirmationCode")}
+                    placeholder="인증번호를 입력하세요"
+                  />
+                  <VerifyButton onClick={handleConfirmCode}>확인</VerifyButton>
+                </InputWrapper>
+                <WidthMarker>인증번호를 입력하세요</WidthMarker>
+                {errors["confirmationCode"] && (
+                  <Error>{errors["confirmationCode"].message}</Error>
+                )}
+              </FormGroup>
+            </FormSection>
           )}
 
-          <Label>비밀번호</Label>
-          <Password {...register("password")} type="password" />
-          <Error>{errors.password?.message}</Error>
-          <Divider />
-          <PasswordHint>
-            최소 하나 이상의 영문, 숫자, 특수문자 포함 (8-30자)
-          </PasswordHint>
+          <FormSection>
+            <FormLabel>비밀번호</FormLabel>
+            <FormGroup>
+              <InputWrapper>
+                <DisplayName
+                  {...register("password")}
+                  placeholder="비밀번호를 입력하세요"
+                  type="password"
+                />
+              </InputWrapper>
+              <WidthMarker>비밀번호를 입력하세요</WidthMarker>
+              {errors["password"] && (
+                <Error>{errors["password"].message}</Error>
+              )}
+            </FormGroup>
+          </FormSection>
 
-          <Label>비밀번호 확인</Label>
-          <PasswordConfirmWrapper>
-            <PasswordConfirm {...register("passwordConfirm")} type="password" />
-            <PasswordConfirmIcon
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/e2532982276e89e4d757a8b9aad4efb45a9e2e0081d28eb3344961a3bf127e68?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-              alt="Password confirm icon"
-            />
-          </PasswordConfirmWrapper>
-          <Error>{errors.passwordConfirm?.message}</Error>
-          <Divider />
+          <FormSection>
+            <FormLabel>비밀번호 확인</FormLabel>
+            <FormGroup>
+              <InputWrapper>
+                <DisplayName
+                  {...register("passwordConfirm")}
+                  placeholder="비밀번호 확인을 입력하세요"
+                  type="password"
+                />
+              </InputWrapper>
+              <WidthMarker>비밀번호 확인을 입력하세요</WidthMarker>
+              {errors["passwordConfirm"] && (
+                <Error>{errors["passwordConfirm"].message}</Error>
+              )}
+            </FormGroup>
+          </FormSection>
 
-          <Label>닉네임</Label>
-          <Input {...register("nickname")} />
-          <Error>{errors.nickname?.message}</Error>
-          <Divider />
-          <NicknameHint>
-            한글, 영문과 숫자 및 기호 (- _ .) 사용 가능 (3-12자)
-          </NicknameHint>
+          <FormSection>
+            <FormLabel>닉네임</FormLabel>
+            <FormGroup>
+              <InputWrapper>
+                <DisplayName
+                  {...register("nickname")}
+                  placeholder="닉네임을 입력하세요"
+                />
+              </InputWrapper>
+              <WidthMarker>닉네임을 입력하세요</WidthMarker>
+              {errors["nickname"] && (
+                <Error>{errors["nickname"].message}</Error>
+              )}
+            </FormGroup>
+          </FormSection>
 
-          <Label>블로그 링크</Label>
-          <BlogLinkWrapper>
-            <BlogLink>blog.domain.com/</BlogLink>
-            <DuplicateCheckButton type="button">중복확인</DuplicateCheckButton>
-          </BlogLinkWrapper>
-          <Error>{errors.blogUrl?.message}</Error>
-          <Divider />
+          <FormSection>
+            <FormLabel>블로그 링크</FormLabel>
+            <FormGroup>
+              <InputWrapper>
+                <BlogUrlPrefix>blog.domain.com/</BlogUrlPrefix>
+                <DisplayName
+                  {...register("blogUrl")}
+                  placeholder="블로그 링크를 입력하세요"
+                />
+                <VerifyButton onClick={handleVerifyBlogUrl}>
+                  중복 확인
+                </VerifyButton>
+              </InputWrapper>
+              <WidthMarker>블로그 링크를 입력하세요</WidthMarker>
+              {errors["blogUrl"] && <Error>{errors["blogUrl"].message}</Error>}
+            </FormGroup>
+          </FormSection>
+
+          <TermsWrapper
+            onClick={() => setValue("termsAgreed", !getValues("termsAgreed"))}
+          >
+            <TermsBox>
+              <TermsImg src={termsImg} />
+            </TermsBox>
+            <TermsTitle>
+              <TermsButton type="button">이용약관</TermsButton>과{" "}
+              <TermsButton type="button">개인정보취급방침</TermsButton>에
+              동의합니다.
+            </TermsTitle>
+          </TermsWrapper>
         </Form>
-        <TermsWrapper>
-          <TermsHint>영문 대소문자, 숫자와 - _ 만 입력 가능합니다.</TermsHint>
-          <TermsAgreeWrapper>
-            <TermsAgreeText>
-              <TermsAgreeCheckbox
-                {...register("termsAgreed")}
-                type="checkbox"
-              />
-              <TermsAgreeLabel>
-                <TermsLink>이용약관</TermsLink>과{" "}
-                <PrivacyLink>개인정보취급방침</PrivacyLink>에 동의합니다.
-              </TermsAgreeLabel>
-            </TermsAgreeText>
-          </TermsAgreeWrapper>
-          <Error>{errors.termsAgreed?.message}</Error>
-          <SignUpButton type="submit">가입하기</SignUpButton>
-        </TermsWrapper>
       </FormWrapper>
-    </Container>
+    </SignupWrapper>
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-  max-width: 1670px;
+export default Signup;
+
+const Error = styled.div`
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+`;
+
+const SignupWrapper = styled.div`
   width: 768px;
-  margin: 10px auto 0;
-  font-weight: 400;
-  @media (max-width: 991px) {
-    flex-wrap: wrap;
-    max-width: 100%;
-  }
+  margin: 100px auto 0px;
+  line-height: 1.5;
+`;
+
+const Title = styled.h2`
+  font-size: 4rem;
+  font-weight: bolder;
+  margin: 0px;
 `;
 
 const FormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: end;
-  margin-top: 90px;
-  @media (max-width: 991px) {
-    margin-top: 40px;
-    max-width: 100%;
-  }
-`;
-
-const Title = styled.h1`
-  font: 87px Syncopate, sans-serif;
-  text-align: center;
-  color: #000;
-  @media (max-width: 991px) {
-    font-size: 40px;
-    max-width: 100%;
-  }
+  box-sizing: inherit;
 `;
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin-top: 111px;
-  padding-left: 48px;
-  @media (max-width: 991px) {
-    margin-top: 40px;
-    padding-left: 20px;
-    max-width: 100%;
-  }
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 `;
 
-const Label = styled.label`
-  font: 46px Syncopate, sans-serif;
-  text-align: center;
-  color: #000;
-  @media (max-width: 991px) {
-    font-size: 40px;
-    max-width: 100%;
-  }
+const FormSection = styled.div`
+  box-sizing: inherit;
 `;
 
-const Input = styled.input`
-  font: 27px Pretendard, sans-serif;
-  color: #000;
-  margin-top: 92px;
-  @media (max-width: 991px) {
-    margin-top: 40px;
-    max-width: 100%;
-  }
+const FormLabel = styled.label`
+  font-weight: bold;
+  font-size: 1.125rem;
+  color: var(--text1);
+  transition: all 0.125s ease-in 0s;
 `;
 
-const Error = styled.p`
-  font: 21px Pretendard, sans-serif;
-  color: rgba(255, 12, 12, 0.8);
-  margin-top: 13px;
-  @media (max-width: 991px) {
-    max-width: 100%;
-  }
+const FormGroup = styled.div`
+  display: block;
+  margin-top: 10px;
+  max-width: 100%;
 `;
 
-const Divider = styled.hr`
-  height: 2px;
-  background-color: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(0, 0, 0, 0.6);
-  margin-top: 128px;
-  @media (max-width: 991px) {
-    margin-top: 40px;
-    max-width: 100%;
-  }
-`;
-
-const EmailWrapper = styled.div`
-  display: flex;
-  gap: 20px;
-  margin-top: 91px;
-  white-space: nowrap;
-  @media (max-width: 991px) {
-    flex-wrap: wrap;
-    margin-top: 40px;
-    white-space: initial;
-    max-width: 100%;
-  }
-`;
-
-const Email = styled.span`
-  font: 30px Pretendard, sans-serif;
-  color: rgba(0, 0, 0, 0.8);
-  flex: 1;
-`;
-
-const EmailButton = styled.button`
-  font: 27px Pretendard, sans-serif;
-  color: #000;
-`;
-
-const VerificationWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin-top: 91px;
-  font-size: 27px;
-  color: #000;
-  white-space: nowrap;
-  @media (max-width: 991px) {
-    flex-wrap: wrap;
-    margin-top: 40px;
-    white-space: initial;
-    max-width: 100%;
-  }
-`;
-
-const VerificationCode = styled.input`
-  font-family: Pretendard, sans-serif;
-`;
-
-const VerifyButton = styled.button`
-  font-family: Pretendard, sans-serif;
-`;
-
-const Password = styled.input`
-  font: 27px Pretendard, sans-serif;
-  color: #000;
-  margin-top: 92px;
-  @media (max-width: 991px) {
-    margin-top: 40px;
-    max-width: 100%;
-  }
-`;
-
-const PasswordHint = styled.p`
-  font: 21px Pretendard, sans-serif;
-  color: rgba(0, 0, 0, 0.8);
-  margin-top: 13px;
-  @media (max-width: 991px) {
-    max-width: 100%;
-  }
-`;
-
-const PasswordConfirmWrapper = styled.div`
-  display: flex;
-  gap: 20px;
-  margin-top: 95px;
-  font-size: 27px;
-  color: #000;
-  white-space: nowrap;
-  padding: 0 1px;
-  @media (max-width: 991px) {
-    flex-wrap: wrap;
-    margin-top: 40px;
-    white-space: initial;
-    max-width: 100%;
-  }
-`;
-
-const PasswordConfirm = styled.input`
-  font-family: Pretendard, sans-serif;
-  align-self: start;
-  flex: 1;
-`;
-
-const PasswordConfirmIcon = styled.img`
-  width: 30px;
-  aspect-ratio: 1;
-  object-fit: auto;
-  object-position: center;
-  fill: rgba(235, 235, 235, 0);
-`;
-
-const PasswordMismatch = styled.p`
-  font: 21px Pretendard, sans-serif;
-  color: rgba(255, 12, 12, 0.8);
-  margin-top: 13px;
-  @media (max-width: 991px) {
-    max-width: 100%;
-  }
-`;
-
-const NicknameHint = styled.p`
-  font: 21px Pretendard, sans-serif;
-  color: rgba(0, 0, 0, 0.8);
-  margin-top: 13px;
-  @media (max-width: 991px) {
-    max-width: 100%;
-  }
-`;
-
-const BlogLinkWrapper = styled.div`
-  display: flex;
-  gap: 20px;
-  margin-top: 60px;
-  font-size: 27px;
-  white-space: nowrap;
-  @media (max-width: 991px) {
-    flex-wrap: wrap;
-    margin-top: 40px;
-    white-space: initial;
-    max-width: 100%;
-  }
-`;
-
-const BlogLink = styled.span`
-  font-family: Pretendard, sans-serif;
-  color: #8d8d8d;
-  flex: 1;
-`;
-
-const DuplicateCheckButton = styled.button`
-  font-family: Pretendard, sans-serif;
-  color: #000;
-`;
-
-const TermsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  margin-top: 11px;
-  @media (max-width: 991px) {
-    max-width: 100%;
-  }
-`;
-
-const TermsHint = styled.p`
-  font: 21px Pretendard, sans-serif;
-  color: rgba(0, 0, 0, 0.8);
-  margin-left: 21px;
-  @media (max-width: 991px) {
-    margin-left: 10px;
-  }
-`;
-
-const TermsAgreeWrapper = styled.div`
-  display: flex;
-  align-self: stretch;
-  gap: 6px;
-  margin-top: 62px;
-  font-size: 28px;
-  color: #000;
-  @media (max-width: 991px) {
-    flex-wrap: wrap;
-    margin-top: 40px;
-  }
-`;
-
-const TermsAgreeIcon = styled.img`
-  width: 26px;
-  aspect-ratio: 1;
-  object-fit: auto;
-  object-position: center;
-  align-self: start;
-`;
-
-const TermsAgreeText = styled.div`
-  font-family: Syncopate, sans-serif;
-  @media (max-width: 991px) {
-    max-width: 100%;
-  }
-`;
-
-const TermsAgreeCheckbox = styled.input.attrs({ type: "checkbox" })`
-  margin-right: 10px;
-`;
-
-const TermsAgreeLabel = styled.label`
+const InputWrapper = styled.div`
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid;
   display: flex;
   align-items: center;
 `;
 
-const TermsLink = styled.span`
-  color: rgba(82, 120, 255, 1);
-  margin-right: 5px;
+const DisplayName = styled.input`
+  background: transparent;
+  font-size: 1.5rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: var(--text2);
+  transition: all 0.125s ease-in 0s;
 `;
 
-const PrivacyLink = styled.span`
-  color: rgba(82, 120, 255, 1);
-  margin-left: 5px;
+const WidthMarker = styled.div`
+  max-width: 100%;
+  display: inline-block;
+  visibility: hidden;
+  font-size: 1.5rem;
+  overflow: hidden;
+  line-height: 0;
 `;
 
-const SignUpButton = styled.button`
+const TermsWrapper = styled.div`
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  color: var(--text1);
+  gap: 0.5rem;
+  cursor: pointer;
+`;
+
+const TermsBox = styled.div`
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
   justify-content: center;
-  border-radius: 8.922px;
-  border: 1px solid rgba(0, 0, 0, 1);
-  background-color: #fff;
-  margin-top: 107px;
+`;
+
+const TermsImg = styled.img`
+  box-sizing: inherit;
+`;
+
+const TermsTitle = styled.span`
+  box-sizing: inherit;
+`;
+
+const TermsButton = styled.span`
+  color: #5278ff;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
+
+const VerifyButton = styled.button`
+  border: none;
   color: #0096ff;
-  white-space: nowrap;
+  padding: 8px 15px;
   text-align: center;
-  padding: 16px 42px;
-  font: 46px Syncopate, sans-serif;
-  @media (max-width: 991px) {
-    font-size: 40px;
-    margin-top: 40px;
-    white-space: initial;
-    padding: 0 20px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  outline: none; /* Remove default outline */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  flex: none; /* 추가: 버튼의 레이아웃을 명시적으로 정의 */
+
+  &:disabled {
+    background-color: #cccccc; /* Gray background when disabled */
+    cursor: not-allowed;
   }
 `;
 
-export default Signup;
+const BlogUrlPrefix = styled.span`
+  font-size: 1.5rem;
+  color: gray;
+  margin-right: 5px;
+`;
