@@ -62,6 +62,7 @@ const Signup = () => {
   });
 
   const [emailVerified, setEmailVerified] = useState(false);
+  const [termsAgreed, setTermsAgreed] = useState(false); // 새로운 상태 추가
 
   const onSubmit = (data) => console.log(data);
 
@@ -210,8 +211,10 @@ const Signup = () => {
           <TermsWrapper
             onClick={() => setValue("termsAgreed", !getValues("termsAgreed"))}
           >
-            <TermsBox>
-              <TermsImg src={termsImg} />
+            <TermsBox
+              onClick={() => setTermsAgreed(!termsAgreed)} // 상태 변경 로직 수정}
+            >
+              {termsAgreed && <TermsImg src={termsImg} />}
             </TermsBox>
             <TermsTitle>
               <TermsButton type="button">이용약관</TermsButton>과{" "}
@@ -219,6 +222,9 @@ const Signup = () => {
               동의합니다.
             </TermsTitle>
           </TermsWrapper>
+          {errors["termsAgreed"] && (
+            <Error>{errors["termsAgreed"].message}</Error>
+          )}
         </Form>
       </FormWrapper>
     </SignupWrapper>
@@ -309,7 +315,7 @@ const TermsWrapper = styled.div`
 const TermsBox = styled.div`
   width: 1.5rem;
   height: 1.5rem;
-  border: 1px solid var(--border2);
+  border: 1px solid;
   border-radius: 4px;
   display: flex;
   -webkit-box-align: center;
