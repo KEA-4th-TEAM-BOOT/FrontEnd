@@ -1,38 +1,57 @@
-import React,{useState} from 'react'
+import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import { modalState } from "../../recoil/modal";
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import Signup from '../../pages/Signup';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const ResetPassword = () => {
+  const nav = useNavigate();
   const setModal = useSetRecoilState(modalState);
   const [isVerificationVisible, setIsVerificationVisible] = useState(false);
 
   const handleSignUpClick = () => {
     setModal({
-      isOpen: true,
-      content: Signup,
-      props: {} // 필요한 경우 추가 props 전달
+      isOpen: false,
+      props: {},
     });
+
+    // 페이지 이동을 약간 지연시켜 모달 상태 업데이트가 반영되도록 합니다.
+    setTimeout(() => {
+      nav("/signup");
+    }, 10); // 10ms 지연
   };
 
   return (
     <ResetContainer>
-      <LogoImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/9565e099702b1ee404f6921020b6b1b5dcddadd9ff9592d2d29ec55681eec0e9?apiKey=a9a9d68966df47cab33790d709ea20f1&" loading="lazy" alt="Logo" />
+      <LogoImage
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/9565e099702b1ee404f6921020b6b1b5dcddadd9ff9592d2d29ec55681eec0e9?apiKey=a9a9d68966df47cab33790d709ea20f1&"
+        loading="lazy"
+        alt="Logo"
+      />
       <ResetContent>
         <Divider />
         <PageTitle>비밀번호 재설정</PageTitle>
         <EmailInputContainer>
           <EmailInputWrapper>
-            <EmailInput type="email" placeholder="가입하신 이메일 주소를 입력하세요" />
+            <EmailInput
+              type="email"
+              placeholder="가입하신 이메일 주소를 입력하세요"
+            />
           </EmailInputWrapper>
-          <SendVerificationButton onClick={() => setIsVerificationVisible(true)}>인증번호 발송</SendVerificationButton>
-          </EmailInputContainer>
-          {isVerificationVisible && (
+          <SendVerificationButton
+            onClick={() => setIsVerificationVisible(true)}
+          >
+            인증번호 발송
+          </SendVerificationButton>
+        </EmailInputContainer>
+        {isVerificationVisible && (
           <VerificationInputContainer>
             <VerificationWrapper>
-            <VerificationInput type="text" placeholder="인증번호를 입력하세요" />
+              <VerificationInput
+                type="text"
+                placeholder="인증번호를 입력하세요"
+              />
             </VerificationWrapper>
             <VerifyButton>인증번호 확인</VerifyButton>
           </VerificationInputContainer>
@@ -44,8 +63,8 @@ const ResetPassword = () => {
         </SignUpPrompt>
       </ResetContent>
     </ResetContainer>
-  )
-}
+  );
+};
 
 const ResetContainer = styled.main`
   border-radius: 5.879px;
@@ -128,11 +147,10 @@ const EmailInputWrapper = styled.form`
   position: relative;
 `;
 
-
 const EmailInput = styled.input`
-font-family: Pretendard, sans-serif;
-padding: 10px;
-border: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: Pretendard, sans-serif;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const SendVerificationButton = styled.button`
@@ -144,7 +162,7 @@ const SendVerificationButton = styled.button`
   text-align: center;
   padding: 14px 19px;
   font: 15px Syncopate, sans-serif;
-  cursor:pointer;
+  cursor: pointer;
   @media (max-width: 991px) {
     padding: 0 20px;
   }
@@ -198,24 +216,24 @@ const VerificationWrapper = styled.div`
 `;
 
 const VerificationInput = styled.input`
-font-family: Pretendard, sans-serif;
-padding: 10px;
-border: 1px solid rgba(0, 0, 0, 0.1);
+  font-family: Pretendard, sans-serif;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const VerifyButton = styled.button`
-justify-content: center;
-border-radius: 8.845px;
-border: 1px solid rgba(0, 0, 0, 0.5);
-background-color: #fff;
-color: #131313;
-text-align: center;
-padding: 14px 19px;
-font: 15px Syncopate, sans-serif;
-cursor:pointer;
-@media (max-width: 991px) {
-  padding: 0 20px;
-}
+  justify-content: center;
+  border-radius: 8.845px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  color: #131313;
+  text-align: center;
+  padding: 14px 19px;
+  font: 15px Syncopate, sans-serif;
+  cursor: pointer;
+  @media (max-width: 991px) {
+    padding: 0 20px;
+  }
 `;
 
-export default ResetPassword
+export default ResetPassword;

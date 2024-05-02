@@ -33,12 +33,12 @@ const App = () => {
               <Route path="/mypage" element={<Mypage />} />
               <Route path="/post" element={<Post />} />
               <Route path="/setting" element={<Setting />} />
-              <Route path="/signup" element={<Signup />} />
               <Route path="*" element={<Not />} />
               <Route path="/post1" element={<Post />} />
             </Route>
             <Route element={<MinimalLayout />}>
               <Route path="/write" element={<Write />} />
+              <Route path="/signup" element={<Signup />} />
             </Route>
           </Routes>
         </Suspense>
