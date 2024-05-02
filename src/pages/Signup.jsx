@@ -235,6 +235,7 @@ export default Signup;
 
 const Error = styled.div`
   color: red;
+  margin-bottom: 10px;
   font-size: 0.875rem;
   margin-top: 0.25rem;
 `;
