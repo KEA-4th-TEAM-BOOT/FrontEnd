@@ -78,7 +78,10 @@ const PostCotent = () => {
           <InfoContainer>
             <Nickname>{postData.user.nickname}</Nickname>
             <Introduction>{postData.user.intro}</Introduction>
-            <FollowButton onClick={toggleFollow}>
+            <FollowButton
+              onClick={toggleFollow}
+              isFollowing={postData.user.isFollowing}
+            >
               {postData.user.isFollowing ? "팔로잉" : "팔로우"}
             </FollowButton>
           </InfoContainer>
@@ -112,13 +115,6 @@ const ContentSection = styled.section`
   width: 80%;
   padding: 0 30px;
   box-sizing: border-box;
-`;
-
-const ContentDisplay = styled.div`
-  margin: 30px 0;
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 20px;
 `;
 
 const ContentDisplayText = styled.div`
@@ -184,15 +180,17 @@ const Introduction = styled.p`
 `;
 
 const FollowButton = styled.button`
-  background: #007bff;
-  color: white;
-  border: none;
+  background: ${(props) => (props.isFollowing ? "white" : "#007bff")};
+  color: ${(props) => (props.isFollowing ? "#007bff" : "white")};
+  border: ${(props) =>
+    props.isFollowing ? "2px solid #007bff" : "2px solid white"};
   padding: 10px 15px;
   border-radius: 20px;
   cursor: pointer;
   margin-top: 10px;
   &:hover {
-    background: #0056b3;
+    background: ${(props) => (props.isFollowing ? "#f0f0f0" : "#0056b3")};
+    color: ${(props) => (props.isFollowing ? "#007bff" : "white")};
   }
 `;
 

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import ReactPlayer from "react-player";
 
-import postPlayIcon from "../../assets/img/icons/postplayicon.svg";
+import playBtn from "../../assets/img/icons/postplayicon.svg";
+import pauseBtn from "../../assets/img/icons/postpauseicon.svg";
 
 const PostHeader = () => {
   const postInfoData = [
@@ -14,11 +16,31 @@ const PostHeader = () => {
         "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTaWksGAUsmDHd-Zmfu6-6TgiH0qtw23poll21guIBMfSvCXsDf",
       date: "2024.03.01",
       time: "01: 50",
+      audioUrl: "https://youtu.be/emnB9kam3vg?si=bABEitRoB7lILkvl",
     },
   ];
 
-  const { nickname, category, title, tags, profileImage, date, time } =
-    postInfoData[0];
+  const {
+    nickname,
+    category,
+    title,
+    tags,
+    profileImage,
+    date,
+    time,
+    audioUrl,
+  } = postInfoData[0];
+
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const copyUrlToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href);
+    alert("URL이 복사되었습니다!");
+  };
 
   return (
     <PostHeaderContainer>
@@ -26,7 +48,20 @@ const PostHeader = () => {
         <BlogTitle>{nickname} 님의 블로그</BlogTitle>
         <Category>{category}</Category>
         <TitleWrapper>
-          <PostPlayIcon src={postPlayIcon} />
+          <PostPlayIcon
+            src={isPlaying ? pauseBtn : playBtn}
+            alt="Play or pause"
+            onClick={togglePlay}
+            isPlaying={isPlaying}
+          />
+          <ReactPlayer
+            url={audioUrl}
+            playing={isPlaying}
+            controls
+            width="0"
+            height="0"
+            style={{ display: "none" }}
+          />
           <PostTitle>{title}</PostTitle>
         </TitleWrapper>
         <TagsContainer>
@@ -44,7 +79,7 @@ const PostHeader = () => {
           <ButtonContainer>
             <EditButton>수정</EditButton>
             <DeleteButton>삭제</DeleteButton>
-            <CopyUrlBtn>URL 복사</CopyUrlBtn>
+            <CopyUrlBtn onClick={copyUrlToClipboard}>URL 복사</CopyUrlBtn>
           </ButtonContainer>
         </BottomSection>
       </HeaderWrapper>

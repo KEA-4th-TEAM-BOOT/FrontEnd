@@ -98,7 +98,7 @@ const SearchInput = styled.input`
   width: 110px;
   padding: 10px;
   padding-right: 35px;
-  text-indent: -25px;
+  text-indent: 5px;
   border: 1px solid #ddd;
   border-radius: 30px;
   background-color: rgba(217, 217, 217, 0.3);

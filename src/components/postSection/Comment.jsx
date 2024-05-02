@@ -1,35 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Comment = () => {
+  const initialCommentsToShow = 5;
   const CommentData = [
-    {
-      nickname: "santo123",
-      comment: "사진이 너무 예뻐요",
-    },
-    {
-      nickname: "santo123",
-      comment: "사진이 너무 예뻐요",
-    },
-    {
-      nickname: "santo123",
-      comment: "사진이 너무 예뻐요",
-    },
-    {
-      nickname: "santo123",
-      comment: "사진이 너무 예뻐요",
-    },
-    {
-      nickname: "santo123",
-      comment: "사진이 너무 예뻐요",
-    },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
+    { nickname: "santo123", comment: "사진이 너무 예뻐요" },
   ];
+
+  const [commentsToShow, setCommentsToShow] = useState(initialCommentsToShow);
+
+  const showMoreComments = () => {
+    setCommentsToShow(commentsToShow + 5);
+  };
+
   return (
     <CommentWrapper>
       <Title>댓글</Title>
       <Divider />
-      <MoreComments>댓글 더보기</MoreComments>
-      {CommentData.map((item, index) => (
+      {commentsToShow < CommentData.length && (
+        <MoreComments onClick={showMoreComments}>댓글 더보기</MoreComments>
+      )}
+      {CommentData.slice(0, commentsToShow).map((item, index) => (
         <CommentRow key={index}>
           <Nickname>{item.nickname}</Nickname>
           <CommentText>{item.comment}</CommentText>
@@ -63,7 +68,7 @@ const Title = styled.h2`
 `;
 
 const Divider = styled.hr`
-  margin-top: 15px;
+  margin: 20px 0;
   border: none;
   height: 1px;
   background-color: #eaeaea;
@@ -109,14 +114,15 @@ const MoreComments = styled.button`
   text-align: center;
 `;
 
-const WriteComment = styled.input`
+const WriteComment = styled.textarea`
   width: 100%;
-  padding: 10px;
+  padding: 20px;
   margin: 10px 0;
   border: 1px solid #dadada;
   border-radius: 5px;
   box-sizing: border-box;
   min-height: 90px;
+  line-height: 2;
   resize: none;
   font-size: 15px;
   vertical-algin: top;
