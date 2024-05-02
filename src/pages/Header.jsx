@@ -190,6 +190,5 @@ const ProfileLink = styled(Link)`
   text-decoration: none;
   display: flex;
   align-items: center;
-  width: 50px;
   height: auto;
 `;

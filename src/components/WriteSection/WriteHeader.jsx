@@ -14,24 +14,28 @@ const WriteHeader = () => {
         </LogoSection>
         <Title>새 게시물 작성</Title>
       </HeaderContent>
-      <ProfileSection to="/mypage">
-        <ProfileImage src={profileImage} alt="Profile" />
-      </ProfileSection>
+      <HeaderMenu>
+        <ProfileSection to="/mypage">
+          <ProfileImage src={profileImage} alt="Profile" />
+        </ProfileSection>
+      </HeaderMenu>
     </HeaderWrapper>
   );
 };
 
 const HeaderWrapper = styled.header`
-  border-bottom: 1px solid rgba(228, 228, 228, 1);
-  background-color: #fff;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 104px;
+  padding: 0 0 0 50px;
+  transition: opacity 0.5s;
+  letter-spacing: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 53px 5px 0;
-
-  @media (max-width: 991px) {
-    padding: 5px 20px;
-  }
+  box-sizing: border-box;
+  flex-wrap: nowrap;
 `;
 
 const HeaderContent = styled.div`
@@ -40,13 +44,16 @@ const HeaderContent = styled.div`
   gap: 48px;
 `;
 
-const LogoSection = styled(Link)``;
+const LogoSection = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  width: 144px;
+  height: 55px;
+`;
 
 const Logo = styled.img`
-  width: 98px;
-  padding-left: 53px;
-  aspect-ratio: 2.63;
-  object-fit: contain;
+  width: 144px;
+  height: 55px;
 `;
 
 const Title = styled.h1`
@@ -57,7 +64,22 @@ const Title = styled.h1`
   margin: 0;
 `;
 
-const ProfileSection = styled(Link)``;
+const HeaderMenu = styled.ul`
+  margin-left: auto;
+  height: 55px;
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-end; // 오른쪽 정렬
+  align-items: center;
+  flex-wrap: nowrap;
+`;
+
+const ProfileSection = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  height: auto;
+`;
 
 const ProfileImage = styled.img`
   width: 51px;
