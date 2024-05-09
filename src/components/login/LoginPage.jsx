@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { Link } from "react-router-dom";
-import { modalState, UserData } from "../../recoil/modal";
+import { modalState } from "../../recoil/modal";
+import { UserData } from "../../recoil/user";
 import { useNavigate } from "react-router-dom";
 import ResetPassword from "../reset/ResetPassword";
 
