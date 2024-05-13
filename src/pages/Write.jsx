@@ -118,13 +118,15 @@ export default Write;
 
 const EditorDivWrppaer = styled.div`
   min-width: 1280px;
-  padding-top: 0px;
+  padding-top: 104px;
+  padding-left: 22vw;
+  padding-bottom: 82px;
   height: 930px;
   display: flex;
   flex-direction: row;
   align-items: center;
   text-align: left;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 const EditorDiv = styled.div`
@@ -133,7 +135,6 @@ const EditorDiv = styled.div`
   height: 775px;
   padding-left: 53px;
   padding-right: 53px;
-  padding-top: 102px;
   background-color: #ffffff;
   position: relative; // 여기에 relative를 추가했으므로 AIButtonSection을 이 위치에 고정시킬 수 있습니다.
 `;
@@ -272,7 +273,7 @@ const UploadIcon = styled.img`
 `;
 
 const Sidebar = styled.aside`
-  width: ${(props) => (props.isSideOpen ? "500px" : "0px")}; // 사이드바의 너비
+  width: ${(props) => (props.isSideOpen ? "28vw" : "0px")}; // 사이드바의 너비
   height: 100%; // 전체 높이
   background: #f2f5ff; // 배경색
   float: right;
