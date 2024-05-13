@@ -17,12 +17,17 @@ Quill.register("modules/ImageResize", ImageResize);
 const Write = () => {
   const quillRef = useRef();
   const [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
   const dropDownRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isSideOpen, setIsSideOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSideOpen(!isSideOpen); // isOpen 상태를 토글합니다.
+  };
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
   };
 
   useEffect(() => {
@@ -66,7 +71,10 @@ const Write = () => {
       <WriteHeader />
       <EditorDivWrppaer>
         <EditorDiv>
-          <TitleInput placeholder="제목을 입력하세요" />
+          <TitleInput
+            onChange={handleTitleChange}
+            placeholder="제목을 입력하세요"
+          />
           <ReactQuill
             style={{ height: "590px" }}
             placeholder="당신의 글을 들려주세요"
@@ -86,7 +94,7 @@ const Write = () => {
       </EditorDivWrppaer>
 
       <UploadForm isOpen={isOpen} ref={dropDownRef}>
-        <UploadSection />
+        <UploadSection title={title} content={content} />
       </UploadForm>
       <UploadContainer>
         <UploadWrapper>
@@ -117,7 +125,7 @@ const Write = () => {
 export default Write;
 
 const EditorDivWrppaer = styled.div`
-  min-width: 1280px;
+  min-width: 70.2vw;
   padding-top: 104px;
   padding-left: 22vw;
   padding-bottom: 82px;
@@ -188,7 +196,6 @@ const UploadForm = styled.form`
 const UploadContainer = styled.div`
   position: fixed;
   bottom: 0;
-  width: 100vw;
 `;
 
 const UploadWrapper = styled.div`
@@ -203,7 +210,7 @@ const UploadWrapper = styled.div`
 const UploadHeader = styled.header`
   background-color: #f2f5ff;
   display: flex;
-  width: 100%;
+  width: 100vw;
   flex-direction: column;
   align-items: end;
   justify-content: center;
