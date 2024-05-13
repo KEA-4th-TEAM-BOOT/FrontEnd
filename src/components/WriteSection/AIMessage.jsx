@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { TypeAnimation } from "react-type-animation";
 
 const AIMessage = ({ messageType, text }) => {
-  console.log(messageType);
   if (messageType === 1) text = "글의 대상 독자층은 누구인가요?";
   else if (messageType === 3) text = "글의 길이는 어느정도로 작성할까요?";
   else if (messageType === 5) text = "글의 제목은 어떤 스타일로 작성할까요?";

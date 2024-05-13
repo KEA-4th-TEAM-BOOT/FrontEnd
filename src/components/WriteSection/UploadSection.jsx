@@ -12,9 +12,13 @@ const UploadSection = (props) => {
   const [tagList, setTagList] = useState([]);
   const navigate = useNavigate();
 
+  const Title = props.title;
+  const Content = props.content;
   const onhandleSubmit = () => {
+    console.log("Title" + Title);
+    console.log("Content :" + Content);
     alert("업로드 되었습니다.");
-    navigate("/post1");
+    // navigate("/post1"); 작성한 글 쪽으로 Navigate되게 설정
   };
 
   const onhandletag = (e) => {
@@ -50,7 +54,7 @@ const UploadSection = (props) => {
   const tags = ["#추천태그1", "#추천태그2", "#추천태그3", "#추천태그4"];
 
   return (
-    <>
+    <UploadSectionContainer>
       <SectionContainer>
         <SectionWrapper id="section_1">
           <VisibilitySection>
@@ -210,27 +214,33 @@ const UploadSection = (props) => {
             </TagBox>
           </TagWriteSection>
         </SectionWrapper>
+        <Boxthumb>
+          <Innerbox>
+            <Inpg type="file" accept="image/*" />
+            <Icon />
+            <Txtthumb>대표이미지 추가</Txtthumb>
+          </Innerbox>
+        </Boxthumb>
       </SectionContainer>
-      <Boxthumb>
-        <Innerbox>
-          <Inpg type="file" accept="image/*" />
-          <Icon />
-          <Txtthumb>대표이미지 추가</Txtthumb>
-        </Innerbox>
-      </Boxthumb>
+
       <UploadButtonWrapper onClick={onhandleSubmit}>
         <UploadButton src={UploadButtonImg} />
       </UploadButtonWrapper>
-    </>
+    </UploadSectionContainer>
   );
 };
 
 export default UploadSection;
 
+const UploadSectionContainer = styled.div`
+  width: 100vw;
+`;
+
 const SectionContainer = styled.div`
-  width: 1252px;
+  width: 50.9vw;
   height: 239px;
-  margin: 53px 257px;
+  padding-left: 14.7vw;
+  padding-top: 49px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -241,49 +251,49 @@ const SectionWrapper = styled.div`
   display: flex;
   width: 100%;
   gap: 20px;
-  border-bottom: 1px solid;
+  justify-content: space-between;
 `;
 
 const VisibilitySection = styled.div`
   display: flex;
-  width: 50%;
   align-items: center;
   gap: 10px;
+  border-bottom: 1px solid;
 `;
 
 const VoiceSection = styled.div`
   display: flex;
-  width: 50%;
   align-items: center;
   gap: 10px;
+  border-bottom: 1px solid;
 `;
 
 const CategorySection = styled.div`
   display: flex;
-  width: 50%;
   align-items: center;
   gap: 10px;
+  border-bottom: 1px solid;
 `;
 
 const TagRecommendSection = styled.div`
   display: flex;
-  width: 50%;
   align-items: center;
   gap: 10px;
+  border-bottom: 1px solid;
 `;
 
 const TopicSection = styled.div`
   display: flex;
-  width: 50%;
   align-items: center;
   gap: 10px;
+  border-bottom: 1px solid;
 `;
 
 const TagWriteSection = styled.div`
   display: flex;
-  width: 50%;
   align-items: center;
   gap: 10px;
+  border-bottom: 1px solid;
 `;
 
 const TopicOptions = styled.div`

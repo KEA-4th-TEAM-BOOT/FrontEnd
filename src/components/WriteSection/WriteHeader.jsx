@@ -26,7 +26,7 @@ const WriteHeader = () => {
 const HeaderWrapper = styled.header`
   position: absolute;
   z-index: 100;
-  width: 100%;
+  width: 100vw;
   height: 104px;
   padding: 0 0 0 50px;
   transition: opacity 0.5s;
