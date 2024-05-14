@@ -88,31 +88,33 @@ const BannerWrapper = styled.div`
   box-sizing: content-box;
 `;
 
+// StyledSwiperSlide의 display 속성을 table에서 flex로 변경
 const StyledSwiperSlide = styled(SwiperSlide)`
-  display: table;
+  display: flex;
   height: 640px;
   position: relative;
   justify-content: center;
   align-items: center;
-  font-size: 20px; // 글자 크기 조정
+  font-size: 20px;
 `;
 
+// BannerContent의 display 속성을 table-cell에서 flex로 변경
 const BannerContent = styled.div`
+  width: 100%;
   height: 100%;
   position: relative;
   background-image: url(${(props) => props.image});
   background-size: cover;
   background-repeat: no-repeat;
-  display: table-cell;
-  padding: 40px 0 0;
-  background-position: 50% 50%;
-  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
 `;
 
 const BannerScene = styled.div`
   position: relative;
   width: 1080px;
-  margin-left: 255px;
   text-align: left;
 `;
 
