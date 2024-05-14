@@ -2,21 +2,21 @@ import axios from "axios";
 
 const TOKEN_TYPE = localStorage.getItem("tokenType");
 let ACCESS_TOKEN = localStorage.getItem("accessToken");
-
+const baseURL = process.env.REACT_APP_USER_BASE_URL;
 /** CREATE CUSTOM AXIOS INSTANCE */
 export const AuthApi = axios.create({
-  baseURL: "/api",
+  baseURL: baseURL,
   headers: {
     "Content-Type": "application/json",
     Authorization: `${TOKEN_TYPE} ${ACCESS_TOKEN}`,
+    "Access-Control-Allow-Origin": "*",
   },
-  withCredentials: true, // CORS에서 자격 증명 사용을 위해 추가
 });
 
 /** LOGIN API */
 export const login = async ({ email, password }) => {
   const data = { email, password };
-  const response = await AuthApi.post(`/auth/login`, data);
+  const response = await AuthApi.post(`/api/v1/auth/login`, data);
   return response.data;
 };
 
@@ -29,6 +29,6 @@ export const signUp = async ({
   blogUrl,
 }) => {
   const data = { username, email, password, nickname, blogUrl };
-  const response = await AuthApi.post(`/auth/register`, data);
+  const response = await AuthApi.post(`/api/v1/auth/register`, data);
   return response.data;
 };
