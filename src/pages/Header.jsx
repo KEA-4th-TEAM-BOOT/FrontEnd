@@ -53,11 +53,11 @@ const Header = () => {
               color: "black",
             }}
           >
-            <HeaderMenuIcon src={writeIcon} alt="Write Icon" />
+            <HeaderMenuIconW src={writeIcon} alt="Write Icon" />
           </Link>
         </HeaderMenuItem>
         <HeaderMenuItem>
-          <HeaderMenuIcon src={notifyIcon} alt="Notify Icon" />
+          <HeaderMenuIconN src={notifyIcon} alt="Notify Icon" />
         </HeaderMenuItem>
         {/* 로그인 O -> 프로필 이미지 / 로그인 X -> "로그인" 텍스트 */}
         {isLoggedIn ? (
@@ -94,8 +94,9 @@ const HeaderContainer = styled.header`
 `;
 
 const LogoImage = styled.img`
-  width: 144px;
-  height: 55px;
+  width: 96px;
+  height: 36px;
+  align-self: center;
 `;
 
 const LogoLink = styled(Link)`
@@ -117,7 +118,7 @@ const MenuList = styled.ul`
 `;
 
 const MenuItem = styled.li`
-  margin-right: 20px;
+  margin-right: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,22 +150,20 @@ const HeaderMenuItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: start; // 왼쪽 정렬
-  margin-right: 30px;
+  margin-right: 25px;
 `;
 
-// const IconAndTextContainer = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: flex-start;
-// `;
-
-const HeaderMenuIcon = styled.img`
-  width: 25px;
-  height: 25px;
-  margin-right: 15px;
+const HeaderMenuIconW = styled.img`
+  width: 27px;
+  height: 27px;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const HeaderMenuIconN = styled(HeaderMenuIconW)`
+  width: 25px;
+  height: 25px;
 `;
 
 const MenuText = styled.span`
