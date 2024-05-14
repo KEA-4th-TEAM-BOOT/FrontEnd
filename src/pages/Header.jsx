@@ -53,23 +53,19 @@ const Header = () => {
               color: "black",
             }}
           >
-            <IconAndTextContainer>
-              <HeaderMenuIcon src={writeIcon} alt="Write Icon" />
-              <MenuText>글쓰기</MenuText>
-            </IconAndTextContainer>
+            <HeaderMenuIcon src={writeIcon} alt="Write Icon" />
           </Link>
         </HeaderMenuItem>
         <HeaderMenuItem>
-          <IconAndTextContainer>
-            <HeaderMenuIcon src={notifyIcon} alt="Notify Icon" />
-            <MenuText>알림</MenuText>
-          </IconAndTextContainer>
+          <HeaderMenuIcon src={notifyIcon} alt="Notify Icon" />
         </HeaderMenuItem>
         {/* 로그인 O -> 프로필 이미지 / 로그인 X -> "로그인" 텍스트 */}
         {isLoggedIn ? (
-          <ProfileLink to="/mypage">
-            <ProfileImage src={profileImage} alt="Profile Image" />
-          </ProfileLink>
+          <HeaderMenuItem>
+            <ProfileLink to="/mypage">
+              <ProfileImage src={profileImage} alt="Profile Image" />
+            </ProfileLink>
+          </HeaderMenuItem>
         ) : (
           <HeaderMenuItem>
             <MenuText onClick={handleLoginClick}>로그인</MenuText>
@@ -121,7 +117,7 @@ const MenuList = styled.ul`
 `;
 
 const MenuItem = styled.li`
-  margin-right: 30px;
+  margin-right: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,7 +126,7 @@ const MenuItem = styled.li`
 
 const MenuLink = styled(Link)`
   text-decoration: none;
-  font-size: 18px;
+  font-size: 16px;
   color: black;
   display: flex;
   align-items: center;
@@ -153,37 +149,38 @@ const HeaderMenuItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: start; // 왼쪽 정렬
-  margin-right: 20px;
-  min-width: 100px;
+  margin-right: 30px;
 `;
 
-const IconAndTextContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-`;
+// const IconAndTextContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: flex-start;
+// `;
 
 const HeaderMenuIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
+  width: 25px;
+  height: 25px;
+  margin-right: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 0 0 24px;
 `;
 
 const MenuText = styled.span`
   font-weight: bold;
-  font-size: 18px;
-  height: 24px;
+  font-size: 16px;
   cursor: pointer;
+  min-width: 50px;
+  margin-right: 30px;
 `;
 
 const ProfileImage = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%; // 프로필 이미지 동그랗게
+  cursor: pointer;
+  margin-right: 30px;
 `;
 
 const ProfileLink = styled(Link)`

@@ -96,8 +96,8 @@ const AutoPlayer = () => {
 export default AutoPlayer;
 
 const AutoPlayerContainer = styled.div`
-  width: 1000px;
-  margin: 150px auto;
+  width: 900px;
+  margin: 110px auto 0 auto;
   display: flex;
   align-itmes: center;
   justify-content: space-between;
@@ -133,13 +133,13 @@ const IconAndMenu = styled.div`
 `;
 
 const Icon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: 25px;
+  height: 25px;
   margin-right: 10px;
 `;
 
 const MenuText = styled.span`
-  font-size: 20px;
+  font-size: 15px;
   color: #333;
 `;
 
@@ -148,7 +148,7 @@ const SelectElement = styled.select`
   padding: 15px 40px 15px 25px;
   border-radius: 20px;
   border: 1px solid #ccc;
-  font-size: 20px;
+  font-size: 14px;
   color: #666;
   outline: none;
   cursor: pointer;
@@ -167,6 +167,8 @@ const SpeedControls = styled.div`
   border-radius: 20px;
   padding: 10px;
   width: 190px;
+  height: 47.6px;
+  box-sizing: border-box;
 `;
 
 const SpeedButton = styled.button`
@@ -175,14 +177,14 @@ const SpeedButton = styled.button`
   align-items: center;
   border: none;
   background: white;
-  font-size: 20px;
+  font-size: 14px;
   cursor: pointer;
 `;
 
 const SpeedDisplay = styled.div`
   width: 50px;
   text-align: center;
-  font-size: 20px;
+  font-size: 14px;
   margin: 0 15px;
 `;
 
@@ -192,12 +194,12 @@ const SearchInputBox = styled.input`
   padding: 15px 25px;
   border: 1px solid #ccc;
   border-radius: 20px;
-  font-size: 20px;
+  font-size: 14px;
   outline: none;
 `;
 
 const PlayButton = styled.button`
-  min-width: 150px;
+  min-width: 125px;
   padding: 12px 20px;
   background-color: #9ab3f5;
   color: white;
@@ -215,6 +217,6 @@ const PlayButton = styled.button`
 
 const InfoText = styled.span`
   margin-top: 10px;
-  font-size: 15px;
+  font-size: 12px;
   color: white;
 `;
