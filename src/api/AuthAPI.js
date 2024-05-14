@@ -26,9 +26,9 @@ export const signUp = async ({
   email,
   password,
   nickname,
-  blogUrl,
+  userLink,
 }) => {
-  const data = { username, email, password, nickname, blogUrl };
+  const data = { username, email, password, nickname, userLink };
   const response = await AuthApi.post(`/api/v1/auth/register`, data);
   return response.data;
 };

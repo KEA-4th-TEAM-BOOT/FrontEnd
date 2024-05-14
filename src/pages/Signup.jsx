@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -36,7 +36,7 @@ const schema = yup
         "닉네임은 한글, 영문과 숫자 및 기호 (- _ .) 사용 가능 (3-12자)"
       )
       .required("닉네임을 입력해주세요"),
-    blogUrl: yup
+    userLink: yup
       .string()
       .matches(
         /^[a-zA-Z0-9]{4,20}$/,
@@ -45,7 +45,8 @@ const schema = yup
       .required("블로그 링크를 입력해주세요"),
     termsAgreed: yup
       .boolean()
-      .oneOf([true], "이용약관과 개인정보취급방침에 동의해주세요"),
+      .oneOf([true], "이용약관과 개인정보취급방침에 동의해주세요")
+      .required("이용약관과 개인정보취급방침에 동의해주세요"),
   })
   .required();
 
@@ -56,13 +57,20 @@ const Signup = () => {
     formState: { errors },
     setValue,
     getValues,
+    watch,
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
 
   const [emailVerified, setEmailVerified] = useState(false);
-  const [termsAgreed, setTermsAgreed] = useState(false); // 새로운 상태 추가
+  const [verifyButtonEnabled, setVerifyButtonEnabled] = useState(false);
+
+  const emailValue = watch("email");
+
+  useEffect(() => {
+    setVerifyButtonEnabled(!errors.email && emailValue);
+  }, [errors.email, emailValue]);
 
   const onSubmit = async (data) => {
     if (!emailVerified) {
@@ -72,34 +80,32 @@ const Signup = () => {
     console.log("Form data:", data);
 
     try {
-      // API 호출을 위해 signUp 함수 사용
       const response = await signUp({
-        username: data.name, // 이 예제에서는 name 필드를 username으로 매핑했습니다.
+        username: data.name,
         email: data.email,
         password: data.password,
         nickname: data.nickname,
-        blogUrl: data.blogUrl,
+        userLink: data.userLink,
       });
       console.log("Signup success:", response);
-      // 성공적인 회원가입 후 로직 (예: 로그인 페이지로 리디렉션)
       window.location.href = `/`;
     } catch (error) {
       console.error("Signup failed:", error);
-      // 실패 시 사용자에게 알림
     }
   };
 
-  const handleVerifyEmail = () => {
+  const handleVerifyEmail = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
     console.log("Verifying email: ", getValues("email"));
     setEmailVerified(true);
   };
 
-  const handleConfirmCode = () => {
+  const handleConfirmCode = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
     const confirmationCode = getValues("confirmationCode");
     console.log("Confirming code: ", confirmationCode);
-    // 인증번호 확인 API 호출 로직을 여기에 추가하세요.
-    // 예시 로직: API 응답을 기다린 후 결과에 따라 setEmailVerified 업데이트
-    // 아래는 예시 로직으로, 실제 API 호출 코드가 필요합니다.
     fakeApiCallToVerifyCode(confirmationCode).then((isVerified) => {
       if (isVerified) {
         setEmailVerified(true);
@@ -112,16 +118,21 @@ const Signup = () => {
   };
 
   const fakeApiCallToVerifyCode = (code) => {
-    // 이 함수는 실제로는 서버와의 통신을 구현해야 합니다.
-    // 여기서는 단순히 예시로 모든 코드를 올바르다고 가정합니다.
     return new Promise((resolve) =>
       setTimeout(() => resolve(code === "1234"), 1000)
     );
   };
 
-  const handleVerifyBlogUrl = () => {
-    console.log("Verifying blog URL: ", getValues("blogUrl"));
-    // 여기에 블로그 URL 중복 확인 API 호출 로직 추가
+  const handleVerifyBlogUrl = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    console.log("Verifying blog URL: ", getValues("userLink"));
+  };
+
+  const handleTermsClick = (event) => {
+    event.stopPropagation();
+    const currentValue = getValues("termsAgreed");
+    setValue("termsAgreed", !currentValue, { shouldValidate: true });
   };
 
   return (
@@ -153,7 +164,7 @@ const Signup = () => {
                 />
                 <VerifyButton
                   onClick={handleVerifyEmail}
-                  disabled={emailVerified}
+                  disabled={!verifyButtonEnabled || emailVerified}
                 >
                   인증
                 </VerifyButton>
@@ -238,7 +249,7 @@ const Signup = () => {
               <InputWrapper>
                 <BlogUrlPrefix>blog.domain.com/</BlogUrlPrefix>
                 <DisplayName
-                  {...register("blogUrl")}
+                  {...register("userLink")}
                   placeholder="블로그 링크를 입력하세요"
                 />
                 <VerifyButton onClick={handleVerifyBlogUrl}>
@@ -246,17 +257,15 @@ const Signup = () => {
                 </VerifyButton>
               </InputWrapper>
               <WidthMarker>블로그 링크를 입력하세요</WidthMarker>
-              {errors["blogUrl"] && <Error>{errors["blogUrl"].message}</Error>}
+              {errors["userLink"] && (
+                <Error>{errors["userLink"].message}</Error>
+              )}
             </FormGroup>
           </FormSection>
 
-          <TermsWrapper
-            onClick={() => setValue("termsAgreed", !getValues("termsAgreed"))}
-          >
-            <TermsBox
-              onClick={() => setTermsAgreed(!termsAgreed)} // 상태 변경 로직 수정}
-            >
-              {termsAgreed && <TermsImg src={termsImg} />}
+          <TermsWrapper onClick={handleTermsClick}>
+            <TermsBox>
+              {getValues("termsAgreed") && <TermsImg src={termsImg} />}
             </TermsBox>
             <TermsTitle>
               <TermsButton>이용약관</TermsButton>과{" "}
@@ -266,7 +275,10 @@ const Signup = () => {
           {errors["termsAgreed"] && (
             <Error>{errors["termsAgreed"].message}</Error>
           )}
-          <StyledButton type="submit" disabled={!emailVerified}>
+          <StyledButton
+            type="submit"
+            disabled={!emailVerified || !getValues("termsAgreed")}
+          >
             회원 가입
           </StyledButton>
         </Form>
@@ -396,12 +408,12 @@ const VerifyButton = styled.button`
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
-  outline: none; /* Remove default outline */
-  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-  flex: none; /* 추가: 버튼의 레이아웃을 명시적으로 정의 */
+  outline: none;
+  transition: background-color 0.3s ease;
+  flex: none;
 
   &:disabled {
-    background-color: #cccccc; /* Gray background when disabled */
+    background-color: #cccccc;
     cursor: not-allowed;
   }
 `;
