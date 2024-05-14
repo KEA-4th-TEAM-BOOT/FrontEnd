@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import termsImg from "../assets/img/icons/termsicon.svg";
+import { signUp } from "../api/AuthAPI";
 
 const schema = yup
   .object({
@@ -37,10 +38,9 @@ const schema = yup
       .required("닉네임을 입력해주세요"),
     blogUrl: yup
       .string()
-      .url("유효한 URL을 입력해주세요")
       .matches(
-        /^[a-zA-Z0-9-_]+$/,
-        "영문 대소문자, 숫자와 - _ 만 입력 가능합니다"
+        /^[a-zA-Z0-9]{4,20}$/,
+        "블로그 링크는 한글, 영문과 숫자만 사용 가능 (4-20자)"
       )
       .required("블로그 링크를 입력해주세요"),
     termsAgreed: yup
@@ -64,7 +64,30 @@ const Signup = () => {
   const [emailVerified, setEmailVerified] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false); // 새로운 상태 추가
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    if (!emailVerified) {
+      alert("Please verify your email before submitting.");
+      return;
+    }
+    console.log("Form data:", data);
+
+    try {
+      // API 호출을 위해 signUp 함수 사용
+      const response = await signUp({
+        username: data.name, // 이 예제에서는 name 필드를 username으로 매핑했습니다.
+        email: data.email,
+        password: data.password,
+        nickname: data.nickname,
+        blogUrl: data.blogUrl,
+      });
+      console.log("Signup success:", response);
+      // 성공적인 회원가입 후 로직 (예: 로그인 페이지로 리디렉션)
+      window.location.href = `/`;
+    } catch (error) {
+      console.error("Signup failed:", error);
+      // 실패 시 사용자에게 알림
+    }
+  };
 
   const handleVerifyEmail = () => {
     console.log("Verifying email: ", getValues("email"));
@@ -72,9 +95,28 @@ const Signup = () => {
   };
 
   const handleConfirmCode = () => {
-    console.log("Confirming code: ", getValues("confirmationCode"));
-    // 여기에 인증번호 확인 API 호출 로직 추가
-    // 인증번호가 맞는지 여부에 따라 setEmailVerified를 사용하여 emailVerified 값을 업데이트
+    const confirmationCode = getValues("confirmationCode");
+    console.log("Confirming code: ", confirmationCode);
+    // 인증번호 확인 API 호출 로직을 여기에 추가하세요.
+    // 예시 로직: API 응답을 기다린 후 결과에 따라 setEmailVerified 업데이트
+    // 아래는 예시 로직으로, 실제 API 호출 코드가 필요합니다.
+    fakeApiCallToVerifyCode(confirmationCode).then((isVerified) => {
+      if (isVerified) {
+        setEmailVerified(true);
+        console.log("Email verified successfully!");
+      } else {
+        setEmailVerified(false);
+        console.log("Failed to verify email.");
+      }
+    });
+  };
+
+  const fakeApiCallToVerifyCode = (code) => {
+    // 이 함수는 실제로는 서버와의 통신을 구현해야 합니다.
+    // 여기서는 단순히 예시로 모든 코드를 올바르다고 가정합니다.
+    return new Promise((resolve) =>
+      setTimeout(() => resolve(code === "1234"), 1000)
+    );
   };
 
   const handleVerifyBlogUrl = () => {
@@ -217,14 +259,16 @@ const Signup = () => {
               {termsAgreed && <TermsImg src={termsImg} />}
             </TermsBox>
             <TermsTitle>
-              <TermsButton type="button">이용약관</TermsButton>과{" "}
-              <TermsButton type="button">개인정보취급방침</TermsButton>에
-              동의합니다.
+              <TermsButton>이용약관</TermsButton>과{" "}
+              <TermsButton>개인정보취급방침</TermsButton>에 동의합니다.
             </TermsTitle>
           </TermsWrapper>
           {errors["termsAgreed"] && (
             <Error>{errors["termsAgreed"].message}</Error>
           )}
+          <StyledButton type="submit" disabled={!emailVerified}>
+            회원 가입
+          </StyledButton>
         </Form>
       </FormWrapper>
     </SignupWrapper>
@@ -311,6 +355,7 @@ const TermsWrapper = styled.div`
   color: var(--text1);
   gap: 0.5rem;
   cursor: pointer;
+  padding-bottom: 50px;
 `;
 
 const TermsBox = styled.div`
@@ -365,4 +410,17 @@ const BlogUrlPrefix = styled.span`
   font-size: 1.5rem;
   color: gray;
   margin-right: 5px;
+`;
+
+const StyledButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6.845px;
+  border: 1px solid rgba(0, 0, 0, 1);
+  background-color: #fff;
+  color: #0096ff;
+  padding: 14px 29px;
+  font: normal 400 21px/1 "Pretendard", sans-serif;
+  cursor: pointer;
 `;

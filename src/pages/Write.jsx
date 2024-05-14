@@ -10,9 +10,14 @@ import ImageResize from "quill-image-resize";
 import WriteHeader from "../components/WriteSection/WriteHeader";
 import UploadSection from "../components/WriteSection/UploadSection";
 import AIWrite from "../components/WriteSection/AIWrite";
+import AWS from "aws-sdk";
 
 Quill.register("modules/imageDrop", ImageDrop);
 Quill.register("modules/ImageResize", ImageResize);
+
+const REGION = process.env.REACT_APP_AWS_S3_BUCKET_REGION;
+const ACCESS_KEY = process.env.REACT_APP_AWS_S3_BUCKET_ACCESS_KEY_ID;
+const SECRET_ACCESS_KEY = process.env.REACT_APP_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
 const Write = () => {
   const quillRef = useRef();
@@ -28,6 +33,47 @@ const Write = () => {
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
+  };
+
+  const imageHandler = async () => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+    input.addEventListener("change", async () => {
+      //이미지를 담아 전송할 file을 만든다
+      const file = input.files?.[0];
+      try {
+        //업로드할 파일의 이름으로 Date 사용
+        const name = Date.now();
+        //생성한 s3 관련 설정들
+        AWS.config.update({
+          region: REGION,
+          accessKeyId: ACCESS_KEY,
+          secretAccessKey: SECRET_ACCESS_KEY,
+        });
+        //앞서 생성한 file을 담아 s3에 업로드하는 객체를 만든다
+        const upload = new AWS.S3.ManagedUpload({
+          params: {
+            ACL: "public-read",
+            Bucket: "kea-boot-postimage", //버킷 이름
+            Key: `post/${name}`,
+            Body: file,
+          },
+        });
+        //이미지 업로드 후
+        //곧바로 업로드 된 이미지 url을 가져오기
+        const IMG_URL = await upload.promise().then((res) => res.Location);
+        //useRef를 사용해 에디터에 접근한 후
+        //에디터의 현재 커서 위치에 이미지 삽입
+        const editor = quillRef.current.getEditor();
+        const range = editor.getSelection();
+        // 가져온 위치에 이미지를 삽입한다
+        editor.insertEmbed(range.index, "image", IMG_URL);
+      } catch (error) {
+        console.log(error);
+      }
+    });
   };
 
   useEffect(() => {
@@ -55,11 +101,14 @@ const Write = () => {
           [{ color: [] }, { background: [] }],
           [{ align: [] }, "link", "image", "video"],
         ],
+        handlers: {
+          image: imageHandler,
+        },
       },
       ImageResize: {
         parchment: Quill.import("parchment"),
       },
-      imageDrop: true,
+      imageDrop: imageHandler,
       clipboard: {
         matchVisual: false,
       },
