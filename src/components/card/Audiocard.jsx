@@ -21,8 +21,8 @@ export default AudioCard;
 const CardWrapper = styled.div`
   position: relative;
   display: flex;
-  width: 300px;
-  height: 442px;
+  width: 207px;
+  height: 300px;
   border-radius: 15px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   overflow: hidden;

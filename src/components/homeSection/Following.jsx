@@ -1,96 +1,154 @@
 import React from "react";
 import styled from "styled-components";
-import Photocard from "../card/Photocard";
+import AudioCard from "../card/Audiocard";
 import gotofollowIcon from "../../assets/img/icons/moreicon.svg";
 import { Link } from "react-router-dom";
 
 const Following = () => {
-  const cardData = [
+  const FollowingData = [
     {
-      images: [
-        "https://lh5.googleusercontent.com/p/AF1QipN-CN6qlIZYm3sgIfj7QNumuWcbjLb_FMwY4n8u=w360-h240-n-k-no",
-        "https://www.eligasht.com/Blog/wp-content/uploads/2018/02/1-123.jpg",
-        "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTDDqq96F2rhK-wxi09sRZ2E_l_TQG6nEZsRh-6zL-A8MOegMtK",
-        "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTWEURGMeQYchg9jredju0SycpOe2-aymvTiJiCbLU6uT7KePIi",
-        "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9HmobSvf_Cjw-9bgL_LqQE4AcpCZX2JUCrNBJDnSWHK-HK7nK",
-      ],
-      title: "Title",
-      content:
-        "Today, the weather was nice, so I went for a walk in the park. There were many people there. People walking with their dogs, riding bikes, and sitting on benches talking. Everyone looked relaxed. I walked slowly through the park. The wind blew my hair and the trees stood tall with green leaves, and the flowers bloomed in beautiful colors. ",
+      imageUrl:
+        "https://i.namu.wiki/i/DxT8JMtpNj45oL_AHXWWowhJqzigx87KCDZrLeV4ePpO3oZCCylQj-W_qtrM2Zo2B0_82-Hv4PGN5C2ElOtR0w.webp",
+      category: "문화",
+      title: "도시 탐험",
+      writer: "도시 탐험가",
+      tag: "#도시 #문화 #탐험 #여행",
     },
     {
-      images: [
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT89Rjs4udfjJHfTJaIN3_Fs2QeXi2DCdNnuL8Zdoy-MEBvAi23",
-        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS-xAjXbvgIZaOt3SYU453_FwR50D0KcZAtDoYiFmJr9LjAJfHx",
-        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQAM71espsJLdKRNAUyTU9n0AZQIYU4YA3K1aQeDk-3TaeaZSRp",
-        "https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/6P0U/image/XMF6KM28fi669jjED2GIXTux7pc.jpg",
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjZmHViiPFQfVYsDCBvAAA3H8pzqv7zroMpEEz0Ysxcw&s",
-      ],
-      title: "Title",
-      content:
-        "Today, the weather was nice, so I went for a walk in the park. There were many people there. People walking with their dogs, riding bikes, and sitting on benches talking. Everyone looked relaxed. I walked slowly through the park. The wind blew my hair and the trees stood tall with green leaves, and the flowers bloomed in beautiful colors. ",
+      imageUrl:
+        "https://cdn.kormedi.com/wp-content/uploads/2023/06/unnamed-file-152.jpg",
+      category: "라이프스타일",
+      title: "아침 루틴",
+      writer: "일상의 발견",
+      tag: "#아침 #일상 #건강 #라이프스타일",
+    },
+    {
+      imageUrl:
+        "https://news.samsungdisplay.com/wp-content/uploads/2021/12/1223_%EC%9D%B4%EB%AF%B8%EC%A7%801.jpg",
+      category: "IT",
+      title: "2024 기술 트렌드",
+      writer: "실리콘 밸리 리포트",
+      tag: "#기술 #트렌드 #2024 #혁신",
+    },
+    {
+      imageUrl:
+        "https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2jJV/image/Mf_XOc0EP5PP_Ki7DrKrvPSm_cI.jpg",
+      category: "여행",
+      title: "유럽의 숨은 보석",
+      writer: "글로벌 여행",
+      tag: "#여행 #유럽 #숨은명소 #발견",
+    },
+    {
+      imageUrl:
+        "https://i.namu.wiki/i/DxT8JMtpNj45oL_AHXWWowhJqzigx87KCDZrLeV4ePpO3oZCCylQj-W_qtrM2Zo2B0_82-Hv4PGN5C2ElOtR0w.webp",
+      category: "문화",
+      title: "도시 탐험",
+      writer: "도시 탐험가",
+      tag: "#도시 #문화 #탐험 #여행",
+    },
+    {
+      imageUrl:
+        "https://cdn.kormedi.com/wp-content/uploads/2023/06/unnamed-file-152.jpg",
+      category: "라이프스타일",
+      title: "아침 루틴",
+      writer: "일상의 발견",
+      tag: "#아침 #일상 #건강 #라이프스타일",
+    },
+    {
+      imageUrl:
+        "https://news.samsungdisplay.com/wp-content/uploads/2021/12/1223_%EC%9D%B4%EB%AF%B8%EC%A7%801.jpg",
+      category: "IT",
+      title: "2024 기술 트렌드",
+      writer: "실리콘 밸리 리포트",
+      tag: "#기술 #트렌드 #2024 #혁신",
+    },
+    {
+      imageUrl:
+        "https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2jJV/image/Mf_XOc0EP5PP_Ki7DrKrvPSm_cI.jpg",
+      category: "여행",
+      title: "유럽의 숨은 보석",
+      writer: "글로벌 여행",
+      tag: "#여행 #유럽 #숨은명소 #발견",
+    },
+    {
+      imageUrl:
+        "https://i.namu.wiki/i/DxT8JMtpNj45oL_AHXWWowhJqzigx87KCDZrLeV4ePpO3oZCCylQj-W_qtrM2Zo2B0_82-Hv4PGN5C2ElOtR0w.webp",
+      category: "문화",
+      title: "도시 탐험",
+      writer: "도시 탐험가",
+      tag: "#도시 #문화 #탐험 #여행",
+    },
+    {
+      imageUrl:
+        "https://cdn.kormedi.com/wp-content/uploads/2023/06/unnamed-file-152.jpg",
+      category: "라이프스타일",
+      title: "아침 루틴",
+      writer: "일상의 발견",
+      tag: "#아침 #일상 #건강 #라이프스타일",
     },
   ];
-
   return (
     <FollowingWrapper>
-      <Header>
-        <Title>팔로잉</Title>
+      <FollowingHeader>
+        <FollowingTitle>팔로잉</FollowingTitle>
         <Link to="/follow">
           <GoToFollow src={gotofollowIcon} alt="Go to follow" />
         </Link>
-      </Header>
-      <PhotocardWrapper>
-        {cardData.map((data, index) => (
-          <Photocard
+      </FollowingHeader>
+      <AudioCardContainer>
+        {FollowingData.map((card, index) => (
+          <AudioCard
             key={index}
-            images={data.images}
-            title={data.title}
-            content={data.content}
+            imageUrl={card.imageUrl}
+            category={card.category}
+            title={card.title}
+            writer={card.writer}
+            tag={card.tag}
           />
         ))}
-      </PhotocardWrapper>
+      </AudioCardContainer>
     </FollowingWrapper>
   );
 };
 
 export default Following;
 
-const FollowingWrapper = styled.section`
-  width: 1374px;
-  height: auto;
-  padding-top: 107px;
-  padding-left: 197px;
-  padding-right: 197px;
-  margin: 0 auto;
+const FollowingWrapper = styled.div`
+  width: 1115px;
+  margin: 110px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-itmes: center;
+  padding: 0;
 `;
 
-const Header = styled.div`
+const FollowingHeader = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 `;
 
-const Title = styled.h1`
-  font-size: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+const FollowingTitle = styled.h1`
+  font-size: 2rem;
+  color: #222;
 `;
 
 const GoToFollow = styled.img`
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-
-  &:hover {
-    opacity: 0.7;
-  }
 `;
 
-const PhotocardWrapper = styled.div`
-  display: flex;
+const AudioCardContainer = styled.div`
   width: 100%;
-  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  column-gap: 20px;
+  row-gap: 40px;
+  //   display: grid;
+  //   grid-template-columns: repeat(4, 1fr);
+  //   align-self: center;
 `;
