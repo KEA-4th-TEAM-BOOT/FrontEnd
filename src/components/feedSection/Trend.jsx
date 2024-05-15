@@ -99,21 +99,21 @@ export default Trend;
 
 const TrendSection = styled.section`
   background-color: rgba(153, 213, 255, 0.29);
-  height: 640px;
+  height: 730px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 110px;
 `;
 
 const Title = styled.h2`
-  margin-top: 104px;
+  margin-top: 60px;
   color: #000;
-  margin-bottom: 50px;
-  margin-left: 200px;
-  font-size: 60px;
-  font-weight: bold;
-  text-align: left;
+  margin-bottom: 77px;
+  font-size: 50px;
+  font-weight: 700;
+  text-align: center;
   width: 100%;
 `;
 

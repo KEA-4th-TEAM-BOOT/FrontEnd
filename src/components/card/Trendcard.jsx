@@ -62,9 +62,21 @@ const TrendCard = ({
         <Content>{content}</Content>
         <Divider />
         <StatsArea>
-          <Likes>좋아요 {likes}</Likes>
-          <Time>재생시간 {formatTimeShort(totalTime)}</Time>
-          <UserCount>오디오재생 {playCount}</UserCount>
+          <Likes>
+            좋아요
+            <br />
+            <NumInfo>{likes}</NumInfo>
+          </Likes>
+          <Time>
+            재생시간
+            <br />
+            <NumInfo>{formatTimeShort(totalTime)}</NumInfo>
+          </Time>
+          <UserCount>
+            오디오재생
+            <br />
+            <NumInfo>{playCount}</NumInfo>
+          </UserCount>
         </StatsArea>
         <PlayButton onClick={togglePlay}>
           <CircularProgressWrapper>
@@ -119,13 +131,15 @@ const CardContainer = styled.div`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   padding: 20px;
-  width: 328px;
-  height: auto;
+  width: 270px;
+  height: 445px;
 `;
 
 const ImageWrapper = styled.div`
   position: relative;
   padding-top: 55%;
+  // width: 220px;
+  // height: 100px;
 `;
 
 const Image = styled.img`
@@ -136,21 +150,6 @@ const Image = styled.img`
   height: 100%;
   border-radius: 10px;
   object-fit: cover;
-`;
-
-const ContentArea = styled.div`
-  padding: 15px;
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #000;
-`;
-
-const Content = styled.p`
-  font-size: 16px;
-  color: #575757;
 `;
 
 const TagContainer = styled.div`
@@ -165,6 +164,21 @@ const Tag = styled.span`
   padding: 2px 8px;
   border-radius: 5px;
   font-size: 12px;
+`;
+const Title = styled.span`
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: #000;
+`;
+
+const ContentArea = styled.div`
+  padding: 10px;
+`;
+
+const Content = styled.p`
+  font-size: 13px;
+  color: #575757;
 `;
 
 const Divider = styled.hr`
@@ -182,18 +196,25 @@ const StatsArea = styled.div`
 `;
 
 const Likes = styled.span`
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
+  text-align: center;
 `;
 
 const Time = styled.span`
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
+  text-align: center;
 `;
 
 const UserCount = styled.span`
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
+  text-align: center;
+`;
+
+const NumInfo = styled.span`
+  font-weight: bold;
 `;
 
 const PlayButton = styled.button`
@@ -202,7 +223,8 @@ const PlayButton = styled.button`
   border: none;
   cursor: pointer;
   padding: 0;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-left: 0px;
 `;
 
 const CircularProgressWrapper = styled.div`
