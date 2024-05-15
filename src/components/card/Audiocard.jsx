@@ -1,17 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import PlayIcon from "../../assets/img/icons/audioplayicon.svg";
+
 const AudioCard = ({ imageUrl, category, title, writer, tag }) => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = imageUrl;
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+      const imageData = ctx.getImageData(0, 0, img.width, img.height);
+      const data = imageData.data;
+      let r, g, b, avg;
+      let colorSum = 0;
+
+      for (let x = 0, len = data.length; x < len; x += 4) {
+        r = data[x];
+        g = data[x + 1];
+        b = data[x + 2];
+        avg = Math.floor((r + g + b) / 3);
+        colorSum += avg;
+      }
+
+      const brightness = Math.floor(colorSum / (img.width * img.height));
+      setIsDark(brightness < 128);
+    };
+  }, [imageUrl]);
+
   return (
     <CardWrapper>
       <ImageBackground image={imageUrl}></ImageBackground>
       <BlurOverlay>
-        <Category>{category}</Category>
-        <Title>{title}</Title>
-        <Writer>{writer}</Writer>
-        <Tag>{tag}</Tag>
+        <Category isDark={isDark}>{category}</Category>
+        <Title isDark={isDark}>{title}</Title>
+        <Writer isDark={isDark}>{writer}</Writer>
+        <Tag isDark={isDark}>{tag}</Tag>
       </BlurOverlay>
-      <PlayButton aria-label="Play">▶️</PlayButton>
+      <PlayButton aria-label="Play">
+        <PlayIconImg src={PlayIcon} alt="Play Icon" />
+      </PlayButton>
     </CardWrapper>
   );
 };
@@ -40,7 +74,7 @@ const ImageBackground = styled.div`
 
 const BlurOverlay = styled.div`
   width: 100%;
-  height: 33%; // 이제 높이의 3분의 1가 블러 처리됩니다.
+  height: 30%;
   position: absolute;
   bottom: 0;
   background: rgba(0, 0, 0, 0.1);
@@ -54,33 +88,34 @@ const BlurOverlay = styled.div`
 
 const PlayButton = styled.button`
   position: absolute;
-  right: 20px;
-  bottom: 163px; // BlurOverlay의 높이의 절반만큼 설정하여 경계에 배치합니다.
-  width: 45px;
-  height: 45px;
-  background-color: #fff;
+  right: 3px;
+  bottom: 104px;
+  background: none;
   border: none;
-  border-radius: 50%;
   cursor: pointer;
-
-  &:hover {
-    background-color: #e5e5e5;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:focus {
     outline: none;
   }
 `;
 
+const PlayIconImg = styled.img`
+  width: 50px;
+  height: 50px;
+`;
+
 const Category = styled.h2`
   font-size: 11px;
-  color: pink;
+  color: ${(props) => (props.isDark ? "white" : "black")};
   margin: 0;
 `;
 
 const Title = styled.h1`
   font-size: 16px;
-  color: white;
+  color: ${(props) => (props.isDark ? "white" : "black")};
   margin: 0;
   margin-top: 3px;
   margin-bottom: 10px;
@@ -88,12 +123,12 @@ const Title = styled.h1`
 
 const Writer = styled.p`
   font-size: 10px;
-  color: black;
+  color: ${(props) => (props.isDark ? "white" : "black")};
   margin: 0;
 `;
 
 const Tag = styled.p`
   font-size: 11px;
-  color: white;
+  color: ${(props) => (props.isDark ? "white" : "black")};
   padding: 0;
 `;
