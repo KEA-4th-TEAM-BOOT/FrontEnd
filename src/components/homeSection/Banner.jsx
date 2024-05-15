@@ -13,7 +13,7 @@ const Banner = () => {
         navigation={false}
         modules={[Navigation, Autoplay]}
         className="mySwiper"
-        slidesPerView={1} // 한 번에 보여줄 슬라이드 수
+        slidesPerView={1}
         loop={true}
         autoplay={{ delay: 4000, disableOnInteraction: false }}
         speed={1100}
@@ -88,7 +88,6 @@ const BannerWrapper = styled.div`
   box-sizing: content-box;
 `;
 
-// StyledSwiperSlide의 display 속성을 table에서 flex로 변경
 const StyledSwiperSlide = styled(SwiperSlide)`
   display: flex;
   height: 640px;
@@ -98,7 +97,6 @@ const StyledSwiperSlide = styled(SwiperSlide)`
   font-size: 20px;
 `;
 
-// BannerContent의 display 속성을 table-cell에서 flex로 변경
 const BannerContent = styled.div`
   width: 100%;
   height: 100%;

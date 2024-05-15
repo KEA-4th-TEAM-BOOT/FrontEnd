@@ -16,19 +16,19 @@ const Footer = () => {
         <FooterDescription>
           <Logo
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-            alt="Auda Logo"
+            alt="Voda Logo"
           />
           <DescriptionText>
-            사용자가 자신의 블로그에 글을 작성하면, VODA 서비스
-            <br />를 통해 해당 글을 음성으로 들을 수 있습니다. 글 뿐만 아
-            <br /> 니라, 사진과 동영상도 음성으로 설명해줍니다.
-            <br />
+            사용자가 자신의 블로그에 글을 작성하면, VODA 서비스를 통해 해당 글을
+            음성으로 들으실 수 있습니다.
           </DescriptionText>
         </FooterDescription>
         <FooterLinks>
           <FooterLinksTitle>Quick Link</FooterLinksTitle>
           {footerLinks.map((link) => (
-            <FooterLink to={link.url}>{link.label}</FooterLink>
+            <FooterLink to={link.url} key={link.label}>
+              {link.label}
+            </FooterLink>
           ))}
         </FooterLinks>
         <FooterContact>
@@ -57,6 +57,8 @@ const Footer = () => {
   );
 };
 
+export default Footer;
+
 const FooterWrapper = styled.footer`
   display: flex;
   justify-content: center;
@@ -68,17 +70,11 @@ const FooterWrapper = styled.footer`
 `;
 
 const FooterContent = styled.div`
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.2) 0%,
-    rgba(19, 124, 255, 0.2) 71.66%
-  );
   display: flex;
   width: 100%;
-  align-items: start;
-  gap: 20px;
+  max-width: 1200px;
   justify-content: space-between;
-  padding: 80px 75px;
+  padding: 80px 200px;
 
   @media (max-width: 991px) {
     flex-wrap: wrap;
@@ -90,98 +86,95 @@ const FooterDescription = styled.div`
   display: flex;
   flex-direction: column;
   line-height: 32px;
-
+  align-items: center;
+  flex: 1;
   @media (max-width: 991px) {
     max-width: 100%;
   }
 `;
 
 const Logo = styled.img`
-  width: 102px;
+  width: 180px;
   max-width: 100%;
 `;
 
 const DescriptionText = styled.p`
   font-family: Roboto, sans-serif;
-  margin-top: 59px;
-
-  @media (max-width: 991px) {
-    margin-top: 40px;
-  }
+  text-align: center;
+  padding: 0 43px;
+  margin-top: 20px;
+  font-size: 17px;
 `;
 
 const FooterLinks = styled.nav`
   display: flex;
-  margin-top: 9px;
   flex-direction: column;
+  align-items: center;
+  flex: 1;
 `;
 
-const FooterLinksTitle = styled.h3`
+const FooterLinksTitle = styled.span`
   color: #333;
-  font: 700 28px Roboto, sans-serif;
+  margin: 16px 0;
+  font: 700 30px Roboto, sans-serif;
+  text-align: center;
 `;
 
 const FooterLink = styled(Link)`
   font-family: Roboto, sans-serif;
-  margin-top: 18px;
-
+  margin-top: 10px;
+  text-align: center;
+  color: inherit;
+  text-decoration: none;
   &:first-of-type {
+    margin-top: 24px;
   }
-
-  @media (max-width: 991px) {
-    &:first-of-type {
-      margin-top: 40px;
-    }
+  &:hover {
+    color: inherit;
+  }
+  &:visited {
+    color: inherit;
   }
 `;
 
 const FooterContact = styled.div`
   display: flex;
   flex-direction: column;
-  white-space: nowrap;
+  align-items: center;
+  flex: 1;
 
   @media (max-width: 991px) {
     white-space: initial;
   }
 `;
 
-const FooterContactTitle = styled.h3`
+const FooterContactTitle = styled.span`
   color: #333;
-  font: 700 28px Roboto, sans-serif;
+  font: 700 30px Roboto, sans-serif;
+  margin: 16px 0;
+  text-align: center;
 `;
 
 const FooterContactItem = styled.div`
   display: flex;
-  gap: 20px;
-  margin-top: 36px;
-
+  align-items: center;
   &:first-of-type {
-    margin-top: 61px;
+    margin-top: 24px;
   }
-
-  @media (max-width: 991px) {
-    white-space: initial;
-
-    &:first-of-type {
-      margin-top: 40px;
-    }
-  }
+  margin-top: 8px;
 `;
 
 const ContactIcon = styled.img`
-  width: 23px;
+  width: 20px;
+  margin-right: 20px;
 `;
 
 const ContactText = styled.span`
   font-family: Roboto, sans-serif;
-  flex-grow: 1;
-  flex-basis: auto;
 `;
 
 const SocialIcons = styled.img`
   width: 231px;
-  margin-top: 36px;
+  margin-top: 25px;
   max-width: 100%;
 `;
-
-export default Footer;
