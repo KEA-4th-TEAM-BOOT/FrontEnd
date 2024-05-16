@@ -1,23 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 
-import FollowTop from "../components/followSection/FollowTop";
-import FollowBottom from "../components/followSection/FollowBottom";
-import NoFollow from "../components/followSection/NoFollow";
+// import FollowTop from "../components/followSection/FollowTop";
+// import FollowBottom from "../components/followSection/FollowBottom";
+// import NoFollow from "../components/followSection/NoFollow";
+import FollowingUpload from "../components/followSection/FollowingUpload";
 
 const Follow = () => {
-  const [hasFollow, setHasFollow] = useState(true);
-  
+  // const [hasFollow, setHasFollow] = useState(true);
+
   return (
     <>
-      {hasFollow ? (
-        <>
-          <FollowTop />
-          <FollowBottom />
-        </>
-      ) : (
-        <NoFollow />
-      )}
+      <FollowingUpload />
     </>
+    // <>
+    //   {hasFollow ? (
+    //     <>
+    //       <FollowingUpload />
+    //     </>
+    //   ) : (
+    //     <FollowingUpload />
+    //   )}
+    // </>
   );
 };
 

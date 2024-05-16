@@ -101,6 +101,7 @@ const TrendSection = styled.section`
   background-color: rgba(153, 213, 255, 0.29);
   height: 730px;
   padding: 20px;
+  padding-bottom: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -122,7 +123,6 @@ const TrendContainer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: nowrap;
-
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
