@@ -105,8 +105,6 @@ const Signup = () => {
     event.stopPropagation();
     event.preventDefault();
     const email = getValues("email");
-    emailSend({ email });
-    console.log("email succeed!");
     try {
       const response = await checkEmail({ email });
       if (response.exists) {
@@ -114,7 +112,7 @@ const Signup = () => {
       } else {
         await emailSend({ email });
         setAuthNumberSent(true);
-        console.log("Email verification initiated.");
+        alert("사용가능한 이메일입니다. 인증번호가 전송되었습니다.");
       }
     } catch (error) {
       console.error("Email verification failed:", error);
@@ -129,14 +127,14 @@ const Signup = () => {
     const authNumber = getValues("authNumber");
 
     try {
-      const response = await verification({ email, authNumber });
-      if (response.verified) {
+      const status = await verification({ email, authNumber });
+
+      if (status === 200) {
         setEmailVerified(true);
-        console.log("Email verified successfully!");
+        alert("인증되었습니다.");
       } else {
         setEmailVerified(false);
-        console.log("Failed to verify email.");
-        alert("Invalid verification code.");
+        alert("유효하지 않은 인증번호입니다.");
       }
     } catch (error) {
       console.error("Email verification failed:", error);
