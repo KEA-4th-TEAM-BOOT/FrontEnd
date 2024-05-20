@@ -4,6 +4,7 @@ import React from "react";
 // import FollowBottom from "../components/followSection/FollowBottom";
 // import NoFollow from "../components/followSection/NoFollow";
 import FollowingUpload from "../components/followSection/FollowingUpload";
+import FavoriteUsers from "../components/followSection/FavoriteUsers";
 
 const Follow = () => {
   // const [hasFollow, setHasFollow] = useState(true);
@@ -11,6 +12,7 @@ const Follow = () => {
   return (
     <>
       <FollowingUpload />
+      <FavoriteUsers />
     </>
     // <>
     //   {hasFollow ? (
