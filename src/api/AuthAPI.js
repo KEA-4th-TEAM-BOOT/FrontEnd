@@ -32,3 +32,29 @@ export const signUp = async ({
   const response = await AuthApi.post(`/api/v1/auth/register`, data);
   return response.data;
 };
+
+/** Email-send API */
+export const emailSend = async ({ email }) => {
+  const data = { email };
+  const response = await AuthApi.post(`/api/v1/auth/send-email`, data);
+  return response.data;
+};
+
+/** Verification API */
+export const verification = async ({ email, authNumber }) => {
+  const data = { email, authNumber };
+  const response = await AuthApi.post(`/api/v1/auth/verification`, data);
+  return response.data;
+};
+
+/** checkEmail API */
+export const checkEmail = async ({ email }) => {
+  const response = await AuthApi.get(`/api/v1/auth/check/${email}`);
+  return response.data;
+};
+
+/** checkUserLink API */
+export const checkUserLink = async ({ userLink }) => {
+  const response = await AuthApi.get(`/api/v1/auth/check/${userLink}`);
+  return response.data;
+};

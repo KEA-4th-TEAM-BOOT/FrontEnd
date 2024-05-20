@@ -4,7 +4,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import termsImg from "../assets/img/icons/termsicon.svg";
-import { signUp } from "../api/AuthAPI";
+import {
+  signUp,
+  checkEmail,
+  checkUserLink,
+  emailSend,
+  verification,
+} from "../api/AuthAPI";
 
 const schema = yup
   .object({
@@ -13,7 +19,7 @@ const schema = yup
       .string()
       .email("유효한 이메일 주소를 입력해주세요")
       .required("이메일을 입력해주세요"),
-    confirmationCode: yup.string().when("emailVerified", {
+    authNumber: yup.string().when("emailVerified", {
       is: true,
       then: yup.string().required("인증번호를 입력해주세요"),
     }),
@@ -65,6 +71,7 @@ const Signup = () => {
 
   const [emailVerified, setEmailVerified] = useState(false);
   const [verifyButtonEnabled, setVerifyButtonEnabled] = useState(false);
+  const [authNumberSent, setAuthNumberSent] = useState(false);
 
   const emailValue = watch("email");
 
@@ -88,45 +95,71 @@ const Signup = () => {
         userLink: data.userLink,
       });
       console.log("Signup success:", response);
-      window.location.href = `/`;
+      // window.location.href = `/`;
     } catch (error) {
       console.error("Signup failed:", error);
     }
   };
 
-  const handleVerifyEmail = (event) => {
+  const handleVerifyEmail = async (event) => {
     event.stopPropagation();
     event.preventDefault();
-    console.log("Verifying email: ", getValues("email"));
-    setEmailVerified(true);
+    const email = getValues("email");
+    emailSend({ email });
+    console.log("email succeed!");
+    try {
+      const response = await checkEmail({ email });
+      if (response.exists) {
+        alert("Email is already taken.");
+      } else {
+        await emailSend({ email });
+        setAuthNumberSent(true);
+        console.log("Email verification initiated.");
+      }
+    } catch (error) {
+      console.error("Email verification failed:", error);
+      alert("Failed to verify email.");
+    }
   };
 
-  const handleConfirmCode = (event) => {
+  const handleConfirmCode = async (event) => {
     event.stopPropagation();
     event.preventDefault();
-    const confirmationCode = getValues("confirmationCode");
-    console.log("Confirming code: ", confirmationCode);
-    fakeApiCallToVerifyCode(confirmationCode).then((isVerified) => {
-      if (isVerified) {
+    const email = getValues("email");
+    const authNumber = getValues("authNumber");
+
+    try {
+      const response = await verification({ email, authNumber });
+      if (response.verified) {
         setEmailVerified(true);
         console.log("Email verified successfully!");
       } else {
         setEmailVerified(false);
         console.log("Failed to verify email.");
+        alert("Invalid verification code.");
       }
-    });
+    } catch (error) {
+      console.error("Email verification failed:", error);
+      alert("Failed to verify email.");
+    }
   };
 
-  const fakeApiCallToVerifyCode = (code) => {
-    return new Promise((resolve) =>
-      setTimeout(() => resolve(code === "1234"), 1000)
-    );
-  };
-
-  const handleVerifyBlogUrl = (event) => {
+  const handleVerifyBlogUrl = async (event) => {
     event.stopPropagation();
     event.preventDefault();
-    console.log("Verifying blog URL: ", getValues("userLink"));
+    const userLink = getValues("userLink");
+
+    try {
+      const response = await checkUserLink({ userLink });
+      if (response.exists) {
+        alert("User link is already taken.");
+      } else {
+        console.log("User link is available.");
+      }
+    } catch (error) {
+      console.error("User link verification failed:", error);
+      alert("Failed to verify user link.");
+    }
   };
 
   const handleTermsClick = (event) => {
@@ -164,7 +197,7 @@ const Signup = () => {
                 />
                 <VerifyButton
                   onClick={handleVerifyEmail}
-                  disabled={!verifyButtonEnabled || emailVerified}
+                  disabled={authNumberSent}
                 >
                   인증
                 </VerifyButton>
@@ -174,20 +207,20 @@ const Signup = () => {
             </FormGroup>
           </FormSection>
 
-          {emailVerified && (
+          {authNumberSent && (
             <FormSection>
               <FormLabel>인증번호</FormLabel>
               <FormGroup>
                 <InputWrapper>
                   <DisplayName
-                    {...register("confirmationCode")}
+                    {...register("authNumber")}
                     placeholder="인증번호를 입력하세요"
                   />
                   <VerifyButton onClick={handleConfirmCode}>확인</VerifyButton>
                 </InputWrapper>
                 <WidthMarker>인증번호를 입력하세요</WidthMarker>
-                {errors["confirmationCode"] && (
-                  <Error>{errors["confirmationCode"].message}</Error>
+                {errors["authNumber"] && (
+                  <Error>{errors["authNumber"].message}</Error>
                 )}
               </FormGroup>
             </FormSection>
