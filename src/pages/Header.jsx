@@ -10,8 +10,10 @@ import { modalState, UserData } from "../recoil/modal";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const setModal = useSetRecoilState(modalState);
   const LoginState = useRecoilValue(UserData);
+
   const handleLoginClick = () => {
     setModal({
       isOpen: true,
@@ -19,9 +21,26 @@ const Header = () => {
       props: {}, // 필요한 경우 추가 props 전달
     });
   };
+
+  const handleIconClick = () => {
+    if (!isLoggedIn) {
+      handleLoginClick();
+    }
+  };
+
+  const handleProfileClick = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleLogout = () => {
+    // 로그아웃 로직 추가
+    setIsLoggedIn(false);
+  };
+
   useEffect(() => {
     setIsLoggedIn(LoginState.isLogin);
   }, [LoginState.isLogin]);
+
   return (
     <HeaderContainer id="header" role="banner">
       <LogoLink to="/">
@@ -46,25 +65,28 @@ const Header = () => {
       </MenuList>
       <HeaderMenu>
         <HeaderMenuItem>
-          <Link
-            to="/write"
-            style={{
-              textDecoration: "none",
-              color: "black",
-            }}
-          >
+          <IconLink to="/write">
             <HeaderMenuIconW src={writeIcon} alt="Write Icon" />
-          </Link>
+          </IconLink>
         </HeaderMenuItem>
-        <HeaderMenuItem>
+        <HeaderMenuItem onClick={handleIconClick}>
           <HeaderMenuIconN src={notifyIcon} alt="Notify Icon" />
         </HeaderMenuItem>
-        {/* 로그인 O -> 프로필 이미지 / 로그인 X -> "로그인" 텍스트 */}
         {isLoggedIn ? (
           <HeaderMenuItem>
-            <ProfileLink to="/mypage">
-              <ProfileImage src={profileImage} alt="Profile Image" />
-            </ProfileLink>
+            <ProfileImage
+              src={profileImage}
+              alt="Profile Image"
+              onClick={handleProfileClick}
+            />
+            {showDropdown && (
+              <DropdownMenu>
+                <DropdownItem>
+                  <Link to="/mypage">마이페이지</Link>
+                </DropdownItem>
+                <DropdownItem onClick={handleLogout}>로그아웃</DropdownItem>
+              </DropdownMenu>
+            )}
           </HeaderMenuItem>
         ) : (
           <HeaderMenuItem>
@@ -151,6 +173,13 @@ const HeaderMenuItem = styled.li`
   align-items: center;
   justify-content: start; // 왼쪽 정렬
   margin-right: 25px;
+  position: relative;
+`;
+
+const IconLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const HeaderMenuIconW = styled.img`
@@ -180,6 +209,29 @@ const ProfileImage = styled.img`
   border-radius: 50%; // 프로필 이미지 동그랗게
   cursor: pointer;
   margin-right: 30px;
+`;
+
+const DropdownMenu = styled.ul`
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  list-style-type: none;
+  padding: 10px 0;
+  margin: 0;
+  width: 150px;
+  z-index: 200;
+`;
+
+const DropdownItem = styled.li`
+  padding: 10px 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
 
 const ProfileLink = styled(Link)`
