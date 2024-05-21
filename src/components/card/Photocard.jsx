@@ -39,7 +39,7 @@ export default Photocard;
 
 const PhotocardWrapper = styled.div`
   min-width: 410px;
-  height: 430px;
+  height: auto;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 25px;
@@ -83,8 +83,7 @@ const PostTitle = styled.h3`
 
 const ImageContainer = styled.div`
   display: flex;
-  width: 100%
-  gap: 5px;
+  justify-content: space-between;
   margin: 10px 0;
 `;
 
@@ -98,6 +97,11 @@ const PostImage = styled.img`
 const PostContent = styled.p`
   font-size: 15px;
   color: #555;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const PostInfo = styled.div`
