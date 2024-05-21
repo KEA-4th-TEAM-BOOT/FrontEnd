@@ -42,19 +42,20 @@ export const emailSend = async ({ email }) => {
 
 /** Verification API */
 export const verification = async ({ email, authNumber }) => {
-  const data = { email, authNumber };
-  const response = await AuthApi.post(`/api/v1/auth/verification`, data);
-  return response.data;
+  const response = await AuthApi.post(`/api/v1/auth/verification`, {
+    email,
+    authNumber,
+  });
+  return response.status;
 };
-
 /** checkEmail API */
 export const checkEmail = async ({ email }) => {
-  const response = await AuthApi.get(`/api/v1/auth/check/${email}`);
+  const response = await AuthApi.get(`/api/v1/auth/check-email/${email}`);
   return response.data;
 };
 
 /** checkUserLink API */
 export const checkUserLink = async ({ userLink }) => {
-  const response = await AuthApi.get(`/api/v1/auth/check/${userLink}`);
+  const response = await AuthApi.get(`/api/v1/auth/check-userLink/${userLink}`);
   return response.data;
 };
