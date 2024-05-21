@@ -6,7 +6,8 @@ import notifyIcon from "../assets/img/icons/notifyicon.svg";
 import profileImage from "../assets/img/profile.png";
 import LoginPage from "../components/login/LoginPage";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { modalState, UserData } from "../recoil/modal";
+import { modalState } from "../recoil/modal";
+import { UserData } from "../recoil/user";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

@@ -6,6 +6,7 @@ import { modalState } from "../../recoil/modal";
 import { UserData } from "../../recoil/user";
 import { useNavigate } from "react-router-dom";
 import ResetPassword from "../reset/ResetPassword";
+import { login } from "../../api/UserAPI"; // 로그인 API를 import 합니다.
 
 const LoginPage = () => {
   const nav = useNavigate();
@@ -30,6 +31,7 @@ const LoginPage = () => {
       nav("/signup");
     }, 10); // 10ms 지연
   };
+
   const handleResetClick = () => {
     setModal({
       isOpen: true,
@@ -38,17 +40,35 @@ const LoginPage = () => {
     });
   };
 
-  const handleLogin = () => {
-    if (email === "test@gmail.com" && password === "test1234!") {
+  const handleLogin = async () => {
+    try {
+      const response = await login({ email, password });
+      const { tokenResponseDto, userLink } = response;
+      const { accessToken, refreshToken } = tokenResponseDto;
+
+      // 사용자 데이터를 Recoil 상태로 설정
       setUserData({
-        email: { email },
-        password: { password },
+        email,
         isLogin: true,
+        userLink, // 추가: userLink 저장
       });
 
+      // 토큰을 저장 (localStorage 또는 sessionStorage)
+      const storage = isChecked ? localStorage : sessionStorage;
+      storage.setItem("accessToken", accessToken);
+      storage.setItem("refreshToken", refreshToken);
+      storage.setItem("tokenType", "Bearer");
+
+      // 모달 닫기
       setModal({
         isOpen: false,
       });
+
+      // 페이지 이동 (필요한 경우)
+      // nav("/dashboard"); // 예: 로그인 후 대시보드로 이동
+    } catch (error) {
+      console.error("로그인 실패:", error);
+      // 에러 처리 로직 추가
     }
   };
 
@@ -95,7 +115,7 @@ const LoginPage = () => {
           </KakaoLoginButton>
           <RememberLoginCheckbox>
             <Checkbox
-              type="radio"
+              type="checkbox"
               checked={isChecked}
               onClick={handleCheckClick}
             />
