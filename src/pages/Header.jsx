@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import writeIcon from "../assets/img/icons/writeicon.svg";
 import notifyIcon from "../assets/img/icons/notifyicon.svg";
 import profileImage from "../assets/img/profile.png";
@@ -8,12 +8,15 @@ import LoginPage from "../components/login/LoginPage";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { modalState } from "../recoil/modal";
 import { UserData } from "../recoil/user";
+import { logout } from "../api/UserAPI";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const setModal = useSetRecoilState(modalState);
+  const setUserData = useSetRecoilState(UserData);
   const LoginState = useRecoilValue(UserData);
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
     setModal({
@@ -33,9 +36,30 @@ const Header = () => {
     setShowDropdown(!showDropdown);
   };
 
-  const handleLogout = () => {
-    // 로그아웃 로직 추가
-    setIsLoggedIn(false);
+  const handleLogout = async () => {
+    try {
+      await logout();
+      // 로그아웃 성공 시 로컬 스토리지와 세션 스토리지에서 토큰 삭제
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      sessionStorage.removeItem("accessToken");
+      sessionStorage.removeItem("refreshToken");
+
+      // Recoil 상태 업데이트
+      setUserData({
+        email: "",
+        isLogin: false,
+      });
+
+      // 로그인 상태 업데이트
+      setIsLoggedIn(false);
+
+      // 로그아웃 후 메인 페이지로 이동
+      navigate("/");
+    } catch (error) {
+      console.error("로그아웃 실패:", error);
+      // 에러 처리 로직 추가
+    }
   };
 
   useEffect(() => {
