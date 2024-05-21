@@ -1,8 +1,11 @@
 import axios from "axios";
 
-const TOKEN_TYPE = localStorage.getItem("tokenType") || "Bearer";
-let ACCESS_TOKEN = localStorage.getItem("accessToken");
-let REFRESH_TOKEN = localStorage.getItem("refreshToken");
+const TOKEN_TYPE = localStorage.getItem("tokenType");
+let ACCESS_TOKEN =
+  localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken");
+let REFRESH_TOKEN =
+  localStorage.getItem("refreshToken") ||
+  sessionStorage.getItem("refreshToken");
 
 const baseURL = process.env.REACT_APP_USER_BASE_URL;
 
@@ -66,6 +69,12 @@ export const login = async ({ email, password }) => {
   } catch (error) {
     throw error;
   }
+};
+
+/** LOGIN API */
+export const logout = async () => {
+  const response = await UserApi.post(`/api/v1/auth/logout`);
+  return response;
 };
 
 /** 회원조회 API */

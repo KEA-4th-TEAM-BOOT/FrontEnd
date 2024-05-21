@@ -13,13 +13,6 @@ export const AuthApi = axios.create({
   },
 });
 
-/** LOGIN API */
-export const login = async ({ email, password }) => {
-  const data = { email, password };
-  const response = await AuthApi.post(`/api/v1/auth/login`, data);
-  return response.data;
-};
-
 /** SIGNUP API */
 export const signUp = async ({
   username,
