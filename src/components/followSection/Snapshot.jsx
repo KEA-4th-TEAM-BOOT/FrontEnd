@@ -179,7 +179,7 @@ const Snapshot = () => {
     if (!isDragging) return;
     e.preventDefault();
     const x = e.pageX - photocardContainerRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
+    const walk = (x - startX) * 1;
     photocardContainerRef.current.scrollLeft = scrollLeft - walk;
   };
 
