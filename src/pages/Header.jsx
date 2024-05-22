@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import writeIcon from "../assets/img/icons/writeicon.svg";
 import notifyIcon from "../assets/img/icons/notifyicon.svg";
 import profileImage from "../assets/img/profile.png";
 import LoginPage from "../components/login/LoginPage";
+import Notify from "../components/homeSection/Notify";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { modalState } from "../recoil/modal";
 import { UserData } from "../recoil/user";
@@ -13,10 +14,12 @@ import { logout } from "../api/UserAPI";
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showNotify, setShowNotify] = useState(false);
   const setModal = useSetRecoilState(modalState);
   const setUserData = useSetRecoilState(UserData);
   const LoginState = useRecoilValue(UserData);
   const navigate = useNavigate();
+  const notifyRef = useRef();
 
   const handleLoginClick = () => {
     setModal({
@@ -26,10 +29,8 @@ const Header = () => {
     });
   };
 
-  const handleIconClick = () => {
-    if (!isLoggedIn) {
-      handleLoginClick();
-    }
+  const handleNotifyClick = () => {
+    setShowNotify(!showNotify);
   };
 
   const handleProfileClick = () => {
@@ -89,8 +90,13 @@ const Header = () => {
             <HeaderMenuIconW src={writeIcon} alt="Write Icon" />
           </IconLink>
         </HeaderMenuItem>
-        <HeaderMenuItem onClick={handleIconClick}>
+        <HeaderMenuItem ref={notifyRef} onClick={handleNotifyClick}>
           <HeaderMenuIconN src={notifyIcon} alt="Notify Icon" />
+          {showNotify && (
+            <NotifyContainer>
+              <Notify />
+            </NotifyContainer>
+          )}
         </HeaderMenuItem>
         {isLoggedIn ? (
           <HeaderMenuItem>
@@ -254,9 +260,9 @@ const DropdownItem = styled.li`
   }
 `;
 
-const ProfileLink = styled(Link)`
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  height: auto;
+const NotifyContainer = styled.div`
+  position: absolute;
+  top: 35px; // NotifyIcon과의 간격을 35px로 설정
+  right: 0;
+  z-index: 200;
 `;
