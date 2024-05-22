@@ -43,21 +43,20 @@ const LoginPage = () => {
   const handleLogin = async () => {
     try {
       const response = await login({ email, password });
-      const { tokenResponseDto, userLink } = response;
-      const { accessToken, refreshToken } = tokenResponseDto;
+      const { accessToken, refreshToken } = response.tokenResponseDto;
+      const userLink = response.userLink;
 
       // 사용자 데이터를 Recoil 상태로 설정
       setUserData({
         email,
         isLogin: true,
-        userLink, // 추가: userLink 저장
+        userLink,
       });
 
       // 토큰을 저장 (localStorage 또는 sessionStorage)
       const storage = isChecked ? localStorage : sessionStorage;
       storage.setItem("accessToken", accessToken);
       storage.setItem("refreshToken", refreshToken);
-      storage.setItem("tokenType", "Bearer");
 
       // 모달 닫기
       setModal({
