@@ -39,11 +39,6 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      // 로그아웃 성공 시 로컬 스토리지와 세션 스토리지에서 토큰 삭제
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      sessionStorage.removeItem("accessToken");
-      sessionStorage.removeItem("refreshToken");
 
       // Recoil 상태 업데이트
       setUserData({

@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const TOKEN_TYPE = localStorage.getItem("tokenType");
 let ACCESS_TOKEN =
   localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken");
 let REFRESH_TOKEN =
@@ -14,7 +13,7 @@ export const UserApi = axios.create({
   baseURL: baseURL,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `${TOKEN_TYPE} ${ACCESS_TOKEN}`,
+    Authorization: `${ACCESS_TOKEN}`,
     REFRESH_TOKEN: REFRESH_TOKEN,
   },
 });
@@ -24,9 +23,7 @@ const refreshAccessToken = async () => {
   const response = await UserApi.patch(`/api/v1/auth/reissue`);
   ACCESS_TOKEN = response.data.accessToken;
   localStorage.setItem("accessToken", ACCESS_TOKEN);
-  UserApi.defaults.headers.common[
-    "Authorization"
-  ] = `${TOKEN_TYPE} ${ACCESS_TOKEN}`;
+  UserApi.defaults.headers.common["Authorization"] = `${ACCESS_TOKEN}`;
 };
 
 // 토큰 유효성 검사
@@ -55,14 +52,8 @@ export const login = async ({ email, password }) => {
     ACCESS_TOKEN = response.data.accessToken;
     REFRESH_TOKEN = response.data.refreshToken;
 
-    localStorage.setItem("accessToken", ACCESS_TOKEN);
-    localStorage.setItem("refreshToken", REFRESH_TOKEN);
-    localStorage.setItem("tokenType", TOKEN_TYPE);
-
     // Update UserApi headers
-    UserApi.defaults.headers.common[
-      "Authorization"
-    ] = `${TOKEN_TYPE} ${ACCESS_TOKEN}`;
+    UserApi.defaults.headers.common["Authorization"] = `${ACCESS_TOKEN}`;
     UserApi.defaults.headers.common["REFRESH_TOKEN"] = REFRESH_TOKEN;
 
     return response.data;
@@ -71,10 +62,35 @@ export const login = async ({ email, password }) => {
   }
 };
 
-/** LOGIN API */
+/** LOGOUT API */
 export const logout = async () => {
-  const response = await UserApi.post(`/api/v1/auth/logout`);
-  return response;
+  try {
+    // 로그아웃 요청을 보내기 전에 저장소에서 값을 가져오기
+    const accessToken =
+      localStorage.getItem("accessToken") ||
+      sessionStorage.getItem("accessToken");
+    const refreshToken =
+      localStorage.getItem("refreshToken") ||
+      sessionStorage.getItem("refreshToken");
+
+    const response = await UserApi.post(`/api/v1/auth/logout`, null, {
+      headers: {
+        Authorization: `${accessToken}`,
+        REFRESH_TOKEN: refreshToken,
+      },
+    });
+
+    // 로그아웃 성공 후 저장소에서 토큰 제거
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("refreshToken");
+
+    return response;
+  } catch (error) {
+    console.error("Logout error:", error);
+    throw error;
+  }
 };
 
 /** 회원조회 API */
