@@ -108,7 +108,7 @@ const Header = () => {
             {showDropdown && (
               <DropdownMenu>
                 <DropdownItem>
-                  <Link to="/mypage">마이페이지</Link>
+                  <StyledLink to="/mypage">마이페이지</StyledLink>
                 </DropdownItem>
                 <DropdownItem onClick={handleLogout}>로그아웃</DropdownItem>
               </DropdownMenu>
@@ -159,7 +159,7 @@ const MenuList = styled.ul`
   height: 55px;
   list-style-type: none;
   display: flex;
-  justify-content: space-between; // 아이템들 사이 간격 동일하게 만들어줌
+  justify-content: space-between;
   align-items: center;
   padding-left: 50px;
   flex-wrap: nowrap;
@@ -189,7 +189,7 @@ const HeaderMenu = styled.ul`
   height: 55px;
   list-style-type: none;
   display: flex;
-  justify-content: flex-end; // 오른쪽 정렬
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: nowrap;
 `;
@@ -197,7 +197,7 @@ const HeaderMenu = styled.ul`
 const HeaderMenuItem = styled.li`
   display: flex;
   align-items: center;
-  justify-content: start; // 왼쪽 정렬
+  justify-content: start;
   margin-right: 25px;
   position: relative;
 `;
@@ -232,7 +232,7 @@ const MenuText = styled.span`
 const ProfileImage = styled.img`
   width: 50px;
   height: 50px;
-  border-radius: 50%; // 프로필 이미지 동그랗게
+  border-radius: 50%;
   cursor: pointer;
   margin-right: 30px;
 `;
@@ -260,9 +260,17 @@ const DropdownItem = styled.li`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  &:visited {
+    color: inherit;
+  }
+`;
+
 const NotifyContainer = styled.div`
   position: absolute;
-  top: 35px; // NotifyIcon과의 간격을 35px로 설정
+  top: 35px;
   right: 0;
   z-index: 200;
 `;
