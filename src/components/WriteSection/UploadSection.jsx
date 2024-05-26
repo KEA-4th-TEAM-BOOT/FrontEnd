@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import UploadButtonImg from "../../assets/img/icons/uploadbutton.svg";
 import { useNavigate } from "react-router-dom";
+import { create_post } from "../../api/PostAPI";
 
 const UploadSection = (props) => {
   const [visibility, setVisibility] = useState("public"); // or 'private'
@@ -14,10 +15,18 @@ const UploadSection = (props) => {
 
   const Title = props.title;
   const Content = props.content;
-  const onhandleSubmit = () => {
-    console.log("Title" + Title);
-    console.log("Content :" + Content);
-    alert("업로드 되었습니다.");
+
+  const onhandleSubmit = async () => {
+    try {
+      const response = await create_post({ Title, Content });
+      console.log("Title" + Title);
+      console.log("Content :" + Content);
+      console.log(response);
+      alert("업로드 되었습니다.");
+    } catch (error) {
+      console.error("포스트 작성 실패:", error);
+      // 에러 처리 로직 추가
+    }
     // navigate("/post1"); 작성한 글 쪽으로 Navigate되게 설정
   };
 
