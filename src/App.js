@@ -16,6 +16,7 @@ import { RecoilRoot } from "recoil";
 import GlobalModal from "./components/GlobalModal";
 import DefaultLayout from "./components/layout/DefaultLayout";
 import MinimalLayout from "./components/layout/MinimalLayout";
+import PrivateRoute from "./components/route/PrivateRoute";
 
 const App = () => {
   return (
@@ -30,14 +31,25 @@ const App = () => {
               <Route path="/feed" element={<Feed />} />
               <Route path="/follow" element={<Follow />} />
               <Route path="/FAQ" element={<FAQ />} />
-              <Route path="/mypage" element={<Mypage />} />
+              <Route
+                path="/mypage"
+                element={<PrivateRoute element={<Mypage />} />}
+              />
               <Route path="/post" element={<Post />} />
-              <Route path="/setting" element={<Setting />} />
+              <Route
+                path="/setting"
+                element={<PrivateRoute element={<Setting />} />}
+              />
               <Route path="*" element={<Not />} />
               <Route path="/post1" element={<Post />} />
             </Route>
+
+            {/* Header와 Player가 없는 Layout */}
             <Route element={<MinimalLayout />}>
-              <Route path="/write" element={<Write />} />
+              <Route
+                path="/write"
+                element={<PrivateRoute element={<Write />} />}
+              />{" "}
               <Route path="/signup" element={<Signup />} />
             </Route>
           </Routes>

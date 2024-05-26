@@ -1,9 +1,13 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist();
 
 export const UserData = atom({
-  key: "userData",
+  key: "UserData",
   default: {
-    userLink: "",
+    email: "",
     isLogin: false,
   },
+  effects_UNSTABLE: [persistAtom],
 });
