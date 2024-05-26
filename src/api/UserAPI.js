@@ -83,6 +83,7 @@ export const logout = async () => {
     // 로그아웃 성공 후 저장소에서 토큰 제거
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("recoil-persist");
     sessionStorage.removeItem("accessToken");
     sessionStorage.removeItem("refreshToken");
 
