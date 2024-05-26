@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useLayoutEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import writeIcon from "../assets/img/icons/writeicon.svg";
@@ -58,7 +58,7 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsLoggedIn(LoginState.isLogin);
   }, [LoginState.isLogin]);
 
