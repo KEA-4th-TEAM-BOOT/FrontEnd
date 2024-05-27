@@ -6,7 +6,7 @@ let REFRESH_TOKEN =
   localStorage.getItem("refreshToken") ||
   sessionStorage.getItem("refreshToken");
 
-const baseURL = process.env.REACT_APP_USER_BASE_URL;
+const baseURL = import.meta.env.VITE_USER_BASE_URL;
 
 /** CREATE CUSTOM AXIOS INSTANCE */
 export const UserApi = axios.create({
@@ -44,6 +44,7 @@ UserApi.interceptors.response.use(
 
 /** LOGIN API */
 export const login = async ({ email, password }) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const response = await axios.post(`${baseURL}/api/v1/auth/login`, {
       email,
