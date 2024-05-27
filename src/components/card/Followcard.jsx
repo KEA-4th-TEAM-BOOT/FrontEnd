@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const FollowCard = ({
@@ -6,7 +6,16 @@ const FollowCard = ({
   nickname,
   followerCount,
   description,
+  isFollowing: initialFollowing,
+  onFollowToggle,
 }) => {
+  const [isFollowing, setIsFollowing] = useState(initialFollowing);
+
+  const handleFollowToggle = () => {
+    setIsFollowing(!isFollowing);
+    onFollowToggle();
+  };
+
   return (
     <CardContainer>
       <ProfileImageWrapper>
@@ -17,7 +26,9 @@ const FollowCard = ({
         <FollowerCount>팔로워 {followerCount}</FollowerCount>
         <Description>{description}</Description>
       </InfoContainer>
-      <FollowButton>팔로우 +</FollowButton>
+      <FollowButton isFollowing={isFollowing} onClick={handleFollowToggle}>
+        {isFollowing ? "팔로잉" : "팔로우 +"}
+      </FollowButton>
     </CardContainer>
   );
 };
@@ -25,11 +36,12 @@ const FollowCard = ({
 export default FollowCard;
 
 const CardContainer = styled.div`
-  border-radius: 30px;
+  border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 350px;
+  background-color: rgba(0, 150, 255, 0.2);
+  width: 100%;
+  max-width: 330px;
   height: 400px;
-  margin: auto;
   position: relative;
 `;
 
@@ -72,7 +84,8 @@ const Description = styled.div`
 `;
 
 const FollowButton = styled.button`
-  color: #036ee2;
+  color: ${({ isFollowing }) => (isFollowing ? "#fff" : "#036ee2")};
+  background-color: transparent;
   font-weight: bold;
   padding: 10px 20px;
   border: none;
@@ -83,5 +96,4 @@ const FollowButton = styled.button`
   left: 50%;
   transform: translateX(-50%);
   font-size: 15px;
-  background: white;
 `;
