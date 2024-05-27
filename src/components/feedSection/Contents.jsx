@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import styled from "styled-components";
 import AudioCard from "../card/Audiocard";
 
@@ -1032,7 +1032,7 @@ const Contents = () => {
 export default Contents;
 
 const ContentsWrapper = styled.div`
-  padding: 220px 120px;
+  padding: 160px 120px 220px 120px;
   margin: 0 auto;
   max-width: 1400px;
   box-sizing: border-box;
@@ -1066,7 +1066,7 @@ const CategoryButton = styled.button`
   color: #000;
   cursor: pointer;
   padding: 10px 20px;
-  margin: 30px 10px;
+  margin: 20px 10px;
   font-weight: ${(props) => (props.active ? "700" : "400")};
   font-size: 20px;
   height: 50px;
