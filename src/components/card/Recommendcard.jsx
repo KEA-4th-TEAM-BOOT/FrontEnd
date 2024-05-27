@@ -41,7 +41,7 @@ export default Recommendcard;
 const RecommendWrapper = styled.div`
   background: #fff;
   border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #ddd;
   overflow: hidden;
   width: calc((100% - 60px) / 4);
   height: 450px;
@@ -133,7 +133,8 @@ const Tag = styled.span`
 `;
 
 const LikeButton = styled.button`
-  background: url(${(props) => (props.liked ? likeOIcon : likeXIcon)}) no-repeat center;
+  background: url(${(props) => (props.liked ? likeOIcon : likeXIcon)}) no-repeat
+    center;
   border: none;
   width: 27px;
   height: 25px;
