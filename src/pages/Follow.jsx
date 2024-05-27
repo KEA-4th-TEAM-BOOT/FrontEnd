@@ -6,6 +6,7 @@ import React from "react";
 import FollowingUpload from "../components/followSection/FollowingUpload";
 import FavoriteUsers from "../components/followSection/FavoriteUsers";
 import Snapshot from "../components/followSection/Snapshot";
+import RecommendPost from "../components/followSection/RecommendPost";
 
 const Follow = () => {
   // const [hasFollow, setHasFollow] = useState(true);
@@ -15,6 +16,7 @@ const Follow = () => {
       <FollowingUpload />
       <FavoriteUsers />
       <Snapshot />
+      <RecommendPost />
     </>
     // <>
     //   {hasFollow ? (
