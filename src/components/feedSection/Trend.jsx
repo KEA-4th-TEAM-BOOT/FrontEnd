@@ -99,17 +99,17 @@ export default Trend;
 
 const TrendSection = styled.section`
   background-color: rgba(153, 213, 255, 0.29);
-  height: 730px;
+  height: 720px;
   padding: 20px;
+  padding-top: 90px;
   padding-bottom: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 110px;
+  margin-bottom: 0;
 `;
 
 const Title = styled.h2`
-  margin-top: 60px;
   color: #000;
   margin-bottom: 77px;
   font-size: 50px;
