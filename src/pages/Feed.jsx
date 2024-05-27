@@ -5,8 +5,8 @@ import Contents from "../components/feedSection/Contents";
 const Feed = () => {
   return (
     <>
-      <Contents />
       <Trend />
+      <Contents />
     </>
   );
 };
