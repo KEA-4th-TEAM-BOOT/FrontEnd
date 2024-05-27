@@ -1,27 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
 import PlayIcon from "../../assets/img/icons/audioplayicon.svg";
-import likeXIcon from "../../assets/img/icons/likeXicon.svg";
+import likeOIcon from "../../assets/img/icons/likeOblueicon.svg";
+import likeXIcon from "../../assets/img/icons/likeXblueicon.svg";
 
-const Recommendcard = () => {
+const Recommendcard = ({ data }) => {
+  const [isLiked, setIsLiked] = useState(data.isLiked);
+
+  const handleLikeClick = () => {
+    setIsLiked(!isLiked);
+  };
+
   return (
     <RecommendWrapper>
       <ProfileWrapper>
-        <ProfileImage />
-        <Username></Username>
+        <ProfileImage src={data.profileImage} />
+        <Username>{data.username}</Username>
       </ProfileWrapper>
-      <PostImage />
-      <PlayIcon />
-      <PostTitle>배가 고픈 이유</PostTitle>
-      <PostContent>
-        스트레스는 배고픔을 유발하는 주요 원인 중 하나입니다. 스트레스를 받으면
-        우리 몸은 코르티솔이라는 호르몬을 분비하는데, 이 호르몬은 식욕을 증가
-        시키고 지방을 축적하는 역할을 합니다.
-      </PostContent>
+      <PostImageWrapper>
+        <PostImage src={data.postImage}>
+          <IconPlay src={PlayIcon} />
+        </PostImage>
+      </PostImageWrapper>
+      <PostTitle>{data.postTitle}</PostTitle>
+      <PostContent>{data.postContent}</PostContent>
       <RecommendBottom>
-        <TagContainer></TagContainer>
-        <LikeButton likeXIcon />
+        <TagContainer>
+          {data.Tag.map((tag, index) => (
+            <Tag key={index}>#{tag}</Tag>
+          ))}
+        </TagContainer>
+        <LikeButton liked={isLiked} onClick={handleLikeClick} />
       </RecommendBottom>
     </RecommendWrapper>
   );
@@ -32,69 +41,101 @@ export default Recommendcard;
 const RecommendWrapper = styled.div`
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  width: calc((100% - 60px) / 4);
+  height: 450px;
+  padding: 0 23px;
+  box-sizing: border-box;
 `;
 
 const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px;
+  margin-top: 23px;
+  margin-bottom: 20px;
 `;
 
 const ProfileImage = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   margin-right: 10px;
 `;
 
 const Username = styled.span`
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 400;
+  word-break: break-all;
+`;
+
+const PostImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const PostImage = styled.div`
-  width: 100%;
-  height: 200px;
+  width: 170px;
+  height: 170px;
   background-image: url(${(props) => props.src});
   background-size: cover;
   background-position: center;
+  border-radius: 7px;
   position: relative;
 `;
 
 const IconPlay = styled.img`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
+  bottom: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
 `;
 
-const PostTitle = styled.h3`
-  padding: 10px;
-  font-size: 18px;
+const PostTitle = styled.span`
+  display: block;
+  padding: 0 25px;
+  font-size: 15px;
+  font-weight: 800;
+  margin-top: 21px;
+  word-break: break-all;
 `;
 
-const PostContent = styled.p`
-  padding: 0 10px 10px 10px;
-  font-size: 14px;
+const PostContent = styled.span`
+  display: -webkit-box;
+  padding: 0 25px;
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 20px;
+  word-break: break-all;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const RecommendBottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 10px 25px;
 `;
 
-const TagContainer = styled.div``;
+const TagContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Tag = styled.span`
+  font-size: 11px;
+  margin-right: 5px;
+  color: #000;
+`;
 
 const LikeButton = styled.button`
-  background: url(${likeXIcon}) no-repeat center;
+  background: url(${(props) => (props.liked ? likeOIcon : likeXIcon)}) no-repeat center;
   border: none;
-  width: 30px;
-  height: 30px;
+  width: 27px;
+  height: 25px;
+  cursor: pointer;
 `;
