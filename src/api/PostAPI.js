@@ -1,5 +1,4 @@
 import axios from "axios";
-import Content from "./../components/homeSection/FormerContent";
 
 let ACCESS_TOKEN =
   localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken");
@@ -7,7 +6,7 @@ let REFRESH_TOKEN =
   localStorage.getItem("refreshToken") ||
   sessionStorage.getItem("refreshToken");
 
-const baseURL = process.env.REACT_APP_POST_BASE_URL;
+const baseURL = import.meta.env.VITE_POST_BASE_URL;
 
 /** CREATE CUSTOM AXIOS INSTANCE */
 export const PostApi = axios.create({

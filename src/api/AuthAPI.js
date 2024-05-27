@@ -2,7 +2,7 @@ import axios from "axios";
 
 const TOKEN_TYPE = localStorage.getItem("tokenType");
 let ACCESS_TOKEN = localStorage.getItem("accessToken");
-const baseURL = process.env.REACT_APP_USER_BASE_URL;
+const baseURL = import.meta.env.VITE_USER_BASE_URL;
 /** CREATE CUSTOM AXIOS INSTANCE */
 export const AuthApi = axios.create({
   baseURL: baseURL,

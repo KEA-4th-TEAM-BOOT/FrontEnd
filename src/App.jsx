@@ -10,7 +10,7 @@ import Setting from "./pages/Setting";
 import Signup from "./pages/Signup";
 import Write from "./pages/Write";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import "./App.css";
 import { RecoilRoot } from "recoil";
 import GlobalModal from "./components/GlobalModal";
