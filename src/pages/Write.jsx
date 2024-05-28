@@ -28,7 +28,7 @@ const Write = () => {
   const [isSideOpen, setIsSideOpen] = useState(false);
 
   const toggleSidebar = () => {
-    setIsSideOpen(!isSideOpen); // isOpen 상태를 토글합니다.
+    setIsSideOpen(!isSideOpen);
   };
 
   const handleTitleChange = (event) => {
@@ -46,7 +46,7 @@ const Write = () => {
       const upload = new AWS.S3.ManagedUpload({
         params: {
           ACL: "public-read",
-          Bucket: "kea-boot-postimage", //버킷 이름
+          Bucket: "kea-boot-postimage",
           Key: `post/${name}`,
           Body: file,
         },
@@ -131,7 +131,7 @@ const Write = () => {
   return (
     <>
       <WriteHeader />
-      <EditorDivWrppaer>
+      <EditorDivWrapper>
         <EditorDiv>
           <TitleInput
             onChange={handleTitleChange}
@@ -153,11 +153,8 @@ const Write = () => {
         <Sidebar isSideOpen={isSideOpen}>
           <AIWrite />
         </Sidebar>
-      </EditorDivWrppaer>
+      </EditorDivWrapper>
 
-      <UploadForm isOpen={isOpen} ref={dropDownRef}>
-        <UploadSection title={title} content={content} />
-      </UploadForm>
       <UploadContainer>
         <UploadWrapper>
           <UploadHeader>
@@ -186,7 +183,7 @@ const Write = () => {
 
 export default Write;
 
-const EditorDivWrppaer = styled.div`
+const EditorDivWrapper = styled.div`
   min-width: 70.2vw;
   padding-top: 104px;
   padding-left: 22vw;
@@ -206,7 +203,7 @@ const EditorDiv = styled.div`
   padding-left: 53px;
   padding-right: 53px;
   background-color: #ffffff;
-  position: relative; // 여기에 relative를 추가했으므로 AIButtonSection을 이 위치에 고정시킬 수 있습니다.
+  position: relative;
 `;
 
 const TitleInput = styled.input`
@@ -223,13 +220,13 @@ const TitleInput = styled.input`
 `;
 
 const AIButtonSection = styled.div`
-  top: 463px; // 수정할 수 있습니다.
-  transform: translateY(-50%); // 세로 중앙 정렬을 위해 사용합니다.
+  position: fixed;
+  bottom: 100px;
+  right: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
   cursor: pointer;
 `;
 
@@ -237,27 +234,19 @@ const AIButtonImage = styled.img`
   aspect-ratio: 1;
   object-fit: contain;
   object-position: center;
-`;
-
-const UploadForm = styled.form`
-  width: 100%;
-  margin: auto; /* 좌우 중앙 정렬 */
-  display: flex;
-  align-item: center;
-  height: 345px;
-  padding: 0;
-  margin: 0;
-  bottom: 0;
-  background: #f2f5ff;
-  border: 1px solid;
-  position: fixed;
-  z-index: 10;
-  display: ${(props) => (props.isOpen ? "table" : "none")};
+  width: 60px;
+  height: 55px;
 `;
 
 const UploadContainer = styled.div`
   position: fixed;
   bottom: 0;
+  width: 100%;
+  background: #f2f5ff;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 40px;
 `;
 
 const UploadWrapper = styled.div`
@@ -267,68 +256,64 @@ const UploadWrapper = styled.div`
   font-weight: 700;
   text-align: center;
   justify-content: center;
+  width: 100%;
 `;
 
 const UploadHeader = styled.header`
   background-color: #f2f5ff;
   display: flex;
-  width: 100vw;
-  flex-direction: column;
-  align-items: end;
-  justify-content: center;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
   padding: 16px 0;
-
-  @media (max-width: 991px) {
-    max-width: 100%;
-    padding: 0 20px;
-  }
+  gap: 17.93px;
 `;
 
 const UploadHeaderContent = styled.div`
   display: flex;
-  gap: 20px;
-  justify-content: space-between;
+  gap: 17.93px;
+  align-items: center;
+  margin-right: 40px;
 `;
 
 const VoiceModelButton = styled.button`
   display: flex;
   gap: 7px;
   font-size: 16px;
-  margin: auto 0;
   background: none;
   border: none;
   cursor: pointer;
+  align-items: center;
 `;
 
 const VoiceModelIcon = styled.img`
-  aspect-ratio: 1;
-  object-fit: auto;
-  object-position: center;
-  width: 29px;
+  width: 25px;
+  height: 25px;
 `;
 
 const VoiceModelText = styled.span`
+  font-size: 15px;
   font-family: Syncopate, sans-serif;
-  margin: auto 0;
 `;
 
 const TagButton = styled.button`
-  align-self: start;
   display: flex;
   gap: 7px;
   padding: 7px 0;
   background: none;
   border: none;
   cursor: pointer;
+  align-items: center;
 `;
 
 const TagIcon = styled.span`
-  font: 27px Pretendard, sans-serif;
+  font-size: 25px;
 `;
 
 const TagText = styled.span`
-  font: 16px Syncopate, sans-serif;
-  margin: auto 0;
+  font-size: 15px;
+  font-family: Syncopate, sans-serif;
 `;
 
 const UploadButtonWrapper = styled.div`
@@ -342,13 +327,11 @@ const UploadIcon = styled.img`
 `;
 
 const Sidebar = styled.aside`
-  width: ${(props) => (props.isSideOpen ? "28vw" : "0px")}; // 사이드바의 너비
-  height: 100%; // 전체 높이
-  background: #f2f5ff; // 배경색
+  width: ${(props) => (props.isSideOpen ? "28vw" : "0px")};
+  height: 100%;
+  background: #f2f5ff;
   float: right;
-  transform: translateX(
-    ${(props) => (props.isSideOpen ? "0" : "100%")}
-  ); // 사이드바 토글
-  transition: transform 0.3s ease-in-out; // 부드러운 애니메이션 효과
-  z-index: 0; // 다른 요소들 위에 표시
+  transform: translateX(${(props) => (props.isSideOpen ? "0" : "100%")});
+  transition: transform 0.3s ease-in-out;
+  z-index: 0;
 `;
