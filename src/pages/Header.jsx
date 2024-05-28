@@ -161,7 +161,7 @@ const MenuList = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 50px;
+  padding-left: 0px;
   flex-wrap: nowrap;
 `;
 
