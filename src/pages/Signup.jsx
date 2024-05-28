@@ -88,7 +88,7 @@ const Signup = () => {
 
     try {
       const response = await signUp({
-        username: data.name,
+        name: data.name,
         email: data.email,
         password: data.password,
         nickname: data.nickname,
