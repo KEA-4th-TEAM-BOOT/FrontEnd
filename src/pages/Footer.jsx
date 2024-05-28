@@ -49,7 +49,7 @@ const Footer = () => {
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/92b8881bfc19871b474955c54eae889f65274d77386918d90957f89c34466e3b?apiKey=a9a9d68966df47cab33790d709ea20f1&"
                 alt="Email Icon"
               />
-              <ContactText>official.auda@gmail.com</ContactText>
+              <ContactText>official.voda@gmail.com</ContactText>
             </FooterContactItem>
             <SocialIcons
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/b02c81b282eb4f659dd63a213afa3170e0a423d344e2b6b563e300e1ce9afd87?apiKey=a9a9d68966df47cab33790d709ea20f1&"
