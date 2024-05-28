@@ -14,16 +14,10 @@ export const AuthApi = axios.create({
 });
 
 /** SIGNUP API */
-export const signUp = async ({
-  username,
-  email,
-  password,
-  nickname,
-  userLink,
-}) => {
+export const signUp = async ({ name, email, password, nickname, userLink }) => {
   const profileUrl =
     "https://kea-boot-postimage.s3.ap-northeast-2.amazonaws.com/profile.png";
-  const data = { username, email, password, nickname, profileUrl, userLink };
+  const data = { name, email, password, nickname, profileUrl, userLink };
   const response = await AuthApi.post(`/api/v1/auth/register`, data);
   return response.data;
 };
