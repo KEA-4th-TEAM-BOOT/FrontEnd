@@ -1,32 +1,46 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import profileImage from "../../assets/img/profile.png";
+import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+import profileImage from "../../assets/img/profile.png";
+import { useRecoilValue } from "recoil";
+import { UserData } from "../../recoil/user";
+
 const WriteHeader = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const LoginState = useRecoilValue(UserData);
+
+  const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    setIsLoggedIn(LoginState.isLogin);
+  }, [LoginState.isLogin]);
+
   return (
-    <HeaderWrapper>
-      <HeaderContent>
-        <LogoSection to="/">
-          <Logo
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/543de14573fe9c7c84b4a61f46eb3455b4166ec4754a4652786099ef87fed3a8?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-            alt="Logo"
-          />
-        </LogoSection>
-        <Title>새 게시물 작성</Title>
-      </HeaderContent>
+    <HeaderContainer id="header" role="banner">
+      <LogoLink to="/">
+        <LogoImage
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4"
+          alt="Logo Image"
+        />
+      </LogoLink>
+      <Title>새 게시물 작성</Title>
       <HeaderMenu>
-        <ProfileSection to="/mypage">
-          <ProfileImage src={profileImage} alt="Profile" />
-        </ProfileSection>
+        <HeaderMenuItem>
+          <ProfileSection to="/mypage">
+            <ProfileImage src={profileImage} alt="Profile" />
+          </ProfileSection>
+        </HeaderMenuItem>
       </HeaderMenu>
-    </HeaderWrapper>
+    </HeaderContainer>
   );
 };
 
-const HeaderWrapper = styled.header`
+export default WriteHeader;
+
+const HeaderContainer = styled.header`
   position: absolute;
   z-index: 100;
-  width: 100vw;
+  width: 100%;
   height: 104px;
   padding: 0 0 0 50px;
   transition: opacity 0.5s;
@@ -38,30 +52,25 @@ const HeaderWrapper = styled.header`
   flex-wrap: nowrap;
 `;
 
-const HeaderContent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 48px;
+const LogoImage = styled.img`
+  width: 96px;
+  height: 36px;
+  align-self: center;
 `;
 
-const LogoSection = styled(Link)`
+const LogoLink = styled(Link)`
   text-decoration: none;
   display: flex;
   width: 144px;
   height: 55px;
 `;
 
-const Logo = styled.img`
-  width: 144px;
-  height: 55px;
-`;
-
-const Title = styled.h1`
-  font-family: Syncopate, sans-serif;
-  font-size: 25px;
-  font-weight: 700;
-  color: #000;
-  margin: 0;
+const Title = styled.span`
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: #000000;
+  width: 150px;
 `;
 
 const HeaderMenu = styled.ul`
@@ -69,23 +78,30 @@ const HeaderMenu = styled.ul`
   height: 55px;
   list-style-type: none;
   display: flex;
-  justify-content: flex-end; // 오른쪽 정렬
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: nowrap;
 `;
 
-const ProfileSection = styled(Link)`
-  text-decoration: none;
+const HeaderMenuItem = styled.li`
   display: flex;
   align-items: center;
-  height: auto;
+  justify-content: start;
+  margin-right: 25px;
+  position: relative;
+`;
+
+const ProfileSection = styled(Link)`
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ProfileImage = styled.img`
-  width: 51px;
-  aspect-ratio: 1;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  object-fit: cover;
+  cursor: pointer;
+  margin-right: 30px;
 `;
-
-export default WriteHeader;
