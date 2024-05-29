@@ -175,6 +175,7 @@ const Write = () => {
               </UploadButtonWrapper>
             </UploadHeaderContent>
           </UploadHeader>
+          {isOpen && <UploadSection />}
         </UploadWrapper>
       </UploadContainer>
     </>
@@ -222,7 +223,7 @@ const TitleInput = styled.input`
 const AIButtonSection = styled.div`
   position: fixed;
   bottom: 100px;
-  right: 40px;
+  right: 55px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -246,7 +247,7 @@ const UploadContainer = styled.div`
   border-top: 1px solid #ccc;
   display: flex;
   justify-content: flex-end;
-  padding-right: 40px;
+  padding-right: 55px;
 `;
 
 const UploadWrapper = styled.div`
@@ -274,7 +275,7 @@ const UploadHeaderContent = styled.div`
   display: flex;
   gap: 17.93px;
   align-items: center;
-  margin-right: 40px;
+  margin-right: 55px;
 `;
 
 const VoiceModelButton = styled.button`
@@ -321,9 +322,7 @@ const UploadButtonWrapper = styled.div`
 `;
 
 const UploadIcon = styled.img`
-  width: 100%;
-  height: 100%;
-  padding-top: 4px;
+  width: 98px;
 `;
 
 const Sidebar = styled.aside`

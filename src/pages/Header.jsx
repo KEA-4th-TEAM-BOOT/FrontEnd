@@ -110,6 +110,9 @@ const Header = () => {
                 <DropdownItem>
                   <StyledLink to="/mypage">마이페이지</StyledLink>
                 </DropdownItem>
+                <DropdownItem>
+                  <StyledLink to="/setting">설정</StyledLink>
+                </DropdownItem>
                 <DropdownItem onClick={handleLogout}>로그아웃</DropdownItem>
               </DropdownMenu>
             )}
