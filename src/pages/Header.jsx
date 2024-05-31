@@ -10,14 +10,15 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { modalState } from "../recoil/modal";
 import { UserData } from "../recoil/user";
 import { logout } from "../api/UserAPI";
+import { isUserLoggedIn } from "../recoil/user";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLogin = useRecoilValue(isUserLoggedIn);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showNotify, setShowNotify] = useState(false);
   const setModal = useSetRecoilState(modalState);
   const setUserData = useSetRecoilState(UserData);
-  const LoginState = useRecoilValue(UserData);
   const navigate = useNavigate();
   const notifyRef = useRef();
 
@@ -43,8 +44,8 @@ const Header = () => {
       alert("로그아웃 되었습니다.");
       // Recoil 상태 업데이트
       setUserData({
-        email: "",
-        isLogin: false,
+        userLink: "",
+        accessToken: null,
       });
 
       // 로그인 상태 업데이트
@@ -59,8 +60,8 @@ const Header = () => {
   };
 
   useLayoutEffect(() => {
-    setIsLoggedIn(LoginState.isLogin);
-  }, [LoginState.isLogin]);
+    setIsLoggedIn(isLogin);
+  }, [isLogin]);
 
   return (
     <HeaderContainer id="header" role="banner">
