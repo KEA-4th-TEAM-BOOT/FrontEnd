@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
@@ -6,8 +6,16 @@ const { persistAtom } = recoilPersist();
 export const UserData = atom({
   key: "UserData",
   default: {
-    email: "",
-    isLogin: false,
+    userLink: "",
+    accessToken: null,
   },
   effects_UNSTABLE: [persistAtom],
+});
+
+export const isUserLoggedIn = selector({
+  key: "isUserLoggedIn",
+  get: ({ get }) => {
+    const user = get(UserData);
+    return !!user.accessToken;
+  },
 });

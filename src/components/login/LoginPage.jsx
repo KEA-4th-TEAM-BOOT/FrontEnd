@@ -48,9 +48,8 @@ const LoginPage = () => {
 
       // 사용자 데이터를 Recoil 상태로 설정
       setUserData({
-        email,
-        isLogin: true,
         userLink,
+        accessToken,
       });
 
       // 토큰을 저장 (localStorage 또는 sessionStorage)
