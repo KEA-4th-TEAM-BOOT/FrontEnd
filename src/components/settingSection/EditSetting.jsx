@@ -1,8 +1,9 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CategoryEdit from "./CategoryEdit";
 import { updateUser } from "../../api/UserAPI";
+import VoiceFile from "./VoiceFile";
 
 const EditSetting = ({ userInfo }) => {
   const {
@@ -15,10 +16,10 @@ const EditSetting = ({ userInfo }) => {
     voiceFileUrl = "https://youtu.be/UOY-WsXkgTI?si=9UHO67R3mUWy9yOJ",
   } = userInfo || {};
 
-  const [profileImage, setProfileImage] = useState(userInfo.profileUrl);
+  const [profileImage, setProfileImage] = useState(profileImageUrl);
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
-  const [userNickname, setUserNickname] = useState(userInfo.nickname);
+  const [userNickname, setUserNickname] = useState(nickname);
   const [userIntroduction, setUserIntroduction] = useState(introduction);
   const [userVoiceFile, setUserVoiceFile] = useState({
     file: null,
@@ -47,9 +48,7 @@ const EditSetting = ({ userInfo }) => {
   };
 
   const resetToDefaultImage = () => {
-    setProfileImage(
-      "https://kea-boot-postimage.s3.ap-northeast-2.amazonaws.com/profile.png"
-    );
+    setProfileImage(profileImageUrl);
   };
 
   const openVoiceFileSelector = () => {
@@ -74,7 +73,7 @@ const EditSetting = ({ userInfo }) => {
       alert("변경되었습니다.");
       navigate("/mypage", { state: { userInfo } });
     } catch (error) {
-      console.error("Signup failed:", error);
+      console.error("Update failed:", error);
     }
   };
 
@@ -105,11 +104,11 @@ const EditSetting = ({ userInfo }) => {
         <InformationSection>
           <InfoRow>
             <Label>이름</Label>
-            <Value>{userInfo.name}</Value>
+            <Value>{name}</Value>
           </InfoRow>
           <InfoRow>
             <Label>이메일</Label>
-            <Value>{userInfo.email}</Value>
+            <Value>{email}</Value>
           </InfoRow>
           <EditableInfoRow>
             <Label>비밀번호</Label>
@@ -129,7 +128,7 @@ const EditSetting = ({ userInfo }) => {
           </EditableInfoRow>
           <InfoRow>
             <Label>블로그 주소</Label>
-            <Value>domain.com/{userInfo.userLink}</Value>
+            <Value>{blogUrl}</Value>
           </InfoRow>
           <EditableInfoRow>
             <Label>닉네임</Label>
@@ -148,7 +147,6 @@ const EditSetting = ({ userInfo }) => {
             <Label>한 줄 소개</Label>
             <IntroductionContainer>
               <EditableTextArea
-                type="text"
                 maxLength={maxCharLimit}
                 value={userIntroduction}
                 onChange={(e) => setUserIntroduction(e.target.value)}
@@ -183,20 +181,16 @@ const EditSetting = ({ userInfo }) => {
                 <DeleteButton onClick={deleteVoiceFile}>파일 삭제</DeleteButton>
               </ButtonWrapper>
               <FileInfo>확장자 : mp3, wav / 용량: 10MB 이하</FileInfo>
-              <FileDisplayContainer>
-                {userVoiceFile.file ? (
-                  <FileDisplayText>
-                    {userVoiceFile.file.name} -{" "}
-                    {(userVoiceFile.file.size / 1024 / 1024).toFixed(2)} MB
-                  </FileDisplayText>
-                ) : (
-                  <PlaceholderText>음성 파일을 업로드해주세요.</PlaceholderText>
-                )}
-              </FileDisplayContainer>
             </VoiceContainer>
           </VoiceFileSection>
         </InformationSection>
-        <button onClick={handleUserInfo}>확인</button>
+        <VoiceFile
+          userVoiceFile={userVoiceFile}
+          openVoiceFileSelector={openVoiceFileSelector}
+        />
+        <ButtonContainer>
+          <CompleteButton onClick={handleUserInfo}>확인</CompleteButton>
+        </ButtonContainer>
       </SettingContainer>
     </EditProfileContainer>
   );
@@ -210,10 +204,12 @@ const EditProfileContainer = styled.div`
   align-items: center;
   padding: 0 100px;
   width: 1000px;
+  margin-bottom: 220px;
 `;
 
 const SettingContainer = styled.div`
   padding-left: 10px;
+  // background: #f3f4ff;
 `;
 
 const Title = styled.h2`
@@ -467,5 +463,26 @@ const DeleteButton = styled.button`
   cursor: pointer;
   font-size: 15px;
   margin-bottom: 5px;
+  text-align: center;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 20px;
+`;
+
+const CompleteButton = styled.button`
+  width: 150px;
+  height: 50px;
+  background-color: white;
+  color: #3fb0ff;
+  padding: 5px 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 20px;
   text-align: center;
 `;

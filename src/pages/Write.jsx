@@ -31,12 +31,12 @@ const Write = () => {
 
   const toggleSidebar = () => {
     setIsSideOpen(!isSideOpen);
-    if (!isSideOpen && isOpen) setIsOpen(false); // AI Button과 UploadSection이 동시에 열리지 않도록
+    if (!isSideOpen && isOpen) setIsOpen(false);
   };
 
   const toggleUploadSection = () => {
     setIsOpen(!isOpen);
-    if (!isOpen && isSideOpen) setIsSideOpen(false); // AI Button과 UploadSection이 동시에 열리지 않도록
+    if (!isOpen && isSideOpen) setIsSideOpen(false);
   };
 
   const handleTitleChange = (event) => {
