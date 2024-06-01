@@ -18,6 +18,8 @@ const UploadSection = (props) => {
   const [userInfo, setUserInfo] = useState([]);
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState(null); // S3 URL 상태 추가
+  const [selectedSubject, setSelectedSubject] = useState(""); // 주제 상태 추가
+  const [selectedScope, setSelectedScope] = useState(""); // 공개 범위 상태 추가
   const fileInputRef = useRef();
   const Title = props.title;
   const Content = props.content;
@@ -52,7 +54,7 @@ const UploadSection = (props) => {
     const file = event.target.files[0];
     if (file) {
       setThumbnail(URL.createObjectURL(file));
-      const url = await uploadToS3(file);
+      const url = (await uploadToS3(file)) + ".png";
       setThumbnailUrl(url);
       console.log("Uploaded Thumbnail URL:", url);
     }
@@ -83,17 +85,26 @@ const UploadSection = (props) => {
         title: Title,
         content: Content,
         thumbnailImageUrl: thumbnailUrl,
+        subject: selectedSubject,
+        accessibility: selectedScope,
+        userLink: userInfo.userLink,
       };
+      console.log("Submitting Data:", data); // 콘솔 로그 추가
       const response = await create_post({ data });
-      console.log("Title" + Title);
-      console.log("Content :" + Content);
       console.log(response);
       alert("업로드 되었습니다.");
     } catch (error) {
       console.error("포스트 작성 실패:", error);
       // 에러 처리 로직 추가
     }
-    // navigate("/post1"); 작성한 글 쪽으로 Navigate되게 설정
+  };
+
+  const handleSubjectChange = (event) => {
+    setSelectedSubject(event.target.value);
+  };
+
+  const handleScopeChange = (event) => {
+    setSelectedScope(event.target.value);
   };
 
   useEffect(() => {
@@ -118,15 +129,30 @@ const UploadSection = (props) => {
             <OptionTitle>공개 범위</OptionTitle>
             <RadioGroup>
               <RadioLabel>
-                <RadioInput type="radio" name="range" value="전체 공개" />
+                <RadioInput
+                  type="radio"
+                  name="range"
+                  value="PUBLIC"
+                  onChange={handleScopeChange}
+                />
                 전체 공개
               </RadioLabel>
               <RadioLabel>
-                <RadioInput type="radio" name="range" value="팔로워 공개" />
+                <RadioInput
+                  type="radio"
+                  name="range"
+                  value="FOLLOWER_ONLY"
+                  onChange={handleScopeChange}
+                />
                 팔로워 공개
               </RadioLabel>
               <RadioLabel>
-                <RadioInput type="radio" name="range" value="비공개" />
+                <RadioInput
+                  type="radio"
+                  name="range"
+                  value="PRIVATE"
+                  onChange={handleScopeChange}
+                />
                 비공개
               </RadioLabel>
             </RadioGroup>
@@ -166,29 +192,59 @@ const UploadSection = (props) => {
             <SelectSubject>
               <RadioGroup>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="라이프" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="라이프"
+                    onChange={handleSubjectChange}
+                  />
                   라이프
                 </RadioLabel>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="문화" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="문화"
+                    onChange={handleSubjectChange}
+                  />
                   문화
                 </RadioLabel>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="여행" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="여행"
+                    onChange={handleSubjectChange}
+                  />
                   여행
                 </RadioLabel>
               </RadioGroup>
               <RadioGroup>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="스포츠" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="스포츠"
+                    onChange={handleSubjectChange}
+                  />
                   스포츠
                 </RadioLabel>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="시사" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="시사"
+                    onChange={handleSubjectChange}
+                  />
                   시사
                 </RadioLabel>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="기타" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="기타"
+                    onChange={handleSubjectChange}
+                  />
                   기타
                 </RadioLabel>
               </RadioGroup>
