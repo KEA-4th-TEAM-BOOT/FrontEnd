@@ -24,11 +24,19 @@ const Write = ({ username }) => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const dropDownRef = useRef(null);
+  const aiButtonRef = useRef(null);
+  const uploadSectionRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isSideOpen, setIsSideOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSideOpen(!isSideOpen);
+    if (!isSideOpen && isOpen) setIsOpen(false); // AI Button과 UploadSection이 동시에 열리지 않도록
+  };
+
+  const toggleUploadSection = () => {
+    setIsOpen(!isOpen);
+    if (!isOpen && isSideOpen) setIsSideOpen(false); // AI Button과 UploadSection이 동시에 열리지 않도록
   };
 
   const handleTitleChange = (event) => {
@@ -89,8 +97,15 @@ const Write = ({ username }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+      if (
+        dropDownRef.current &&
+        !dropDownRef.current.contains(event.target) &&
+        (!aiButtonRef.current || !aiButtonRef.current.contains(event.target)) &&
+        (!uploadSectionRef.current ||
+          !uploadSectionRef.current.contains(event.target))
+      ) {
         setIsOpen(false);
+        setIsSideOpen(false);
       }
     };
 
@@ -98,7 +113,7 @@ const Write = ({ username }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropDownRef]);
+  }, []);
 
   const modules = useMemo(() => {
     return {
@@ -147,7 +162,11 @@ const Write = ({ username }) => {
             modules={modules}
           />
         </EditorDiv>
-        <AIButtonSection onClick={toggleSidebar}>
+        <AIButtonSection
+          isOpen={isOpen}
+          ref={aiButtonRef}
+          onClick={toggleSidebar}
+        >
           <AIButtonImage src={aiWriteImage} />
         </AIButtonSection>
         <Sidebar isSideOpen={isSideOpen}>
@@ -155,23 +174,23 @@ const Write = ({ username }) => {
         </Sidebar>
       </EditorDivWrapper>
 
-      <UploadContainer isOpen={isOpen}>
+      <UploadContainer isOpen={isOpen} ref={uploadSectionRef}>
         <UploadWrapper>
           {!isOpen && (
             <UploadHeader>
               <UploadHeaderContent>
-                <VoiceModelButton onClick={() => setIsOpen(!isOpen)}>
+                <VoiceModelButton onClick={toggleUploadSection}>
                   <VoiceModelIcon
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf28a1ae65431fb5474ce7b914eed5dd3008ce69e040ae6088b2c36bac06f537?apiKey=a9a9d68966df47cab33790d709ea20f1&"
                     alt="Voice Model Icon"
                   />
                   <VoiceModelText>음성모델 추가</VoiceModelText>
                 </VoiceModelButton>
-                <TagButton onClick={() => setIsOpen(!isOpen)}>
+                <TagButton onClick={toggleUploadSection}>
                   <TagIcon>#</TagIcon>
                   <TagText>태그 추가</TagText>
                 </TagButton>
-                <UploadButtonWrapper onClick={() => setIsOpen(!isOpen)}>
+                <UploadButtonWrapper onClick={toggleUploadSection}>
                   <UploadIcon src={UploadButton} />
                 </UploadButtonWrapper>
               </UploadHeaderContent>
@@ -224,13 +243,14 @@ const TitleInput = styled.input`
 
 const AIButtonSection = styled.div`
   position: fixed;
-  bottom: 100px;
+  bottom: ${({ isOpen }) => (isOpen ? "calc(50% - 100px)" : "100px")};
   right: 55px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: bottom 0.3s ease-in-out;
 `;
 
 const AIButtonImage = styled.img`
