@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -95,7 +95,8 @@ const Signup = () => {
         userLink: data.userLink,
       });
       console.log("Signup success:", response);
-      // window.location.href = `/`;
+      alert("회원가입되었습니다.");
+      window.location.href = `/`;
     } catch (error) {
       console.error("Signup failed:", error);
     }
@@ -110,9 +111,10 @@ const Signup = () => {
       if (response.exists) {
         alert("Email is already taken.");
       } else {
+        alert("사용가능한 이메일입니다. ");
         await emailSend({ email });
         setAuthNumberSent(true);
-        alert("사용가능한 이메일입니다. 인증번호가 전송되었습니다.");
+        alert("인증번호가 전송되었습니다.");
       }
     } catch (error) {
       console.error("Email verification failed:", error);
@@ -152,11 +154,12 @@ const Signup = () => {
       if (response.exists) {
         alert("User link is already taken.");
       } else {
+        alert("사용가능한 주소입니다.");
         console.log("User link is available.");
       }
     } catch (error) {
       console.error("User link verification failed:", error);
-      alert("Failed to verify user link.");
+      alert("이미 사용하고 있는 주소입니다.");
     }
   };
 
