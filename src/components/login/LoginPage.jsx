@@ -62,6 +62,7 @@ const LoginPage = () => {
         isOpen: false,
       });
 
+      window.location.reload();
       // 페이지 이동 (필요한 경우)
       // nav("/dashboard"); // 예: 로그인 후 대시보드로 이동
     } catch (error) {

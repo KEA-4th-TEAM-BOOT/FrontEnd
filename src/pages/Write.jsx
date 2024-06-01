@@ -19,7 +19,7 @@ const REGION = import.meta.env.VITE_AWS_S3_BUCKET_REGION;
 const ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
-const Write = ({ username }) => {
+const Write = () => {
   const quillRef = useRef();
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
@@ -196,7 +196,7 @@ const Write = ({ username }) => {
               </UploadHeaderContent>
             </UploadHeader>
           )}
-          {isOpen && <UploadSection username={username} />}
+          {isOpen && <UploadSection title={title} content={content} />}
         </UploadWrapper>
       </UploadContainer>
     </>

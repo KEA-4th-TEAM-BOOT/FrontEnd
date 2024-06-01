@@ -1,21 +1,44 @@
-import React, { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import AWS from "aws-sdk";
 import styled from "styled-components";
 import AddThumbNailIcon from "../../assets/img/icons/addthumbnail.svg";
 import UploadButtonIcon from "../../assets/img/icons/uploadbutton.svg";
+import { fetchUser } from "../../api/UserAPI";
+import { create_post } from "../../api/PostAPI";
 
-const username = "파인애플";
 const categories = ["카테고리1", "카테고리2", "카테고리3", "전체"];
 const tags = ["경제", "주식", "돈", "금융"];
 
-const UploadSection = () => {
+const REGION = import.meta.env.VITE_AWS_S3_BUCKET_REGION;
+const ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_ACCESS_KEY_ID;
+const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
+
+const UploadSection = (props) => {
   const [selectedTags, setSelectedTags] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
   const [thumbnail, setThumbnail] = useState(null);
-  const fileInputRef = React.createRef();
+  const [thumbnailUrl, setThumbnailUrl] = useState(null); // S3 URL 상태 추가
+  const [selectedSubject, setSelectedSubject] = useState(""); // 주제 상태 추가
+  const [selectedScope, setSelectedScope] = useState(""); // 공개 범위 상태 추가
+  const fileInputRef = useRef();
+  const Title = props.title;
+  const Content = props.content;
+
+  useEffect(() => {
+    AWS.config.update({
+      region: REGION,
+      accessKeyId: ACCESS_KEY,
+      secretAccessKey: SECRET_ACCESS_KEY,
+    });
+  }, []);
 
   const handleAddTag = (event) => {
-    if (event.key === "Enter" && event.target.value) {
-      setSelectedTags([...selectedTags, event.target.value]);
-      event.target.value = "";
+    const tag = event.target.value.trim();
+    if (event.key === "Enter" && tag) {
+      if (selectedTags.length < 4 && !selectedTags.includes(tag)) {
+        setSelectedTags([...selectedTags, tag]);
+        event.target.value = "";
+      }
     }
   };
 
@@ -27,12 +50,76 @@ const UploadSection = () => {
     fileInputRef.current.click();
   };
 
-  const handleThumbnailChange = (event) => {
+  const handleThumbnailChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       setThumbnail(URL.createObjectURL(file));
+      const url = (await uploadToS3(file)) + ".png";
+      setThumbnailUrl(url);
+      console.log("Uploaded Thumbnail URL:", url);
     }
   };
+
+  const uploadToS3 = async (file) => {
+    try {
+      const name = Date.now();
+      const upload = new AWS.S3.ManagedUpload({
+        params: {
+          ACL: "public-read",
+          Bucket: "kea-boot-postimage",
+          Key: `post/${name}`,
+          Body: file,
+        },
+      });
+      const result = await upload.promise();
+      return result.Location;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const onhandleSubmit = async () => {
+    try {
+      const data = {
+        title: Title,
+        content: Content,
+        thumbnailImageUrl: thumbnailUrl,
+        subject: selectedSubject,
+        accessibility: selectedScope,
+        userLink: userInfo.userLink,
+      };
+      console.log("Submitting Data:", data); // 콘솔 로그 추가
+      const response = await create_post({ data });
+      console.log(response);
+      alert("업로드 되었습니다.");
+    } catch (error) {
+      console.error("포스트 작성 실패:", error);
+      // 에러 처리 로직 추가
+    }
+  };
+
+  const handleSubjectChange = (event) => {
+    setSelectedSubject(event.target.value);
+  };
+
+  const handleScopeChange = (event) => {
+    setSelectedScope(event.target.value);
+  };
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const user = await fetchUser();
+        console.log("userInfo :", user);
+        setUserInfo(user);
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   return (
     <UploadSectionWrapper>
@@ -42,15 +129,30 @@ const UploadSection = () => {
             <OptionTitle>공개 범위</OptionTitle>
             <RadioGroup>
               <RadioLabel>
-                <RadioInput type="radio" name="range" value="전체 공개" />
+                <RadioInput
+                  type="radio"
+                  name="range"
+                  value="PUBLIC"
+                  onChange={handleScopeChange}
+                />
                 전체 공개
               </RadioLabel>
               <RadioLabel>
-                <RadioInput type="radio" name="range" value="팔로워 공개" />
+                <RadioInput
+                  type="radio"
+                  name="range"
+                  value="FOLLOWER_ONLY"
+                  onChange={handleScopeChange}
+                />
                 팔로워 공개
               </RadioLabel>
               <RadioLabel>
-                <RadioInput type="radio" name="range" value="비공개" />
+                <RadioInput
+                  type="radio"
+                  name="range"
+                  value="PRIVATE"
+                  onChange={handleScopeChange}
+                />
                 비공개
               </RadioLabel>
             </RadioGroup>
@@ -58,7 +160,7 @@ const UploadSection = () => {
           <UploadOptionItem>
             <OptionTitle>음성 추가</OptionTitle>
             <SelectVoiceModel>
-              <option>{username}님의 음성모델</option>
+              <option>{userInfo.name}님의 음성모델</option>
               <option>기본 음성모델1</option>
               <option>기본 음성모델2</option>
             </SelectVoiceModel>
@@ -90,29 +192,59 @@ const UploadSection = () => {
             <SelectSubject>
               <RadioGroup>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="라이프" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="라이프"
+                    onChange={handleSubjectChange}
+                  />
                   라이프
                 </RadioLabel>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="문화" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="문화"
+                    onChange={handleSubjectChange}
+                  />
                   문화
                 </RadioLabel>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="여행" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="여행"
+                    onChange={handleSubjectChange}
+                  />
                   여행
                 </RadioLabel>
               </RadioGroup>
               <RadioGroup>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="스포츠" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="스포츠"
+                    onChange={handleSubjectChange}
+                  />
                   스포츠
                 </RadioLabel>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="시사" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="시사"
+                    onChange={handleSubjectChange}
+                  />
                   시사
                 </RadioLabel>
                 <RadioLabel>
-                  <RadioInput type="radio" name="subject" value="기타" />
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="기타"
+                    onChange={handleSubjectChange}
+                  />
                   기타
                 </RadioLabel>
               </RadioGroup>
@@ -129,7 +261,9 @@ const UploadSection = () => {
                   </RemoveTagButton>
                 </Tag>
               ))}
-              <TagInput placeholder="입력" onKeyPress={handleAddTag} />
+              {selectedTags.length < 4 && (
+                <TagInput placeholder="입력" onKeyPress={handleAddTag} />
+              )}
             </EnrollTag>
           </UploadOptionItem>
         </UploadOptionRow>
@@ -150,7 +284,7 @@ const UploadSection = () => {
             onChange={handleThumbnailChange}
           />
         </ThumbnailButton>
-        <UploadButton>
+        <UploadButton onClick={onhandleSubmit}>
           <img src={UploadButtonIcon} alt="Upload" />
         </UploadButton>
       </UploadOptionRight>
