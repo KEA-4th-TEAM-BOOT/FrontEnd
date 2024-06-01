@@ -3,11 +3,13 @@ import styled from "styled-components";
 import AddThumbNailIcon from "../../assets/img/icons/addthumbnail.svg";
 import UploadButtonIcon from "../../assets/img/icons/uploadbutton.svg";
 
-const categories = ["시사", "생활", "스포츠", "기타"];
+const username = "파인애플";
+const categories = ["카테고리1", "카테고리2", "카테고리3", "전체"];
 const tags = ["경제", "주식", "돈", "금융"];
 
 const UploadSection = () => {
   const [selectedTags, setSelectedTags] = useState([]);
+  const [thumbnail, setThumbnail] = useState(null);
   const fileInputRef = React.createRef();
 
   const handleAddTag = (event) => {
@@ -23,6 +25,13 @@ const UploadSection = () => {
 
   const handleThumbnailClick = () => {
     fileInputRef.current.click();
+  };
+
+  const handleThumbnailChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setThumbnail(URL.createObjectURL(file));
+    }
   };
 
   return (
@@ -49,7 +58,7 @@ const UploadSection = () => {
           <UploadOptionItem>
             <OptionTitle>음성 추가</OptionTitle>
             <SelectVoiceModel>
-              <option>파인애플님의 음성모델</option>
+              <option>{username}님의 음성모델</option>
               <option>기본 음성모델1</option>
               <option>기본 음성모델2</option>
             </SelectVoiceModel>
@@ -127,11 +136,18 @@ const UploadSection = () => {
       </UploadOptionLeft>
       <UploadOptionRight>
         <ThumbnailButton onClick={handleThumbnailClick}>
-          <img src={AddThumbNailIcon} alt="Add Thumbnail" />
+          {thumbnail ? (
+            <ThumbnailImageContainer>
+              <ThumbnailImage src={thumbnail} alt="Thumbnail" />
+            </ThumbnailImageContainer>
+          ) : (
+            <img src={AddThumbNailIcon} alt="Add Thumbnail" />
+          )}
           <FileInput
             type="file"
             ref={fileInputRef}
             style={{ display: "none" }}
+            onChange={handleThumbnailChange}
           />
         </ThumbnailButton>
         <UploadButton>
@@ -156,23 +172,23 @@ const UploadSectionWrapper = styled.div`
 const UploadOptionLeft = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 100px;
+  margin-right: 30px;
 `;
 
 const UploadOptionRight = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
 `;
 
 const UploadOptionRow = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  justify-content: flex-start;
   flex-wrap: nowrap;
 `;
 
 const UploadOptionItem = styled.div`
+  width: 450px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -182,7 +198,9 @@ const UploadOptionItem = styled.div`
 const OptionTitle = styled.h4`
   font-size: 15px;
   margin-right: 20px;
+  width: 80px;
   white-space: nowrap;
+  text-align: left;
 `;
 
 const RadioGroup = styled.div`
@@ -201,6 +219,8 @@ const RadioLabel = styled.label`
   align-items: center;
   gap: 5px;
   white-space: nowrap;
+  font-size: 11px;
+  margin: 5px 0;
 `;
 
 const RadioInput = styled.input`
@@ -244,6 +264,7 @@ const EnrollTag = styled.div`
   align-items: center;
   gap: 5px;
   flex-wrap: wrap;
+  max-width: 350px;
 `;
 
 const TagInput = styled.input`
@@ -258,13 +279,29 @@ const RemoveTagButton = styled.button`
   border: none;
   cursor: pointer;
   font-weight: bold;
+  font-size: 11px;
 `;
 
 const ThumbnailButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+`;
+
+const ThumbnailImageContainer = styled.div`
+  width: 192.551px;
+  height: 192.551px;
+  border: 0.812px solid #7a7a7a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ThumbnailImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const UploadButton = styled.button`
@@ -276,7 +313,7 @@ const UploadButton = styled.button`
 const Divider = styled.hr`
   border: 0;
   border-top: 1px solid #ccc;
-  margin: 20px 0;
+  margin: 10px0;
 `;
 
 const FileInput = styled.input``;
