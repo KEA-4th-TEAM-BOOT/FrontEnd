@@ -155,10 +155,10 @@ const Write = ({ username }) => {
         </Sidebar>
       </EditorDivWrapper>
 
-      <UploadContainer>
+      <UploadContainer isOpen={isOpen}>
         <UploadWrapper>
-          <UploadHeader>
-            {!isOpen && (
+          {!isOpen && (
+            <UploadHeader>
               <UploadHeaderContent>
                 <VoiceModelButton onClick={() => setIsOpen(!isOpen)}>
                   <VoiceModelIcon
@@ -175,8 +175,8 @@ const Write = ({ username }) => {
                   <UploadIcon src={UploadButton} />
                 </UploadButtonWrapper>
               </UploadHeaderContent>
-            )}
-          </UploadHeader>
+            </UploadHeader>
+          )}
           {isOpen && <UploadSection username={username} />}
         </UploadWrapper>
       </UploadContainer>
@@ -250,6 +250,11 @@ const UploadContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   box-sizing: border-box;
+  ${({ isOpen }) =>
+    isOpen &&
+    `
+    padding: 0;
+  `}
 `;
 
 const UploadWrapper = styled.div`
@@ -260,7 +265,7 @@ const UploadWrapper = styled.div`
   text-align: center;
   justify-content: center;
   width: 100%;
-  box-sizing: border-box;=
+  box-sizing: border-box;
 `;
 
 const UploadHeader = styled.header`
