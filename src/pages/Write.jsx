@@ -19,7 +19,7 @@ const REGION = import.meta.env.VITE_AWS_S3_BUCKET_REGION;
 const ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
-const Write = () => {
+const Write = ({ username }) => {
   const quillRef = useRef();
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
@@ -158,24 +158,26 @@ const Write = () => {
       <UploadContainer>
         <UploadWrapper>
           <UploadHeader>
-            <UploadHeaderContent>
-              <VoiceModelButton onClick={() => setIsOpen(!isOpen)}>
-                <VoiceModelIcon
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf28a1ae65431fb5474ce7b914eed5dd3008ce69e040ae6088b2c36bac06f537?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-                  alt="Voice Model Icon"
-                />
-                <VoiceModelText>음성모델 추가</VoiceModelText>
-              </VoiceModelButton>
-              <TagButton onClick={() => setIsOpen(!isOpen)}>
-                <TagIcon>#</TagIcon>
-                <TagText>태그 추가</TagText>
-              </TagButton>
-              <UploadButtonWrapper onClick={() => setIsOpen(!isOpen)}>
-                <UploadIcon src={UploadButton} />
-              </UploadButtonWrapper>
-            </UploadHeaderContent>
+            {!isOpen && (
+              <UploadHeaderContent>
+                <VoiceModelButton onClick={() => setIsOpen(!isOpen)}>
+                  <VoiceModelIcon
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/bf28a1ae65431fb5474ce7b914eed5dd3008ce69e040ae6088b2c36bac06f537?apiKey=a9a9d68966df47cab33790d709ea20f1&"
+                    alt="Voice Model Icon"
+                  />
+                  <VoiceModelText>음성모델 추가</VoiceModelText>
+                </VoiceModelButton>
+                <TagButton onClick={() => setIsOpen(!isOpen)}>
+                  <TagIcon>#</TagIcon>
+                  <TagText>태그 추가</TagText>
+                </TagButton>
+                <UploadButtonWrapper onClick={() => setIsOpen(!isOpen)}>
+                  <UploadIcon src={UploadButton} />
+                </UploadButtonWrapper>
+              </UploadHeaderContent>
+            )}
           </UploadHeader>
-          {isOpen && <UploadSection />}
+          {isOpen && <UploadSection username={username} />}
         </UploadWrapper>
       </UploadContainer>
     </>
@@ -247,7 +249,7 @@ const UploadContainer = styled.div`
   border-top: 1px solid #ccc;
   display: flex;
   justify-content: flex-end;
-  padding-right: 55px;
+  box-sizing: border-box;
 `;
 
 const UploadWrapper = styled.div`
@@ -258,6 +260,7 @@ const UploadWrapper = styled.div`
   text-align: center;
   justify-content: center;
   width: 100%;
+  box-sizing: border-box;=
 `;
 
 const UploadHeader = styled.header`
@@ -269,6 +272,7 @@ const UploadHeader = styled.header`
   justify-content: flex-end;
   padding: 16px 0;
   gap: 17.93px;
+  box-sizing: border-box;
 `;
 
 const UploadHeaderContent = styled.div`
@@ -276,6 +280,7 @@ const UploadHeaderContent = styled.div`
   gap: 17.93px;
   align-items: center;
   margin-right: 55px;
+  box-sizing: border-box;
 `;
 
 const VoiceModelButton = styled.button`
