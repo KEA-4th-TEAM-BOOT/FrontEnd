@@ -1,6 +1,8 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CategoryEdit from "./CategoryEdit";
+import { updateUser } from "../../api/UserAPI";
 
 const EditSetting = ({ userInfo }) => {
   const {
@@ -13,15 +15,17 @@ const EditSetting = ({ userInfo }) => {
     voiceFileUrl = "https://youtu.be/UOY-WsXkgTI?si=9UHO67R3mUWy9yOJ",
   } = userInfo || {};
 
-  const [profileImage, setProfileImage] = useState(profileImageUrl);
+  const [profileImage, setProfileImage] = useState(userInfo.profileUrl);
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
-  const [userNickname, setUserNickname] = useState(nickname);
+  const [userNickname, setUserNickname] = useState(userInfo.nickname);
   const [userIntroduction, setUserIntroduction] = useState(introduction);
   const [userVoiceFile, setUserVoiceFile] = useState({
     file: null,
     url: voiceFileUrl,
   });
+
+  const navigate = useNavigate();
 
   const ImageFileInputRef = useRef(null);
   const VoiceFileInputRef = useRef(null);
@@ -44,7 +48,7 @@ const EditSetting = ({ userInfo }) => {
 
   const resetToDefaultImage = () => {
     setProfileImage(
-      "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
+      "https://kea-boot-postimage.s3.ap-northeast-2.amazonaws.com/profile.png"
     );
   };
 
@@ -54,6 +58,24 @@ const EditSetting = ({ userInfo }) => {
 
   const deleteVoiceFile = () => {
     setUserVoiceFile({ file: null, url: "" });
+  };
+
+  const handleUserInfo = async () => {
+    try {
+      const data = {
+        nickname: userNickname,
+        introduce: userIntroduction,
+        profileUrl: profileImage,
+      };
+      await updateUser(data);
+      userInfo.nickname = userNickname;
+      userInfo.introduce = userIntroduction;
+      userInfo.profileUrl = profileImage;
+      alert("변경되었습니다.");
+      navigate("/mypage", { state: { userInfo } });
+    } catch (error) {
+      console.error("Signup failed:", error);
+    }
   };
 
   const maxCharLimit = 200;
@@ -83,11 +105,11 @@ const EditSetting = ({ userInfo }) => {
         <InformationSection>
           <InfoRow>
             <Label>이름</Label>
-            <Value>{name}</Value>
+            <Value>{userInfo.name}</Value>
           </InfoRow>
           <InfoRow>
             <Label>이메일</Label>
-            <Value>{email}</Value>
+            <Value>{userInfo.email}</Value>
           </InfoRow>
           <EditableInfoRow>
             <Label>비밀번호</Label>
@@ -107,7 +129,7 @@ const EditSetting = ({ userInfo }) => {
           </EditableInfoRow>
           <InfoRow>
             <Label>블로그 주소</Label>
-            <Value>{blogUrl}</Value>
+            <Value>domain.com/{userInfo.userLink}</Value>
           </InfoRow>
           <EditableInfoRow>
             <Label>닉네임</Label>
@@ -174,6 +196,7 @@ const EditSetting = ({ userInfo }) => {
             </VoiceContainer>
           </VoiceFileSection>
         </InformationSection>
+        <button onClick={handleUserInfo}>확인</button>
       </SettingContainer>
     </EditProfileContainer>
   );

@@ -103,7 +103,7 @@ export const fetchUser = async () => {
 
 /** 회원수정 API */
 export const updateUser = async (data) => {
-  const response = await UserApi.put(`/api/v1/user`, data);
+  const response = await UserApi.patch(`/api/v1/user`, data);
   return response.data;
 };
 

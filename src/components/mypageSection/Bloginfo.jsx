@@ -1,21 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Followlist from "../mypageSection/Followlist";
 
-const Bloginfo = () => {
-  const profileData = {
-    profileImage:
-      "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTaWksGAUsmDHd-Zmfu6-6TgiH0qtw23poll21guIBMfSvCXsDf",
-    nickname: "닉네임",
-    intro: "한 줄 소개",
-    postCount: 10,
-    followersCount: 20,
-    followingCount: 15,
-  };
-
-  const [showFollowList, setShowFollowList] = useState(false);
+const Bloginfo = ({ userInfo }) => {
+  const [showFollowList, setShowFollowList] = useState();
   const [followListType, setFollowListType] = useState("");
-
   const handleFollowersClick = () => {
     setFollowListType("followers");
     setShowFollowList(true);
@@ -29,21 +18,21 @@ const Bloginfo = () => {
   return (
     <ListcardWrapper>
       <BlogInfo>
-        <ProfileImage src={profileData.profileImage} alt="profile image" />
+        <ProfileImage src={userInfo.profileUrl} alt="profile image" />
         <InfoWrapper>
           <Nickname>
-            <StyledNickname>{profileData.nickname}</StyledNickname>
+            <StyledNickname>{userInfo.nickname}</StyledNickname>
             <BlogTitle>님의 블로그</BlogTitle>
           </Nickname>
-          <Introduction>{profileData.intro}</Introduction>
+          <Introduction>{userInfo.introduce}</Introduction>
           <StatsWrapper>
-            <Stat>{`게시물 ${profileData.postCount}`}</Stat>
+            <Stat>{`게시물 ${userInfo.postCnt}`}</Stat>
             <Stat
               onClick={handleFollowersClick}
-            >{`팔로워 ${profileData.followersCount}`}</Stat>
+            >{`팔로워 ${userInfo.followerNum}`}</Stat>
             <Stat
               onClick={handleFollowingClick}
-            >{`팔로잉 ${profileData.followingCount}`}</Stat>
+            >{`팔로잉 ${userInfo.followingNum}`}</Stat>
           </StatsWrapper>
         </InfoWrapper>
       </BlogInfo>

@@ -1,24 +1,24 @@
-import React, { useLayoutEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import writeIcon from "../assets/img/icons/writeicon.svg";
 import notifyIcon from "../assets/img/icons/notifyicon.svg";
-import profileImage from "../assets/img/profile.png";
+import profileImage from "../assets/img/profile.png"; // 기본 프로필 이미지
 import LoginPage from "../components/login/LoginPage";
 import Notify from "../components/homeSection/Notify";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { modalState } from "../recoil/modal";
 import { UserData } from "../recoil/user";
-import { logout } from "../api/UserAPI";
-import { isUserLoggedIn } from "../recoil/user";
+import { logout, fetchUser } from "../api/UserAPI";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const isLogin = useRecoilValue(isUserLoggedIn);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showNotify, setShowNotify] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
   const setModal = useSetRecoilState(modalState);
   const setUserData = useSetRecoilState(UserData);
+  const LoginState = useRecoilValue(UserData);
   const navigate = useNavigate();
   const notifyRef = useRef();
 
@@ -26,7 +26,7 @@ const Header = () => {
     setModal({
       isOpen: true,
       content: LoginPage,
-      props: {}, // 필요한 경우 추가 props 전달
+      props: {},
     });
   };
 
@@ -44,7 +44,7 @@ const Header = () => {
       alert("로그아웃 되었습니다.");
       // Recoil 상태 업데이트
       setUserData({
-        userLink: "",
+        email: "",
         accessToken: null,
       });
 
@@ -55,13 +55,26 @@ const Header = () => {
       navigate("/");
     } catch (error) {
       console.error("로그아웃 실패:", error);
-      // 에러 처리 로직 추가
     }
   };
 
-  useLayoutEffect(() => {
-    setIsLoggedIn(isLogin);
-  }, [isLogin]);
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      if (LoginState.accessToken && !userInfo) {
+        try {
+          const user = await fetchUser();
+          console.log("userInfo :", user);
+          setUserInfo(user);
+        } catch (error) {
+          console.error("Failed to fetch user info:", error);
+        }
+      }
+    };
+
+    fetchUserInfo();
+
+    setIsLoggedIn(!!LoginState.accessToken);
+  }, [LoginState.accessToken, userInfo]);
 
   return (
     <HeaderContainer id="header" role="banner">
@@ -102,17 +115,21 @@ const Header = () => {
         {isLoggedIn ? (
           <HeaderMenuItem>
             <ProfileImage
-              src={profileImage}
+              src={userInfo ? userInfo.profileUrl : profileImage}
               alt="Profile Image"
               onClick={handleProfileClick}
             />
             {showDropdown && (
               <DropdownMenu>
                 <DropdownItem>
-                  <StyledLink to="/mypage">마이페이지</StyledLink>
+                  <StyledLink to="/mypage" state={{ userInfo }}>
+                    마이페이지
+                  </StyledLink>
                 </DropdownItem>
                 <DropdownItem>
-                  <StyledLink to="/setting">설정</StyledLink>
+                  <StyledLink to="/setting" state={{ userInfo }}>
+                    설정
+                  </StyledLink>
                 </DropdownItem>
                 <DropdownItem onClick={handleLogout}>로그아웃</DropdownItem>
               </DropdownMenu>
@@ -165,7 +182,7 @@ const MenuList = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 0px;
+  padding-left: 50px;
   flex-wrap: nowrap;
 `;
 
