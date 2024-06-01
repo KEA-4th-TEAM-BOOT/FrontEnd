@@ -19,10 +19,10 @@ export const PostApi = axios.create({
 });
 
 /** POSTING API */
-export const create_post = async ({ title, content }) => {
+export const create_post = async ({ data }) => {
   // eslint-disable-next-line no-useless-catch
   try {
-    const response = await PostApi.post(`/api/v1/post/`, title, content);
+    const response = await PostApi.post(`/api/v1/post/`, data);
 
     return response.data;
   } catch (error) {
