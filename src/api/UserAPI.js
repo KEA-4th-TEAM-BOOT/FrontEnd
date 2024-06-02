@@ -111,3 +111,8 @@ export const updateUser = async (data) => {
 export const deleteUser = async () => {
   await UserApi.delete(`/api/v1/user`);
 };
+
+export const resetPW = async (data) => {
+  const response = await UserApi.patch(`/api/v1/user/resetPw`, data);
+  return response.data;
+};

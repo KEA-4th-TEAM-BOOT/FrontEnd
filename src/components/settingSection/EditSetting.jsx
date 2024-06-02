@@ -128,7 +128,7 @@ const EditSetting = ({ userInfo }) => {
           </EditableInfoRow>
           <InfoRow>
             <Label>블로그 주소</Label>
-            <Value>{blogUrl}</Value>
+            <Value>domain.com/{userInfo.userLink}</Value>
           </InfoRow>
           <EditableInfoRow>
             <Label>닉네임</Label>
