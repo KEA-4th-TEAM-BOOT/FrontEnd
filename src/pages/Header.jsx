@@ -131,7 +131,9 @@ const Header = () => {
                     설정
                   </StyledLink>
                 </DropdownItem>
-                <DropdownItem onClick={handleLogout}>로그아웃</DropdownItem>
+                <DropdownItemLogout onClick={handleLogout}>
+                  로그아웃
+                </DropdownItemLogout>
               </DropdownMenu>
             )}
           </HeaderMenuItem>
@@ -274,16 +276,23 @@ const DropdownMenu = styled.ul`
 `;
 
 const DropdownItem = styled.li`
-  padding: 10px 20px;
+  padding: 0;
   cursor: pointer;
   &:hover {
     background-color: #f5f5f5;
   }
 `;
 
+const DropdownItemLogout = styled(DropdownItem)`
+  padding: 10px 20px;
+`;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
+  display: block;
+  padding: 10px 20px;
+  width: 100%;
   &:visited {
     color: inherit;
   }

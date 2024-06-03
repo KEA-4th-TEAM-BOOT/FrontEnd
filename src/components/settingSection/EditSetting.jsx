@@ -79,6 +79,17 @@ const EditSetting = ({ userInfo }) => {
 
   const maxCharLimit = 200;
 
+  const scriptList = [
+    "경제는 국민들의 삶의 질을 향상시키는 데 중요한 역할을 합니다.",
+    "모든 사람은 평등하고 존엄한 개인으로서의 가치를 지닙니다.",
+    "국제 협력 강화와 국제 사회 기여는 국제 질서 유지와 국가 이익 증진에 기여합니다.",
+    "오늘 친구와 함께 피크닉에 갔다. 재미있었다.",
+    "과학 기술은 우리 삶을 개선하고 세상을 더 나은 곳으로 만드는 잠재력을 가지고 있습니다.",
+    "차별과 편견을 없애고 포용적인 사회를 만들어야 합니다.",
+    "공기밥을 편의점에서 사도 되겠지? 돈주고 추가할 수 없잖아.",
+    "4월 23일 저녁 11시에는 비가 예정되어 있습니다. 우산을 챙기시길 바랍니다.",
+  ];
+
   return (
     <EditProfileContainer>
       <Title>개인 정보 수정</Title>
@@ -128,7 +139,7 @@ const EditSetting = ({ userInfo }) => {
           </EditableInfoRow>
           <InfoRow>
             <Label>블로그 주소</Label>
-            <Value>domain.com/{userInfo.userLink}</Value>
+            <Value>{blogUrl}</Value>
           </InfoRow>
           <EditableInfoRow>
             <Label>닉네임</Label>
@@ -187,6 +198,7 @@ const EditSetting = ({ userInfo }) => {
         <VoiceFile
           userVoiceFile={userVoiceFile}
           openVoiceFileSelector={openVoiceFileSelector}
+          scriptList={scriptList} // scriptList prop 전달
         />
         <ButtonContainer>
           <CompleteButton onClick={handleUserInfo}>확인</CompleteButton>
@@ -398,17 +410,6 @@ const VoiceFileInput = styled.input`
   display: none;
 `;
 
-const FileDisplayContainer = styled.div`
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin-top: 10px;
-  padding: 10px 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 40px;
-`;
-
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -424,19 +425,6 @@ const FileInfo = styled.span`
   color: #888;
   text-align: left;
   margin-top: 5px;
-`;
-
-const FileDisplayText = styled(FileInfo)`
-  margin-top: 0;
-  font-weight: 400;
-  color: #666;
-`;
-
-const PlaceholderText = styled(FileInfo)`
-  margin-top: 0;
-  font-weight: 400;
-  color: #666;
-  color: rgba(107, 114, 128);
 `;
 
 const VoiceInputLabel = styled.button`
