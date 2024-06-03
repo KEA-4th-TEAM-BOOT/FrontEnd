@@ -228,22 +228,23 @@ const EditProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 100px;
-  width: 1000px;
+  padding: 220px 120px;
+  margin: 0 auto;
+  max-width: 1400px;
+  box-sizing: border-box;
 `;
 
 const SettingContainer = styled.div`
   padding-left: 10px;
 `;
 
-const Title = styled.h2`
-  margin-top: 120px;
-  color: #000;
+const Title = styled.span`
+  color: #000000;
   margin-bottom: 50px;
-  margin-left: 200px;
-  font-size: 40px;
+  font-size: 45px;
   font-weight: bold;
   text-align: left;
+  padding-left: 500px;
   width: 100%;
 `;
 

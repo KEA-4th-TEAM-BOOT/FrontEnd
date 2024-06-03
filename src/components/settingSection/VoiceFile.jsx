@@ -81,7 +81,7 @@ const CurrentVoiceTitle = styled.span`
 const CurrentVoiceRight = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; /* 가운데 정렬 */
+  align-items: center;
 `;
 
 const FileDisplayContainer = styled.div`
@@ -107,8 +107,8 @@ const PlaceholderText = styled.span`
 const FileInfo = styled.span`
   font-size: 8px;
   color: #888;
-  text-align: center; /* 가운데 정렬 */
-  margin-top: 5px; /* 여백 추가 */
+  text-align: center;
+  margin-top: 5px;
 `;
 
 const Divider = styled.hr`
@@ -132,7 +132,7 @@ const LeftSection = styled.div`
 `;
 
 const AddDisplayContainer = styled.div`
-  width: 200px;
+  width: 150px;
   font-size: 13px;
   color: #333;
   margin-bottom: 17px;
