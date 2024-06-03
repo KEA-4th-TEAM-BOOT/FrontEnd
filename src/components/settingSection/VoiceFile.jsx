@@ -38,14 +38,14 @@ const VoiceFile = ({
         <RightSection>
           <ScriptTopSection>
             <RecommendScriptTitle>
-              음성파일녹음 추천 스크립트
+              음성 파일 녹음 추천 스크립트
             </RecommendScriptTitle>
             <ResetButton src={resetBtn} />
           </ScriptTopSection>
           <Divider2 />
           <ScriptContainer>
             {scriptList.map((script, index) => (
-              <ScriptRow key={index}>{script}</ScriptRow>
+              <ScriptRow key={index}>∙ {script}</ScriptRow>
             ))}
           </ScriptContainer>
         </RightSection>
@@ -167,9 +167,9 @@ const ScriptTopSection = styled.div`
   justify-content: space-between;
 `;
 
-const RecommendScriptTitle = styled.h3`
+const RecommendScriptTitle = styled.span`
   font-size: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
 
 const ResetButton = styled.img`
@@ -177,12 +177,13 @@ const ResetButton = styled.img`
   cursor: pointer;
   width: 9.7px;
   height: 9.7px;
+  margin-bottom: 5px;
 `;
 
 const Divider2 = styled.hr`
   border: none;
-  border-top: 1px solid #eee;
-  margin: 5px 0;
+  border-top: 1px solid #000;
+  margin: 0 0 5px 0;
 `;
 
 const ScriptContainer = styled.div`
