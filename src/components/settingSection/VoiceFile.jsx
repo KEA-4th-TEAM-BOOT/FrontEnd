@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import resetBtn from "../../assets/img/icons/reseticon.svg";
 
-const VoiceFile = ({ userVoiceFile, openVoiceFileSelector }) => {
+const VoiceFile = ({
+  userVoiceFile,
+  openVoiceFileSelector,
+  scriptList = [],
+}) => {
   return (
     <VoiceFileWrapper>
       <CurrentVoiceContainer>
@@ -40,11 +44,9 @@ const VoiceFile = ({ userVoiceFile, openVoiceFileSelector }) => {
           </ScriptTopSection>
           <Divider2 />
           <ScriptContainer>
-            <ScriptRow>안녕</ScriptRow>
-            <ScriptRow>안녕</ScriptRow>
-            <ScriptRow>안녕</ScriptRow>
-            <ScriptRow>안녕</ScriptRow>
-            <ScriptRow>안녕</ScriptRow>
+            {scriptList.map((script, index) => (
+              <ScriptRow key={index}>{script}</ScriptRow>
+            ))}
           </ScriptContainer>
         </RightSection>
       </AddVoiceContainer>
@@ -67,7 +69,6 @@ const VoiceFileWrapper = styled.div`
 const CurrentVoiceContainer = styled.div`
   display: flex;
   flex-direction: row;
-\\
 `;
 
 const CurrentVoiceTitle = styled.span`
@@ -77,7 +78,11 @@ const CurrentVoiceTitle = styled.span`
   margin-right: 30px;
 `;
 
-const CurrentVoiceRight = styled.div``;
+const CurrentVoiceRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가운데 정렬 */
+`;
 
 const FileDisplayContainer = styled.div`
   display: flex;
@@ -102,6 +107,8 @@ const PlaceholderText = styled.span`
 const FileInfo = styled.span`
   font-size: 8px;
   color: #888;
+  text-align: center; /* 가운데 정렬 */
+  margin-top: 5px; /* 여백 추가 */
 `;
 
 const Divider = styled.hr`
@@ -168,8 +175,8 @@ const RecommendScriptTitle = styled.h3`
 const ResetButton = styled.img`
   align-self: center;
   cursor: pointer;
-  width: 5.7px;
-  height: 5.7px;
+  width: 9.7px;
+  height: 9.7px;
 `;
 
 const Divider2 = styled.hr`

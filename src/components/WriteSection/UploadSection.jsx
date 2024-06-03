@@ -15,7 +15,7 @@ const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
 const UploadSection = (props) => {
   const [selectedTags, setSelectedTags] = useState([]);
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState(null); // S3 URL 상태 추가
   const [selectedSubject, setSelectedSubject] = useState(""); // 주제 상태 추가
@@ -54,7 +54,7 @@ const UploadSection = (props) => {
     const file = event.target.files[0];
     if (file) {
       setThumbnail(URL.createObjectURL(file));
-      const url = (await uploadToS3(file)) + ".png";
+      const url = await uploadToS3(file);
       setThumbnailUrl(url);
       console.log("Uploaded Thumbnail URL:", url);
     }
@@ -89,13 +89,12 @@ const UploadSection = (props) => {
         accessibility: selectedScope,
         userLink: userInfo.userLink,
       };
-      console.log("Submitting Data:", data); // 콘솔 로그 추가
+      console.log("Submitting Data:", data);
       const response = await create_post({ data });
       console.log(response);
       alert("업로드 되었습니다.");
     } catch (error) {
       console.error("포스트 작성 실패:", error);
-      // 에러 처리 로직 추가
     }
   };
 
