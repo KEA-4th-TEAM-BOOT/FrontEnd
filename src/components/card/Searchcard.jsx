@@ -47,7 +47,7 @@ export default SearchCard;
 const CardContainer = styled.div`
   display: flex;
   align-items: column;
-  padding: 15px;
+  padding: 15px 0;
   margin: 15px 0;
 `;
 
