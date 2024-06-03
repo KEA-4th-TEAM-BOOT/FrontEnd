@@ -86,7 +86,7 @@ const Header = () => {
       </LogoLink>
       <MenuList>
         <MenuItem>
-          <MenuLink to="/">메인</MenuLink>
+          <MenuLink to="/intro">소개</MenuLink>
         </MenuItem>
         <MenuItem>
           <MenuLink to="/search">검색</MenuLink>
