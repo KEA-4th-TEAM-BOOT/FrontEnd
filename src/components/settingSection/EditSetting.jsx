@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CategoryEdit from "./CategoryEdit";
@@ -16,10 +16,10 @@ const EditSetting = ({ userInfo }) => {
     voiceFileUrl = "https://youtu.be/UOY-WsXkgTI?si=9UHO67R3mUWy9yOJ",
   } = userInfo || {};
 
-  const [profileImage, setProfileImage] = useState(profileImageUrl);
+  const [profileImage, setProfileImage] = useState(userInfo.profileUrl);
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
-  const [userNickname, setUserNickname] = useState(nickname);
+  const [userNickname, setUserNickname] = useState(userInfo.nickname);
   const [userIntroduction, setUserIntroduction] = useState(introduction);
   const [userVoiceFile, setUserVoiceFile] = useState({
     file: null,
@@ -48,7 +48,9 @@ const EditSetting = ({ userInfo }) => {
   };
 
   const resetToDefaultImage = () => {
-    setProfileImage(profileImageUrl);
+    setProfileImage(
+      "https://kea-boot-postimage.s3.ap-northeast-2.amazonaws.com/profile.png"
+    );
   };
 
   const openVoiceFileSelector = () => {
@@ -73,7 +75,7 @@ const EditSetting = ({ userInfo }) => {
       alert("변경되었습니다.");
       navigate("/mypage", { state: { userInfo } });
     } catch (error) {
-      console.error("Update failed:", error);
+      console.error("Signup failed:", error);
     }
   };
 
@@ -115,11 +117,11 @@ const EditSetting = ({ userInfo }) => {
         <InformationSection>
           <InfoRow>
             <Label>이름</Label>
-            <Value>{name}</Value>
+            <Value>{userInfo.name}</Value>
           </InfoRow>
           <InfoRow>
             <Label>이메일</Label>
-            <Value>{email}</Value>
+            <Value>{userInfo.email}</Value>
           </InfoRow>
           <EditableInfoRow>
             <Label>비밀번호</Label>
@@ -139,7 +141,7 @@ const EditSetting = ({ userInfo }) => {
           </EditableInfoRow>
           <InfoRow>
             <Label>블로그 주소</Label>
-            <Value>{blogUrl}</Value>
+            <Value>domain.com/{userInfo.userLink}</Value>
           </InfoRow>
           <EditableInfoRow>
             <Label>닉네임</Label>
@@ -158,6 +160,7 @@ const EditSetting = ({ userInfo }) => {
             <Label>한 줄 소개</Label>
             <IntroductionContainer>
               <EditableTextArea
+                type="text"
                 maxLength={maxCharLimit}
                 value={userIntroduction}
                 onChange={(e) => setUserIntroduction(e.target.value)}
@@ -192,6 +195,16 @@ const EditSetting = ({ userInfo }) => {
                 <DeleteButton onClick={deleteVoiceFile}>파일 삭제</DeleteButton>
               </ButtonWrapper>
               <FileInfo>확장자 : mp3, wav / 용량: 10MB 이하</FileInfo>
+              <FileDisplayContainer>
+                {userVoiceFile.file ? (
+                  <FileDisplayText>
+                    {userVoiceFile.file.name} -{" "}
+                    {(userVoiceFile.file.size / 1024 / 1024).toFixed(2)} MB
+                  </FileDisplayText>
+                ) : (
+                  <PlaceholderText>음성 파일을 업로드해주세요.</PlaceholderText>
+                )}
+              </FileDisplayContainer>
             </VoiceContainer>
           </VoiceFileSection>
         </InformationSection>
@@ -200,6 +213,7 @@ const EditSetting = ({ userInfo }) => {
           openVoiceFileSelector={openVoiceFileSelector}
           scriptList={scriptList} // scriptList prop 전달
         />
+
         <ButtonContainer>
           <CompleteButton onClick={handleUserInfo}>확인</CompleteButton>
         </ButtonContainer>
@@ -216,12 +230,10 @@ const EditProfileContainer = styled.div`
   align-items: center;
   padding: 0 100px;
   width: 1000px;
-  margin-bottom: 220px;
 `;
 
 const SettingContainer = styled.div`
   padding-left: 10px;
-  // background: #f3f4ff;
 `;
 
 const Title = styled.h2`
@@ -410,6 +422,17 @@ const VoiceFileInput = styled.input`
   display: none;
 `;
 
+const FileDisplayContainer = styled.div`
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+`;
+
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -425,6 +448,19 @@ const FileInfo = styled.span`
   color: #888;
   text-align: left;
   margin-top: 5px;
+`;
+
+const FileDisplayText = styled(FileInfo)`
+  margin-top: 0;
+  font-weight: 400;
+  color: #666;
+`;
+
+const PlaceholderText = styled(FileInfo)`
+  margin-top: 0;
+  font-weight: 400;
+  color: #666;
+  color: rgba(107, 114, 128);
 `;
 
 const VoiceInputLabel = styled.button`
