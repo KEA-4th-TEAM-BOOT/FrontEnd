@@ -108,6 +108,7 @@ const ListContainer = styled.div`
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  padding: 0 0 120px 0;
 `;
 
 // const TopDivider = styled.hr`
@@ -122,6 +123,6 @@ const Divider = styled.hr`
   border: none;
   height: 1px;
   background-color: #d8d8d8;
-  width: calc(100% + 50px);
+  width: calc(100%);
   margin: 20px 0;
 `;

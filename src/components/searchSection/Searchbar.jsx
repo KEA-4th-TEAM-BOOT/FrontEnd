@@ -25,7 +25,7 @@ const SearchbarContainer = styled.div`
   width: 100%;
   max-width: 800px;
   margin: auto;
-  padding: 104px 0 80px 0;
+  padding: 220px 0 100px 0;
 `;
 
 const SearchbarWrapper = styled.div`
@@ -34,15 +34,15 @@ const SearchbarWrapper = styled.div`
   position: relative;
 `;
 
-const Title = styled.h2`
-  color: #000;
-  font-size: 25px;
+const Title = styled.span`
+  color: #000000;
+  font-size: 45px;
   font-weight: bold;
-  margin: 0 0 30px 10px;
   align-self: flex-start;
 `;
 
 const SearchContainer = styled.div`
+  margin-top: 35px;
   position: relative;
   display: flex;
   justify-content: center;
