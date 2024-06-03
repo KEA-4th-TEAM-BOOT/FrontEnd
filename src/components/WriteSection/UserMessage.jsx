@@ -1,13 +1,12 @@
 import styled from "styled-components";
+
+import userAiIcon from "../../assets/img/icons/useraiicon.svg";
+
 const UserMessage = ({ text }) => {
   return (
     <UserMessageContainer>
       <UserHeader>
-        <UserLogo
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/2613ae6f9030554e0c7b4bb28b1200630472731f3c7e8b345e8ae7eaa248318f?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-          loading="lazy"
-          alt="VODA AI logo"
-        />
+        <UserLogo src={userAiIcon} loading="lazy" alt="VODA AI logo" />
         <UserTitle>User</UserTitle>
       </UserHeader>
       <UserPrompt>{text}</UserPrompt>

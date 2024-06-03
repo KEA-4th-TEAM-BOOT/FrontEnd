@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 import "../assets/editor.css";
 import UploadButton from "../assets/img/icons/uploadbutton.svg";
-import aiWriteImage from "../assets/img/AiWrite.png";
+import aiWriteImage from "../assets/img/icons/aiwriteicon.svg";
 import QuillImageDropAndPaste from "quill-image-drop-and-paste";
 import ImageResize from "quill-image-resize";
 import WriteHeader from "../components/WriteSection/WriteHeader";

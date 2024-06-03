@@ -2,6 +2,7 @@ import FAQ from "./pages/FAQ";
 import Feed from "./pages/Feed";
 import Follow from "./pages/Follow";
 import Home from "./pages/Home";
+import Intro from "./pages/Intro";
 import Mypage from "./pages/Mypage";
 import Not from "./pages/Not";
 import Post from "./pages/Post";
@@ -27,6 +28,7 @@ const App = () => {
           <Routes>
             <Route element={<DefaultLayout />}>
               <Route path="/" element={<Home />} />
+              <Route path="/intro" element={<Intro />} />
               <Route path="/search" element={<Search />} />
               <Route path="/feed" element={<Feed />} />
               <Route path="/follow" element={<Follow />} />
