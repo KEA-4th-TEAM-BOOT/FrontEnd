@@ -18,45 +18,52 @@ import GlobalModal from "./components/GlobalModal";
 import DefaultLayout from "./components/layout/DefaultLayout";
 import MinimalLayout from "./components/layout/MinimalLayout";
 import PrivateRoute from "./components/route/PrivateRoute";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
     <RecoilRoot>
-      <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
-          <GlobalModal />
-          <Routes>
-            <Route element={<DefaultLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/intro" element={<Intro />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/feed" element={<Feed />} />
-              <Route path="/follow" element={<Follow />} />
-              <Route path="/FAQ" element={<FAQ />} />
-              <Route
-                path="/:userLink"
-                element={<PrivateRoute element={<Mypage />} />}
-              />
-              <Route path="/post" element={<Post />} />
-              <Route
-                path="/setting"
-                element={<PrivateRoute element={<Setting />} />}
-              />
-              <Route path="*" element={<Not />} />
-              <Route path="/:userLink/post/:id" element={<Post />} />
-            </Route>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Suspense fallback={<div>Loading...</div>}>
+            <GlobalModal />
+            <Routes>
+              <Route element={<DefaultLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/intro" element={<Intro />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/feed" element={<Feed />} />
+                <Route path="/follow" element={<Follow />} />
+                <Route path="/FAQ" element={<FAQ />} />
+                <Route
+                  path="/:userLink"
+                  element={<PrivateRoute element={<Mypage />} />}
+                />
+                <Route path="/post" element={<Post />} />
+                <Route
+                  path="/setting"
+                  element={<PrivateRoute element={<Setting />} />}
+                />
+                <Route path="*" element={<Not />} />
+                <Route path="/:userLink/post/:id" element={<Post />} />
+              </Route>
 
-            {/* Header와 Player가 없는 Layout */}
-            <Route element={<MinimalLayout />}>
-              <Route
-                path="/write"
-                element={<PrivateRoute element={<Write />} />}
-              />{" "}
-              <Route path="/signup" element={<Signup />} />
-            </Route>
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+              {/* Header와 Player가 없는 Layout */}
+              <Route element={<MinimalLayout />}>
+                <Route
+                  path="/write"
+                  element={<PrivateRoute element={<Write />} />}
+                />{" "}
+                <Route path="/signup" element={<Signup />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </RecoilRoot>
   );
 };

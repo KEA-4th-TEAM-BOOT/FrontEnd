@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { fetch_test } from "../api/PostAPI";
 
 const Post = () => {
-  const [postStatus, setpostStatus] = useState("");
   const postId = 26;
   useEffect(async () => {
     const response = await fetch_test({ postId });
