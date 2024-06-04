@@ -34,7 +34,7 @@ const App = () => {
               <Route path="/follow" element={<Follow />} />
               <Route path="/FAQ" element={<FAQ />} />
               <Route
-                path="/mypage"
+                path="/:userLink"
                 element={<PrivateRoute element={<Mypage />} />}
               />
               <Route path="/post" element={<Post />} />
@@ -43,7 +43,7 @@ const App = () => {
                 element={<PrivateRoute element={<Setting />} />}
               />
               <Route path="*" element={<Not />} />
-              <Route path="/post1" element={<Post />} />
+              <Route path="/:userLink/post/:id" element={<Post />} />
             </Route>
 
             {/* Header와 Player가 없는 Layout */}
@@ -60,5 +60,4 @@ const App = () => {
     </RecoilRoot>
   );
 };
-
 export default App;

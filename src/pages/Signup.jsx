@@ -46,7 +46,7 @@ const schema = yup
       .string()
       .matches(
         /^[a-zA-Z0-9]{4,20}$/,
-        "블로그 링크는 한글, 영문과 숫자만 사용 가능 (4-20자)"
+        "블로그 링크는 영문과 숫자만 사용 가능 (4-20자)"
       )
       .required("블로그 링크를 입력해주세요"),
     termsAgreed: yup

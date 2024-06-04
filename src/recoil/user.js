@@ -8,6 +8,8 @@ export const UserData = atom({
   default: {
     userLink: "",
     accessToken: null,
+    userId: null,
+    profileUrl: "",
   },
   effects_UNSTABLE: [persistAtom],
 });
