@@ -2,13 +2,21 @@ import React from "react";
 import styled from "styled-components";
 import searchIcon from "../../assets/img/icons/searchicon.svg";
 
-const Searchbar = () => {
+const Searchbar = ({ searchQuery, setSearchQuery }) => {
+  const handleInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <SearchbarContainer>
       <SearchbarWrapper>
         <Title>검색</Title>
         <SearchContainer>
-          <SearchInput placeholder="검색어를 입력하세요" />
+          <SearchInput
+            placeholder="검색어를 입력하세요"
+            value={searchQuery}
+            onChange={handleInputChange}
+          />
           <SearchIcon src={searchIcon} alt="SearchIcon" />
         </SearchContainer>
       </SearchbarWrapper>
@@ -25,7 +33,7 @@ const SearchbarContainer = styled.div`
   width: 100%;
   max-width: 800px;
   margin: auto;
-  padding: 220px 0 100px 0;
+  padding: 220px 0 120px 0;
 `;
 
 const SearchbarWrapper = styled.div`
