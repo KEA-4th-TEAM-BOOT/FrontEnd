@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-
+import { useRecoilValue } from "recoil";
+import { UserProfileState } from "../../recoil/user";
 const CategoryData = [
   { id: "1", name: "카테고리 1", postCount: 5, subCategories: [] },
   {
@@ -22,6 +23,32 @@ const CategoryData = [
 ];
 
 const CategoryEdit = () => {
+  const userInfo = useRecoilValue(UserProfileState);
+
+  useEffect(() => {
+    if (userInfo) {
+      // categoryList 내용 출력
+      const categoryList = userInfo.categoryList;
+      if (categoryList && Array.isArray(categoryList)) {
+        categoryList.forEach((category, index) => {
+          console.log(`Category ${index + 1}:`);
+          console.log(`  ID: ${category.categoryId}`);
+          console.log(`  Name: ${category.categoryName}`);
+          console.log(`  Exist SubCategory: ${category.existSubCategory}`);
+          console.log(`  Count: ${category.count}`);
+          console.log(
+            `  SubCategoryList: ${JSON.stringify(
+              category.subCategoryList,
+              null,
+              2
+            )}`
+          );
+        });
+      } else {
+        console.log("categoryList is not an array or is null");
+      }
+    }
+  }, [userInfo]);
   const [categories, setCategories] = useState(CategoryData);
   const [editingCategoryId, setEditingCategoryId] = useState(null);
   const [editingSubCategoryId, setEditingSubCategoryId] = useState(null);
