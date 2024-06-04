@@ -291,7 +291,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
   display: block;
-  padding: 10px 20px;
+  padding: 10px 0px 10px 20px;
   width: 100%;
   &:visited {
     color: inherit;

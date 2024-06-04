@@ -73,7 +73,7 @@ const TrendCard = ({
             <NumInfo>{formatTimeShort(totalTime)}</NumInfo>
           </Time>
           <UserCount>
-            오디오재생
+            조회수
             <br />
             <NumInfo>{playCount}</NumInfo>
           </UserCount>

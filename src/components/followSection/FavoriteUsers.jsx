@@ -99,9 +99,9 @@ const FavoriteUsers = () => {
     <FavoriteUsersWrapper>
       <ContentContainer>
         <FavoriteUsersTop>
-          <FavoriteUsersTitle>즐겨찾기</FavoriteUsersTitle>
+          <FavoriteUsersTitle>팔로우</FavoriteUsersTitle>
           <FavoriteUsersIntro>
-            내가 즐겨찾기 해놓은 팔로잉 유저들의 소식을 확인해보세요
+            내가 팔로우한 유저들의 프로필을 확인해보세요
           </FavoriteUsersIntro>
         </FavoriteUsersTop>
         <UsercardContainer>

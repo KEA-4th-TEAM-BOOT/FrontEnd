@@ -1611,8 +1611,9 @@ const followingUploadData = {
 };
 
 const FollowingUpload = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageGroup, setPageGroup] = useState(1);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -1620,8 +1621,10 @@ const FollowingUpload = () => {
 
   const followingData = [...followingUploadData.data];
 
-  const itemsPerPage = isExpanded ? 25 : 10;
+  const itemsPerPage = isExpanded ? 10 : 10;
   const totalPages = Math.ceil(followingData.length / itemsPerPage);
+  const pagesPerGroup = 10; // 한 번에 표시할 페이지 수
+  const totalPageGroups = Math.ceil(totalPages / pagesPerGroup);
 
   const collapsedData = followingData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -1638,8 +1641,25 @@ const FollowingUpload = () => {
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
+      const newPageGroup = Math.ceil(page / pagesPerGroup);
+      setPageGroup(newPageGroup);
     }
   };
+
+  const handleGroupChange = (direction) => {
+    if (direction === "prev" && pageGroup > 1) {
+      const newPageGroup = pageGroup - 1;
+      setPageGroup(newPageGroup);
+      setCurrentPage((newPageGroup - 1) * pagesPerGroup + 1);
+    } else if (direction === "next" && pageGroup < totalPageGroups) {
+      const newPageGroup = pageGroup + 1;
+      setPageGroup(newPageGroup);
+      setCurrentPage((newPageGroup - 1) * pagesPerGroup + 1);
+    }
+  };
+
+  const startPage = (pageGroup - 1) * pagesPerGroup + 1;
+  const endPage = Math.min(pageGroup * pagesPerGroup, totalPages);
 
   return (
     <FollowingUploadWrapper>
@@ -1651,9 +1671,9 @@ const FollowingUpload = () => {
             팔로잉 유저들의 다양한 게시물을 만나보세요
           </FollowingUploadInfo>
         </TextWrapper>
-        <ExpandButton onClick={toggleExpand}>
+        {/* <ExpandButton onClick={toggleExpand}>
           <img src={isExpanded ? foldIcon : spreadIcon} alt="toggle button" />
-        </ExpandButton>
+        </ExpandButton> */}
       </FollowingUploadHeader>
       <CardsContainer isExpanded={isExpanded}>
         {displayedData.map((data, index) => (
@@ -1665,18 +1685,24 @@ const FollowingUpload = () => {
       {isExpanded && (
         <Pagination>
           <ArrowButton
+            onClick={() => handleGroupChange("prev")}
+            disabled={pageGroup === 1}
+          >
+            &lt;&lt;
+          </ArrowButton>
+          <ArrowButton
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
             &lt;
           </ArrowButton>
-          {Array.from({ length: totalPages }, (_, index) => (
+          {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
             <PageNumber
               key={index}
-              onClick={() => handlePageChange(index + 1)}
-              isActive={currentPage === index + 1}
+              onClick={() => handlePageChange(startPage + index)}
+              isActive={currentPage === startPage + index}
             >
-              {index + 1}
+              {startPage + index}
             </PageNumber>
           ))}
           <ArrowButton
@@ -1684,6 +1710,12 @@ const FollowingUpload = () => {
             disabled={currentPage === totalPages}
           >
             &gt;
+          </ArrowButton>
+          <ArrowButton
+            onClick={() => handleGroupChange("next")}
+            disabled={pageGroup === totalPageGroups}
+          >
+            &gt;&gt;
           </ArrowButton>
         </Pagination>
       )}
@@ -1790,7 +1822,7 @@ const Pagination = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 20px;
   gap: 10px;
 `;
 
