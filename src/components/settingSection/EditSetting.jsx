@@ -1,26 +1,23 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CategoryEdit from "./CategoryEdit";
 import { updateUser } from "../../api/UserAPI";
 import VoiceFile from "./VoiceFile";
+import { useRecoilValue } from "recoil";
+import { UserProfileState } from "../../recoil/user";
 
-const EditSetting = ({ userInfo }) => {
-  const {
-    profileImageUrl = "https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800",
-    name = "홍길동",
-    email = "aaaa@gmail.com",
-    blogUrl = "aaaa@gmail.com",
-    nickname = "바다",
-    introduction = "안녕",
-    voiceFileUrl = "https://youtu.be/UOY-WsXkgTI?si=9UHO67R3mUWy9yOJ",
-  } = userInfo || {};
+const EditSetting = () => {
+  const voiceFileUrl = "https://youtu.be/UOY-WsXkgTI?si=9UHO67R3mUWy9yOJ";
+  const userInfo = useRecoilValue(UserProfileState);
 
-  const [profileImage, setProfileImage] = useState(userInfo.profileUrl);
+  const [profileImage, setProfileImage] = useState(userInfo.profileUrl || "");
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
-  const [userNickname, setUserNickname] = useState(userInfo.nickname);
-  const [userIntroduction, setUserIntroduction] = useState(introduction);
+  const [userNickname, setUserNickname] = useState(userInfo.nickname || "");
+  const [userIntroduction, setUserIntroduction] = useState(
+    userInfo.introduce || ""
+  );
   const [userVoiceFile, setUserVoiceFile] = useState({
     file: null,
     url: voiceFileUrl,
@@ -30,6 +27,12 @@ const EditSetting = ({ userInfo }) => {
 
   const ImageFileInputRef = useRef(null);
   const VoiceFileInputRef = useRef(null);
+
+  useEffect(() => {
+    setProfileImage(userInfo.profileUrl || "");
+    setUserNickname(userInfo.nickname || "");
+    setUserIntroduction(userInfo.introduce || "");
+  }, [userInfo]);
 
   const handleProfileImageChange = (e) => {
     const file = e.target.files[0];
@@ -69,13 +72,11 @@ const EditSetting = ({ userInfo }) => {
         profileUrl: profileImage,
       };
       await updateUser(data);
-      userInfo.nickname = userNickname;
-      userInfo.introduce = userIntroduction;
-      userInfo.profileUrl = profileImage;
+
       alert("변경되었습니다.");
-      navigate("/mypage", { state: { userInfo } });
+      navigate("/mypage");
     } catch (error) {
-      console.error("Signup failed:", error);
+      console.error("Update failed:", error);
     }
   };
 
