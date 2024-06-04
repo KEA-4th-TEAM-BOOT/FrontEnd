@@ -5,7 +5,7 @@ import React from "react";
 // import NoFollow from "../components/followSection/NoFollow";
 import FollowingUpload from "../components/followSection/FollowingUpload";
 import FavoriteUsers from "../components/followSection/FavoriteUsers";
-import Snapshot from "../components/followSection/Snapshot";
+// import Snapshot from "../components/followSection/Snapshot";
 import RecommendPost from "../components/followSection/RecommendPost";
 import RecommendFollow from "../components/followSection/RecommendFollow";
 
@@ -16,7 +16,7 @@ const Follow = () => {
     <>
       <FollowingUpload />
       <FavoriteUsers />
-      <Snapshot />
+      {/* <Snapshot /> */}
       <RecommendPost />
       <RecommendFollow />
     </>
