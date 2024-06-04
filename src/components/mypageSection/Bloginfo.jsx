@@ -55,7 +55,7 @@ const ListcardWrapper = styled.div``;
 const BlogInfo = styled.div`
   display: flex;
   align-items: center;
-  padding: 150px 0 100px 450px;
+  padding: 150px 0 100px 0;
   width: 800px;
   background: #fff;
   border-radius: 10px;

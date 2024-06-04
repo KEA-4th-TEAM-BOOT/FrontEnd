@@ -45,11 +45,21 @@ const Mypage = () => {
         <Category />
         <Postlist />
       </Wrapper>
-    </>
+    </MyPageWrapper>
   );
 };
 
 export default Mypage;
+
+const MyPageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+`;
 
 const Wrapper = styled.div`
   display: flex;
