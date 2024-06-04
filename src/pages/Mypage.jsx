@@ -39,7 +39,7 @@ const Mypage = () => {
     fetchUserInfo();
   }, []);
   return (
-    <>
+    <MyPageWrapper>
       <Bloginfo />
       <Wrapper>
         <Category />
