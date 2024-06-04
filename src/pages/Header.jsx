@@ -8,16 +8,17 @@ import LoginPage from "../components/login/LoginPage";
 import Notify from "../components/homeSection/Notify";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { modalState } from "../recoil/modal";
-import { UserData } from "../recoil/user";
-import { logout, fetchUser } from "../api/UserAPI";
+import { UserData, UserProfileState } from "../recoil/user";
+import { logout } from "../api/UserAPI";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showNotify, setShowNotify] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
+  const userInfo = useRecoilValue(UserProfileState);
   const setModal = useSetRecoilState(modalState);
   const setUserData = useSetRecoilState(UserData);
+  const setUserProfileState = useSetRecoilState(UserProfileState);
   const LoginState = useRecoilValue(UserData);
   const navigate = useNavigate();
   const notifyRef = useRef();
@@ -48,6 +49,23 @@ const Header = () => {
         accessToken: null,
       });
 
+      setUserProfileState({
+        name: "",
+        email: "",
+        nickname: "",
+        profileUrl: "",
+        introduce: "",
+        userLink: "",
+        followingNum: 0,
+        followerNum: 0,
+        latestPostId: 0,
+        postCnt: 0,
+        voiceModelUrl: "string",
+        categoryList: null,
+        followingList: null,
+        followerList: null,
+      });
+
       // 로그인 상태 업데이트
       setIsLoggedIn(false);
 
@@ -59,20 +77,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      if (LoginState.accessToken && !userInfo) {
-        try {
-          const user = await fetchUser();
-          console.log("userInfo :", user);
-          setUserInfo(user);
-        } catch (error) {
-          console.error("Failed to fetch user info:", error);
-        }
-      }
-    };
-
-    fetchUserInfo();
-
     setIsLoggedIn(!!LoginState.accessToken);
   }, [LoginState.accessToken, userInfo]);
 
@@ -122,14 +126,10 @@ const Header = () => {
             {showDropdown && (
               <DropdownMenu>
                 <DropdownItem>
-                  <StyledLink to="/mypage" state={{ userInfo }}>
-                    마이페이지
-                  </StyledLink>
+                  <StyledLink to="/mypage">마이페이지</StyledLink>
                 </DropdownItem>
                 <DropdownItem>
-                  <StyledLink to="/setting" state={{ userInfo }}>
-                    설정
-                  </StyledLink>
+                  <StyledLink to="/setting">설정</StyledLink>
                 </DropdownItem>
                 <DropdownItemLogout onClick={handleLogout}>
                   로그아웃

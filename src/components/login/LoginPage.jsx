@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { modalState } from "../../recoil/modal";
-import { UserData } from "../../recoil/user";
-import { useNavigate } from "react-router-dom";
+import { UserData, UserProfileState } from "../../recoil/user";
 import ResetPassword from "../reset/ResetPassword";
-import { login } from "../../api/UserAPI"; // 로그인 API를 import 합니다.
+import { fetchUser, login } from "../../api/UserAPI"; // 로그인 API를 import 합니다.
 
 const LoginPage = () => {
   const nav = useNavigate();
   const setModal = useSetRecoilState(modalState);
   const setUserData = useSetRecoilState(UserData);
+  const setUserProfileState = useSetRecoilState(UserProfileState);
   const [isChecked, setIsChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,6 +61,29 @@ const LoginPage = () => {
       setModal({
         isOpen: false,
       });
+
+      try {
+        const userInfo = await fetchUser();
+        setUserProfileState({
+          name: userInfo.name,
+          email: userInfo.email,
+          nickname: userInfo.nickname,
+          profileUrl: userInfo.profileUrl,
+          introduce: userInfo.introduce,
+          userLink: userInfo.userLink,
+          followingNum: userInfo.followingNum,
+          followerNum: userInfo.followerNum,
+          latestPostId: userInfo.latestPostId,
+          postCnt: userInfo.postCnt,
+          voiceModelUrl: userInfo.voiceModelUrl,
+          categoryList: userInfo.categoryList,
+          followingList: userInfo.followingList,
+          followerList: userInfo.followerList,
+        });
+        setUserData(userInfo.profileUrl);
+      } catch (error) {
+        console.log("Recoil-Set-up-Error");
+      }
 
       window.location.reload();
       // 페이지 이동 (필요한 경우)

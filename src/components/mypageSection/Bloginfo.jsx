@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Followlist from "../mypageSection/Followlist";
-
-const Bloginfo = ({ userInfo }) => {
+import { UserProfileState } from "../../recoil/user";
+import { useRecoilValue } from "recoil";
+const Bloginfo = () => {
+  const userInfo = useRecoilValue(UserProfileState);
   const [showFollowList, setShowFollowList] = useState();
   const [followListType, setFollowListType] = useState("");
   const handleFollowersClick = () => {

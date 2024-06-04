@@ -72,6 +72,7 @@ const Signup = () => {
   const [emailVerified, setEmailVerified] = useState(false);
   const [verifyButtonEnabled, setVerifyButtonEnabled] = useState(false);
   const [authNumberSent, setAuthNumberSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const emailValue = watch("email");
 
@@ -105,13 +106,14 @@ const Signup = () => {
   const handleVerifyEmail = async (event) => {
     event.stopPropagation();
     event.preventDefault();
+    setLoading(true);
     const email = getValues("email");
     try {
       const response = await checkEmail({ email });
       if (response.exists) {
         alert("Email is already taken.");
       } else {
-        alert("사용가능한 이메일입니다. ");
+        alert("사용가능한 이메일입니다. 인증번호를 전송합니다.");
         await emailSend({ email });
         setAuthNumberSent(true);
         alert("인증번호가 전송되었습니다.");
@@ -119,6 +121,8 @@ const Signup = () => {
     } catch (error) {
       console.error("Email verification failed:", error);
       alert("Failed to verify email.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -198,9 +202,9 @@ const Signup = () => {
                 />
                 <VerifyButton
                   onClick={handleVerifyEmail}
-                  disabled={authNumberSent}
+                  disabled={authNumberSent || loading}
                 >
-                  인증
+                  {loading ? "로딩 중..." : "인증"}
                 </VerifyButton>
               </InputWrapper>
               <WidthMarker>이메일을 입력하세요</WidthMarker>

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -13,7 +12,11 @@ const CategoryData = [
   { id: 5, name: "카테고리 4", count: 1 },
 ];
 
+import { UserProfileState } from "../../recoil/user";
+import { useRecoilValue } from "recoil";
+
 const Category = () => {
+  const userInfo = useRecoilValue(UserProfileState);
   return (
     <CategorySection>
       <CategoryHeader>

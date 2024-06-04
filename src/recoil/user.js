@@ -19,3 +19,24 @@ export const isUserLoggedIn = selector({
     return !!user.accessToken;
   },
 });
+
+// 'UserState'에서 'UserProfileState'로 키를 변경했습니다.
+export const UserProfileState = atom({
+  key: "UserProfileState",
+  default: {
+    name: "",
+    email: "",
+    nickname: "",
+    profileUrl: "",
+    introduce: "",
+    userLink: "",
+    followingNum: 0,
+    followerNum: 0,
+    latestPostId: 0,
+    postCnt: 0,
+    voiceModelUrl: "string",
+    categoryList: null,
+    followingList: null,
+    followerList: null,
+  },
+});
