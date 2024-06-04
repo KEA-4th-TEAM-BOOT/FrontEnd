@@ -101,6 +101,12 @@ export const fetchUser = async () => {
   return response.data;
 };
 
+/** 상대 회원조회 API */
+export const fetchUserData = async (userLink) => {
+  const response = await UserApi.get(`/api/v1/user/other/${userLink}`);
+  return response.data;
+};
+
 export const editCategory = async (data) => {
   const response = await UserApi.post(`.api/v1/category`, data);
   return response.data;
