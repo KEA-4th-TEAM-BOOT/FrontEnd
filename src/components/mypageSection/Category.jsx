@@ -41,7 +41,7 @@ const Category = () => {
 export default Category;
 
 const CategorySection = styled.section`
-  margin: 100px 50px 100px 200px;
+  margin: 100px 50px 100px 0;
   padding: 20px;
   font-size: 15px;
 `;
