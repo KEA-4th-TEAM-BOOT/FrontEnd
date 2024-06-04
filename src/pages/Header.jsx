@@ -119,7 +119,7 @@ const Header = () => {
         {isLoggedIn ? (
           <HeaderMenuItem>
             <ProfileImage
-              src={userInfo ? userInfo.profileUrl : profileImage}
+              src={userInfo ? LoginState.profileUrl : profileImage}
               alt="Profile Image"
               onClick={handleProfileClick}
             />

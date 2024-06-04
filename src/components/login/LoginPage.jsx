@@ -45,11 +45,15 @@ const LoginPage = () => {
       const response = await login({ email, password });
       const { accessToken, refreshToken } = response.tokenResponseDto;
       const userLink = response.userLink;
+      const userId = response.userId;
+      const profileUrl = response.profileUrl;
 
       // 사용자 데이터를 Recoil 상태로 설정
       setUserData({
         userLink,
         accessToken,
+        userId,
+        profileUrl,
       });
 
       // 토큰을 저장 (localStorage 또는 sessionStorage)
@@ -80,7 +84,6 @@ const LoginPage = () => {
           followingList: userInfo.followingList,
           followerList: userInfo.followerList,
         });
-        setUserData(userInfo.profileUrl);
       } catch (error) {
         console.log("Recoil-Set-up-Error");
       }
