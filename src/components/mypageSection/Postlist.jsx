@@ -1,4 +1,3 @@
-import React from "react";
 import ListCard from "../card/Listcard";
 
 const Postlist = () => {

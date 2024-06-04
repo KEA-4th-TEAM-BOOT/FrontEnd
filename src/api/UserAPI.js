@@ -101,6 +101,11 @@ export const fetchUser = async () => {
   return response.data;
 };
 
+export const editCategory = async (data) => {
+  const response = await UserApi.post(`.api/v1/category`, data);
+  return response.data;
+};
+
 /** 회원수정 API */
 export const updateUser = async (data) => {
   const response = await UserApi.patch(`/api/v1/user`, data);
