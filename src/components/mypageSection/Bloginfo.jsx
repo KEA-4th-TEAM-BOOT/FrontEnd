@@ -3,10 +3,14 @@ import styled from "styled-components";
 import Followlist from "../mypageSection/Followlist";
 import { UserProfileState } from "../../recoil/user";
 import { useRecoilValue } from "recoil";
-const Bloginfo = () => {
-  const userInfo = useRecoilValue(UserProfileState);
+
+const Bloginfo = ({ userInfo: propsUserInfo }) => {
+  const recoilUserInfo = useRecoilValue(UserProfileState);
+  const userInfo = propsUserInfo || recoilUserInfo;
+
   const [showFollowList, setShowFollowList] = useState();
   const [followListType, setFollowListType] = useState("");
+
   const handleFollowersClick = () => {
     setFollowListType("followers");
     setShowFollowList(true);
