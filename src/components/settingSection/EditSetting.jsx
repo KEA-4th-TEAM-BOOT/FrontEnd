@@ -1,16 +1,21 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import AWS from "aws-sdk";
 import CategoryEdit from "./CategoryEdit";
 import { updateUser } from "../../api/UserAPI";
 import VoiceFile from "./VoiceFile";
-import { useRecoilValue } from "recoil";
-import { UserProfileState } from "../../recoil/user";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserProfileState, UserData } from "../../recoil/user";
+
+const REGION = import.meta.env.VITE_AWS_S3_BUCKET_REGION;
+const ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_ACCESS_KEY_ID;
+const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
 const EditSetting = () => {
   const voiceFileUrl = "https://youtu.be/UOY-WsXkgTI?si=9UHO67R3mUWy9yOJ";
   const userInfo = useRecoilValue(UserProfileState);
-
+  const setUserData = useSetRecoilState(UserData);
   const [profileImage, setProfileImage] = useState(userInfo.profileUrl || "");
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
@@ -32,13 +37,19 @@ const EditSetting = () => {
     setProfileImage(userInfo.profileUrl || "");
     setUserNickname(userInfo.nickname || "");
     setUserIntroduction(userInfo.introduce || "");
+    AWS.config.update({
+      region: REGION,
+      accessKeyId: ACCESS_KEY,
+      secretAccessKey: SECRET_ACCESS_KEY,
+    });
   }, [userInfo]);
 
-  const handleProfileImageChange = (e) => {
+  const handleProfileImageChange = async (e) => {
     const file = e.target.files[0];
     if (file && file.type.substr(0, 5) === "image") {
-      const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl);
+      const url = await uploadToS3(file);
+      console.log("Uploaded Thumbnail URL:", url);
+      setProfileImage(url);
     }
   };
 
@@ -47,6 +58,29 @@ const EditSetting = () => {
     if (file) {
       const voiceUrl = URL.createObjectURL(file);
       setUserVoiceFile({ file, url: voiceUrl });
+    }
+  };
+
+  const uploadToS3 = async (file) => {
+    try {
+      const name = Date.now();
+      const extension = file.name.split(".").pop(); // 파일 확장자 추출
+      const fileName = `post/${name}.${extension}`; // 확장자를 포함한 파일 이름
+
+      const upload = new AWS.S3.ManagedUpload({
+        params: {
+          ACL: "public-read",
+          Bucket: "kea-boot-postimage",
+          Key: fileName,
+          Body: file,
+        },
+      });
+
+      const result = await upload.promise();
+      return result.Location;
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   };
 
@@ -74,6 +108,10 @@ const EditSetting = () => {
       await updateUser(data);
 
       alert("변경되었습니다.");
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        profileUrl: profileImage,
+      }));
       navigate("/mypage");
     } catch (error) {
       console.error("Update failed:", error);
