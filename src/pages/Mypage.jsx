@@ -25,7 +25,7 @@ const Mypage = () => {
           userInfo = await fetchUserData(userLink); // /:userLink로 접근한 경우
         }
         setUserInfo(userInfo);
-        console.log(userInfo);
+        console.log("1 " + UserProfileState);
       } catch (error) {
         console.error("Failed to fetch user info:", error);
       }

@@ -45,7 +45,7 @@ export const fetch_post = async ({ userLink, personalPostId }) => {
   // eslint-disable-next-line no-useless-catch
   try {
     const response = await PostApi.get(
-      `/api/v1/post/${userLink}/${personalPostId}`
+      `/api/v1/post/${userLink}/post/${personalPostId}`
     );
     return response.data;
   } catch (error) {

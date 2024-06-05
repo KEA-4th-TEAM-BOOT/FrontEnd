@@ -33,6 +33,7 @@
     "react-type-animation": "^3.2.0",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
+    "recoil-toolkit": "^0.3.0",
     "styled-components": "^6.1.9",
     "swiper": "^11.1.0",
     "vite-plugin-svgr": "^4.2.0",

@@ -41,4 +41,5 @@ export const UserProfileState = atom({
     followingList: null,
     followerList: null,
   },
+  effects_UNSTABLE: [persistAtom],
 });

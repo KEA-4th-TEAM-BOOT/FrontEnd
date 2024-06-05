@@ -20,6 +20,7 @@ import MinimalLayout from "./components/layout/MinimalLayout";
 import PrivateRoute from "./components/route/PrivateRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { RecoilDevTools } from "recoil-toolkit";
 
 const queryClient = new QueryClient();
 
