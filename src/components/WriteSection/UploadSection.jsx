@@ -3,8 +3,10 @@ import AWS from "aws-sdk";
 import styled from "styled-components";
 import AddThumbNailIcon from "../../assets/img/icons/addthumbnail.svg";
 import UploadButtonIcon from "../../assets/img/icons/uploadbutton.svg";
-import { fetchUser } from "../../api/UserAPI";
 import { create_post } from "../../api/PostAPI";
+import { useRecoilValue } from "recoil";
+import { increase_count } from "../../api/UserAPI";
+import { UserProfileState, isUserId } from "../../recoil/user";
 
 const categories = ["카테고리1", "카테고리2", "카테고리3", "전체"];
 const tags = ["경제", "주식", "돈", "금융"];
@@ -15,7 +17,8 @@ const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
 const UploadSection = (props) => {
   const [selectedTags, setSelectedTags] = useState([]);
-  const [userInfo, setUserInfo] = useState({});
+  const userInfo = useRecoilValue(UserProfileState);
+  const userId = useRecoilValue(isUserId);
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState(null); // S3 URL 상태 추가
   const [selectedSubject, setSelectedSubject] = useState(""); // 주제 상태 추가
@@ -23,6 +26,12 @@ const UploadSection = (props) => {
   const fileInputRef = useRef();
   const Title = props.title;
   const Content = props.content;
+
+  console.log("userLink : " + userInfo.name);
+  console.log("userId : " + userId);
+  let personalPostId = userInfo.postCnt;
+  personalPostId += 1;
+  console.log("Type: " + personalPostId);
 
   useEffect(() => {
     AWS.config.update({
@@ -63,11 +72,13 @@ const UploadSection = (props) => {
   const uploadToS3 = async (file) => {
     try {
       const name = Date.now();
+      const extension = file.name.split(".").pop(); // 파일 확장자 추출
+      const fileName = `post/${name}.${extension}`; // 확장자를 포함한 파일 이름
       const upload = new AWS.S3.ManagedUpload({
         params: {
           ACL: "public-read",
           Bucket: "kea-boot-postimage",
-          Key: `post/${name}`,
+          Key: fileName,
           Body: file,
         },
       });
@@ -88,9 +99,11 @@ const UploadSection = (props) => {
         subject: selectedSubject,
         accessibility: selectedScope,
         userLink: userInfo.userLink,
+        personalPostId: personalPostId,
       };
       console.log("Submitting Data:", data);
       const response = await create_post({ data });
+      await increase_count(userId);
       console.log(response);
       alert("업로드 되었습니다.");
     } catch (error) {
@@ -105,20 +118,6 @@ const UploadSection = (props) => {
   const handleScopeChange = (event) => {
     setSelectedScope(event.target.value);
   };
-
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const user = await fetchUser();
-        console.log("userInfo :", user);
-        setUserInfo(user);
-      } catch (error) {
-        console.error("Failed to fetch user info:", error);
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
 
   return (
     <UploadSectionWrapper>

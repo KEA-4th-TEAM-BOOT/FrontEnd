@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
 
 import playBtn from "../../assets/img/icons/postplayicon.svg";
 import pauseBtn from "../../assets/img/icons/postpauseicon.svg";
 
-const PostHeader = () => {
+const PostHeader = ({ postInfo, userInfo }) => {
+  const createdTime = postInfo.createdTime;
+
+  // 문자열을 'T'를 기준으로 분리
+  const [datePart, timePartWithMs] = createdTime.split("T");
+
   const postInfoData = [
     {
       nickname: "제주파",
@@ -45,8 +50,8 @@ const PostHeader = () => {
   return (
     <PostHeaderContainer>
       <HeaderWrapper>
-        <BlogTitle>{nickname} 님의 블로그</BlogTitle>
-        <Category>{category}</Category>
+        <BlogTitle>{userInfo.nickname} 님의 블로그</BlogTitle>
+        <Category>{postInfo.subject}</Category>
         <TitleWrapper>
           <PostPlayIcon
             src={isPlaying ? pauseBtn : playBtn}
@@ -55,14 +60,14 @@ const PostHeader = () => {
             isPlaying={isPlaying}
           />
           <ReactPlayer
-            url={audioUrl}
+            url={postInfo.postVoiceFileUrl}
             playing={isPlaying}
             controls
             width="0"
             height="0"
             style={{ display: "none" }}
           />
-          <PostTitle>{title}</PostTitle>
+          <PostTitle>{postInfo.title}</PostTitle>
         </TitleWrapper>
         <TagsContainer>
           {tags.map((tag, index) => (
@@ -71,10 +76,12 @@ const PostHeader = () => {
         </TagsContainer>
         <BottomSection>
           <ProfileContainer>
-            <ProfileImage src={profileImage} alt={`${nickname}'s profile`} />
-            <Nickname>{nickname} •</Nickname>
-            <PostDate>{date}</PostDate>
-            <PostTime>{time}</PostTime>
+            <ProfileImage
+              src={userInfo.profileUrl}
+              alt={`${userInfo.nickname}'s profile`}
+            />
+            <Nickname>{userInfo.nickname} •</Nickname>
+            <PostDate>{datePart}</PostDate>
           </ProfileContainer>
           <ButtonContainer>
             <EditButton>수정</EditButton>
