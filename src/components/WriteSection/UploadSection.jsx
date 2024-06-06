@@ -23,6 +23,7 @@ const UploadSection = (props) => {
   const [thumbnailUrl, setThumbnailUrl] = useState(null); // S3 URL 상태 추가
   const [selectedSubject, setSelectedSubject] = useState(""); // 주제 상태 추가
   const [selectedScope, setSelectedScope] = useState(""); // 공개 범위 상태 추가
+  const [description, setDescription] = useState(""); // 소개 글 상태 추가
   const fileInputRef = useRef();
   const Title = props.title;
   const Content = props.content;
@@ -42,17 +43,22 @@ const UploadSection = (props) => {
   }, []);
 
   const handleAddTag = (event) => {
-    const tag = event.target.value.trim();
+    let tag = event.target.value.trim();
+    tag = "#" + tag;
     if (event.key === "Enter" && tag) {
       if (selectedTags.length < 4 && !selectedTags.includes(tag)) {
-        setSelectedTags([...selectedTags, tag]);
+        const updatedTags = [...selectedTags, tag];
+        setSelectedTags(updatedTags);
+        console.log("Tags: " + updatedTags.join(" ")); // 콘솔에 한 줄로 출력
         event.target.value = "";
       }
     }
   };
 
   const handleRemoveTag = (index) => {
-    setSelectedTags(selectedTags.filter((_, i) => i !== index));
+    const updatedTags = selectedTags.filter((_, i) => i !== index);
+    setSelectedTags(updatedTags);
+    console.log("Tags: " + updatedTags.join(" ")); // 콘솔에 한 줄로 출력
   };
 
   const handleThumbnailClick = () => {
@@ -100,6 +106,8 @@ const UploadSection = (props) => {
         accessibility: selectedScope,
         userLink: userInfo.userLink,
         personalPostId: personalPostId,
+        tags: selectedTags,
+        thumbnail: description, // 소개 글 추가
       };
       console.log("Submitting Data:", data);
       const response = await create_post({ data });
@@ -117,6 +125,10 @@ const UploadSection = (props) => {
 
   const handleScopeChange = (event) => {
     setSelectedScope(event.target.value);
+  };
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
   };
 
   return (
@@ -158,7 +170,9 @@ const UploadSection = (props) => {
           <UploadOptionItem>
             <OptionTitle>음성 추가</OptionTitle>
             <SelectVoiceModel>
-              <option>{userInfo.name}님의 음성모델</option>
+              {userInfo.voiceModelUrl && (
+                <option>{userInfo.name}님의 음성모델</option>
+              )}
               <option>기본 음성모델1</option>
               <option>기본 음성모델2</option>
             </SelectVoiceModel>
@@ -253,7 +267,7 @@ const UploadSection = (props) => {
             <EnrollTag>
               {selectedTags.map((tag, index) => (
                 <Tag key={index}>
-                  # {tag}
+                  {tag}
                   <RemoveTagButton onClick={() => handleRemoveTag(index)}>
                     x
                   </RemoveTagButton>
@@ -265,7 +279,16 @@ const UploadSection = (props) => {
             </EnrollTag>
           </UploadOptionItem>
         </UploadOptionRow>
+        <UploadOptionDownItem>
+          <OptionTitle>글 설명</OptionTitle>
+          <DescriptionTextarea
+            value={description}
+            onChange={handleDescriptionChange}
+            placeholder="이 글에 대한 짧은 소개를 작성하세요."
+          />
+        </UploadOptionDownItem>
       </UploadOptionLeft>
+
       <UploadOptionRight>
         <ThumbnailButton onClick={handleThumbnailClick}>
           {thumbnail ? (
@@ -297,7 +320,6 @@ const UploadSectionWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 40px;
-  height: 280px;
   background-color: #f2f5ff;
 `;
 
@@ -321,6 +343,13 @@ const UploadOptionRow = styled.div`
 
 const UploadOptionItem = styled.div`
   width: 450px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+`;
+
+const UploadOptionDownItem = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -449,3 +478,14 @@ const Divider = styled.hr`
 `;
 
 const FileInput = styled.input``;
+
+const DescriptionTextarea = styled.textarea`
+  margin-top: 20px;
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+`;
