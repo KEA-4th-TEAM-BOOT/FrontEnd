@@ -7,6 +7,7 @@ import { create_post } from "../../api/PostAPI";
 import { useRecoilValue } from "recoil";
 import { increase_count } from "../../api/UserAPI";
 import { UserProfileState, isUserId } from "../../recoil/user";
+import { useNavigate } from "react-router-dom";
 
 const categories = ["카테고리1", "카테고리2", "카테고리3", "전체"];
 const tags = ["경제", "주식", "돈", "금융"];
@@ -27,6 +28,7 @@ const UploadSection = (props) => {
   const fileInputRef = useRef();
   const Title = props.title;
   const Content = props.content;
+  const Navigate = useNavigate();
 
   console.log("userLink : " + userInfo.name);
   console.log("userId : " + userId);
@@ -112,8 +114,10 @@ const UploadSection = (props) => {
       console.log("Submitting Data:", data);
       const response = await create_post({ data });
       await increase_count(userId);
+      console.log("post수가 증가되었습니다.");
       console.log(response);
       alert("업로드 되었습니다.");
+      Navigate(`/${userInfo.userLink}/post/${personalPostId}`);
     } catch (error) {
       console.error("포스트 작성 실패:", error);
     }

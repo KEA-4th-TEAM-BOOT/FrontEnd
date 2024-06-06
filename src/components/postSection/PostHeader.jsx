@@ -13,7 +13,7 @@ const PostHeader = ({ postInfo, userInfo }) => {
 
   const postInfoData = [
     {
-      tags: ["# 제주", "# 일상", "# 오름", "# 자연"],
+      tags: [""],
     },
   ];
 

@@ -63,7 +63,7 @@ const App = () => {
           </Suspense>
         </BrowserRouter>
         <RecoilizeDebugger />
-        <ReactQueryDevtools />
+        {/* <ReactQueryDevtools /> */}
       </QueryClientProvider>
     </RecoilRoot>
   );
