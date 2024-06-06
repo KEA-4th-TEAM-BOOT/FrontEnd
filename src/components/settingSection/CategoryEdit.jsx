@@ -1,35 +1,22 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { UserProfileState } from "../../recoil/user";
-const CategoryData = [
-  { id: "1", name: "카테고리 1", postCount: 5, subCategories: [] },
-  {
-    id: "2",
-    name: "카테고리 2",
-    postCount: 4,
-    subCategories: [
-      { id: "2-1", name: "카테고리 2-1", postCount: 3 },
-      { id: "2-2", name: "카테고리 2-2", postCount: 1 },
-    ],
-  },
-  { id: "3", name: "카테고리 3", postCount: 3, subCategories: [] },
-  {
-    id: "4",
-    name: "카테고리 4",
-    postCount: 3,
-    subCategories: [{ id: "4-1", name: "카테고리 4-1", postCount: 3 }],
-  },
-];
 
 const CategoryEdit = () => {
   const userInfo = useRecoilValue(UserProfileState);
+  const [categories, setCategories] = useState([]);
+  const setUserInfo = useSetRecoilState(UserProfileState);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState(null);
 
   useEffect(() => {
     if (userInfo) {
       // categoryList 내용 출력
       const categoryList = userInfo.categoryList;
       if (categoryList && Array.isArray(categoryList)) {
+        setCategories(userInfo.categoryList);
         categoryList.forEach((category, index) => {
           console.log(`Category ${index + 1}:`);
           console.log(`  ID: ${category.categoryId}`);
@@ -49,77 +36,70 @@ const CategoryEdit = () => {
       }
     }
   }, [userInfo]);
-  const [categories, setCategories] = useState(CategoryData);
-  const [editingCategoryId, setEditingCategoryId] = useState(null);
-  const [editingSubCategoryId, setEditingSubCategoryId] = useState(null);
 
-  const handleCategoryNameChange = (id, newName) => {
-    const newCategories = categories.map((category) => {
-      if (category.id === id) {
-        return { ...category, name: newName };
-      } else if (category.subCategories) {
-        const newSubCategories = category.subCategories.map((subCategory) =>
-          subCategory.id === id
-            ? { ...subCategory, name: newName }
-            : subCategory
-        );
-        return { ...category, subCategories: newSubCategories };
+  const handleCategoryNameChange = (index, newName) => {
+    const newCategories = categories.map((category, i) => {
+      if (i === index) {
+        return { ...category, categoryName: newName };
       }
       return category;
     });
     setCategories(newCategories);
+    setUserInfo((prev) => ({ ...prev, categoryList: newCategories }));
   };
 
-  const renderEditableText = (id, name, postCount, isSubCategory = false) => {
-    return (
-      <EditableText
-        value={name}
-        onChange={(e) => handleCategoryNameChange(id, e.target.value)}
-        onBlur={() => {
-          setEditingCategoryId(null);
-          setEditingSubCategoryId(null);
-        }}
-        autoFocus
-      />
-    );
+  const addCategory = () => {
+    const newCategoryId = (categories.length + 1).toString();
+    const newCategory = {
+      categoryId: newCategoryId,
+      categoryName: `카테고리 ${newCategoryId}`,
+      count: 0,
+    };
+    const newCategories = [...categories, newCategory];
+    setCategories(newCategories);
+    setUserInfo((prev) => ({ ...prev, categoryList: newCategories }));
   };
 
-  const renderCategoryItem = (category, isSubCategory = false) => {
-    const isEditing = isSubCategory
-      ? editingSubCategoryId === category.id
-      : editingCategoryId === category.id;
+  const deleteCategory = (index) => {
+    const newCategories = categories.filter((_, i) => i !== index);
+    setCategories(newCategories);
+    setUserInfo((prev) => ({ ...prev, categoryList: newCategories }));
+    setIsModalOpen(false);
+  };
+
+  const renderCategoryItem = (category, index) => {
+    const isEditing = editingIndex === index;
 
     return (
       <CategoryListItem
-        key={category.id}
-        isSubCategory={isSubCategory}
+        key={index}
         isEditing={isEditing}
         onClick={() => {
-          if (isSubCategory) {
-            setEditingSubCategoryId(category.id);
-          } else {
-            setEditingCategoryId(category.id);
-          }
+          setEditingIndex(index);
         }}
       >
         <CategoryName isEditing={isEditing}>
           {isEditing ? (
             <EditableText
-              value={category.name}
-              onChange={(e) =>
-                handleCategoryNameChange(category.id, e.target.value)
-              }
-              onBlur={() => {
-                setEditingCategoryId(null);
-                setEditingSubCategoryId(null);
-              }}
+              value={category.categoryName}
+              onChange={(e) => handleCategoryNameChange(index, e.target.value)}
+              onBlur={() => setEditingIndex(null)}
               autoFocus
             />
           ) : (
-            category.name
+            category.categoryName
           )}
         </CategoryName>
-        <PostCount>({category.postCount})</PostCount>
+        <PostCount>({category.count})</PostCount>
+        <DeleteBtn
+          onClick={(e) => {
+            e.stopPropagation();
+            setSelectedCategoryId(index);
+            setIsModalOpen(true);
+          }}
+        >
+          삭제
+        </DeleteBtn>
       </CategoryListItem>
     );
   };
@@ -128,25 +108,40 @@ const CategoryEdit = () => {
     <CategoryEditContainer>
       <CategoryContainer>
         <ContainerHeader>
-          <AddBtn>+ 카테고리 추가</AddBtn>
-          <DeleteBtn>- 삭제</DeleteBtn>
+          <AddBtn onClick={addCategory}>+ 카테고리 추가</AddBtn>
         </ContainerHeader>
 
         <CategoryList>
           <Header>
             <MainCategoryTitle>카테고리 전체 보기</MainCategoryTitle>
-            <TotalPosts>(15)</TotalPosts>
+            <TotalPosts>
+              ({categories.reduce((sum, category) => sum + category.count, 0)})
+            </TotalPosts>
           </Header>
           <Divider />
-          {categories.map((category) => [
-            renderCategoryItem(category),
-            category.subCategories &&
-              category.subCategories.map((subCategory) =>
-                renderCategoryItem(subCategory, true)
-              ),
-          ])}
+          {categories.map((category, index) =>
+            renderCategoryItem(category, index)
+          )}
         </CategoryList>
       </CategoryContainer>
+
+      {isModalOpen && (
+        <Modal>
+          <ModalContent>
+            <p>
+              카테고리에 속한 글이 모두 삭제됩니다. 카테고리를 삭제하시겠습니까?
+            </p>
+            <ButtonContainer>
+              <ModalButton onClick={() => deleteCategory(selectedCategoryId)}>
+                삭제
+              </ModalButton>
+              <ModalButton onClick={() => setIsModalOpen(false)}>
+                취소
+              </ModalButton>
+            </ButtonContainer>
+          </ModalContent>
+        </Modal>
+      )}
     </CategoryEditContainer>
   );
 };
@@ -172,19 +167,6 @@ const AddBtn = styled.button`
   }
 `;
 
-const DeleteBtn = styled.button`
-  padding: 5px 10px;
-  background-color: #66c0ff;
-  color: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  border-radius: 10px;
-  &:hover {
-    background-color: #e4f0ff;
-    color: #66c0ff;
-  }
-`;
-
 const Header = styled.div`
   display: center;
   margin-bottom: 10px;
@@ -195,7 +177,6 @@ const MainCategoryTitle = styled.span`
   font-size: 17px;
   font-weight: 400;
   margin-right: 8px;
-
   padding-left: 10px;
 `;
 
@@ -231,6 +212,7 @@ const CategoryList = styled.ul`
 
 const CategoryListItem = styled.li`
   padding: 5px 20px 5px 10px;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
@@ -260,5 +242,57 @@ const EditableText = styled.input`
   padding: 0;
   &:focus {
     outline: none;
+  }
+`;
+
+const DeleteBtn = styled.button`
+  padding: 5px 10px;
+  background-color: #66c0ff;
+  color: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  border-radius: 10px;
+  &:hover {
+    background-color: #e4f0ff;
+    color: #66c0ff;
+  }
+`;
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+`;
+
+const ModalButton = styled.button`
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #66c0ff;
+  color: white;
+
+  &:hover {
+    background-color: #e4f0ff;
+    color: #66c0ff;
   }
 `;
