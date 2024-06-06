@@ -44,10 +44,7 @@ const Header = () => {
       await logout();
       alert("로그아웃 되었습니다.");
       // Recoil 상태 업데이트
-      setUserData({
-        email: "",
-        accessToken: null,
-      });
+      setUserData({});
 
       setUserProfileState({
         name: "",

@@ -5,7 +5,8 @@ import AddThumbNailIcon from "../../assets/img/icons/addthumbnail.svg";
 import UploadButtonIcon from "../../assets/img/icons/uploadbutton.svg";
 import { create_post } from "../../api/PostAPI";
 import { useRecoilValue } from "recoil";
-import { UserProfileState } from "../../recoil/user";
+import { increase_count } from "../../api/UserAPI";
+import { UserProfileState, isUserId } from "../../recoil/user";
 
 const categories = ["카테고리1", "카테고리2", "카테고리3", "전체"];
 const tags = ["경제", "주식", "돈", "금융"];
@@ -17,6 +18,7 @@ const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 const UploadSection = (props) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const userInfo = useRecoilValue(UserProfileState);
+  const userId = useRecoilValue(isUserId);
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState(null); // S3 URL 상태 추가
   const [selectedSubject, setSelectedSubject] = useState(""); // 주제 상태 추가
@@ -26,6 +28,10 @@ const UploadSection = (props) => {
   const Content = props.content;
 
   console.log("userLink : " + userInfo.name);
+  console.log("userId : " + userId);
+  let personalPostId = userInfo.postCnt;
+  personalPostId += 1;
+  console.log("Type: " + personalPostId);
 
   useEffect(() => {
     AWS.config.update({
@@ -93,9 +99,11 @@ const UploadSection = (props) => {
         subject: selectedSubject,
         accessibility: selectedScope,
         userLink: userInfo.userLink,
+        personalPostId: personalPostId,
       };
       console.log("Submitting Data:", data);
       const response = await create_post({ data });
+      await increase_count(userId);
       console.log(response);
       alert("업로드 되었습니다.");
     } catch (error) {

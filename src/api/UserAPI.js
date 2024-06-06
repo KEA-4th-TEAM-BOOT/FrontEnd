@@ -127,3 +127,8 @@ export const resetPW = async (data) => {
   const response = await UserApi.patch(`/api/v1/user/resetPw`, data);
   return response.data;
 };
+
+export const increase_count = async (userId) => {
+  const response = await UserApi.post(`/api/v1/user/increasePostCnt/${userId}`);
+  return response.data;
+};

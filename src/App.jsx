@@ -20,7 +20,7 @@ import MinimalLayout from "./components/layout/MinimalLayout";
 import PrivateRoute from "./components/route/PrivateRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { RecoilDevTools } from "recoil-toolkit";
+import RecoilizeDebugger from "recoilize";
 
 const queryClient = new QueryClient();
 
@@ -43,7 +43,6 @@ const App = () => {
                   path="/:userLink"
                   element={<PrivateRoute element={<Mypage />} />}
                 />
-                <Route path="/post" element={<Post />} />
                 <Route
                   path="/setting"
                   element={<PrivateRoute element={<Setting />} />}
@@ -63,6 +62,7 @@ const App = () => {
             </Routes>
           </Suspense>
         </BrowserRouter>
+        <RecoilizeDebugger />
         <ReactQueryDevtools />
       </QueryClientProvider>
     </RecoilRoot>
