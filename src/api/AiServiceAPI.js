@@ -16,11 +16,23 @@ export const AiRecommendServiceApi = axios.create({
   },
 });
 
-/** POSTING API */
+/** AI Guide API */
 export const AiWrite = async ({ data }) => {
   // eslint-disable-next-line no-useless-catch
   try {
     const response = await AiGuideServiceApi.post(`/writing`, data);
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+/** AI Tag API */
+export const AiTag = async ({ data }) => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const response = await AiGuideServiceApi.post(`/tag`, data);
 
     return response.data;
   } catch (error) {

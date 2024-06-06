@@ -8,9 +8,9 @@ import { useRecoilValue } from "recoil";
 import { increase_count } from "../../api/UserAPI";
 import { UserProfileState, isUserId } from "../../recoil/user";
 import { useNavigate } from "react-router-dom";
+import { AiTag } from "../../api/AiServiceAPI";
 
 const categories = ["카테고리1", "카테고리2", "카테고리3", "전체"];
-const tags = ["경제", "주식", "돈", "금융"];
 
 const REGION = import.meta.env.VITE_AWS_S3_BUCKET_REGION;
 const ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_ACCESS_KEY_ID;
@@ -25,6 +25,7 @@ const UploadSection = (props) => {
   const [selectedSubject, setSelectedSubject] = useState(""); // 주제 상태 추가
   const [selectedScope, setSelectedScope] = useState(""); // 공개 범위 상태 추가
   const [description, setDescription] = useState(""); // 소개 글 상태 추가
+  const [tags, setTags] = useState([]); // 빈 배열로 초기화
   const fileInputRef = useRef();
   const Title = props.title;
   const Content = props.content;
@@ -35,14 +36,6 @@ const UploadSection = (props) => {
   let personalPostId = userInfo.postCnt;
   personalPostId += 1;
   console.log("Type: " + personalPostId);
-
-  useEffect(() => {
-    AWS.config.update({
-      region: REGION,
-      accessKeyId: ACCESS_KEY,
-      secretAccessKey: SECRET_ACCESS_KEY,
-    });
-  }, []);
 
   const handleAddTag = (event) => {
     let tag = event.target.value.trim();
@@ -97,6 +90,28 @@ const UploadSection = (props) => {
       return null;
     }
   };
+
+  useEffect(() => {
+    AWS.config.update({
+      region: REGION,
+      accessKeyId: ACCESS_KEY,
+      secretAccessKey: SECRET_ACCESS_KEY,
+    });
+
+    const fetchAITagResponse = async () => {
+      try {
+        const data = {
+          text: Content,
+        };
+        const response = await AiTag({ data });
+        setTags(response.new_tag);
+      } catch (error) {
+        console.error("Error fetching AI response:", error);
+      }
+    };
+
+    fetchAITagResponse();
+  }, [Content]);
 
   const onhandleSubmit = async () => {
     try {
@@ -196,7 +211,7 @@ const UploadSection = (props) => {
             <OptionTitle>태그 추천</OptionTitle>
             <TagContainer>
               {tags.map((tag, index) => (
-                <Tag key={index}># {tag}</Tag>
+                <Tag key={index}>{tag}</Tag>
               ))}
             </TagContainer>
           </UploadOptionItem>
