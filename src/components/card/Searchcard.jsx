@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 import likeOIcon from "../../assets/img/icons/likeOicon.svg";
 import likeXIcon from "../../assets/img/icons/likeXicon.svg";
 import commentIcon from "../../assets/img/icons/commenticon.svg";
@@ -15,9 +15,17 @@ const SearchCard = ({
   likes,
   likesCount,
   commentsCount,
+  userLink,
+  id,
 }) => {
+  const [datePart] = date.split("T");
+  const navigate = useNavigate();
+
+  const handleMovePost = () => {
+    navigate(`/${userLink}/post/${id}`);
+  };
   return (
-    <CardContainer>
+    <CardContainer onClick={handleMovePost}>
       <Thumbnail src={thumbnail} alt="Thumbnail" />
       <ContentContainer>
         <Title>
@@ -29,7 +37,7 @@ const SearchCard = ({
         </Title>
         <Content>{content}</Content>
         <PostInfo>
-          <Date>{date}</Date>
+          <Date>{datePart}</Date>
           <LikesCommentsContainer>
             <Icon src={likes ? likeOIcon : likeXIcon} alt="Likes" />
             <Count>{likesCount}</Count>

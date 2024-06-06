@@ -46,6 +46,8 @@ const Bloginfo = ({ userInfo: propsUserInfo }) => {
         <Followlist
           type={followListType}
           onClose={() => setShowFollowList(false)}
+          followerList={userInfo.followerList}
+          followingList={userInfo.followingList}
         />
       )}
     </ListcardWrapper>
