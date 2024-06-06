@@ -38,9 +38,14 @@ const ListCard = ({
       <ContentContainer onClick={handleMovePost}>
         <TitleBar>
           <Title>{title}</Title>
-          <PlayButton onClick={togglePlay}>
-            <PlayIcon src={playing ? pauseBtn : playBtn} alt="Play or pause" />
-          </PlayButton>
+          {audioSrc && (
+            <PlayButton onClick={togglePlay}>
+              <PlayIcon
+                src={playing ? pauseBtn : playBtn}
+                alt="Play or pause"
+              />
+            </PlayButton>
+          )}
         </TitleBar>
         <Content>{content}</Content>
         <TagLine>
