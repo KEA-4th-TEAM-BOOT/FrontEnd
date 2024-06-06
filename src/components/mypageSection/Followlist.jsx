@@ -42,8 +42,8 @@ const followingData = [
   },
 ];
 
-const Followlist = ({ type, onClose }) => {
-  const listData = type === "followers" ? followersData : followingData;
+const Followlist = ({ type, onClose, followingList, followerList }) => {
+  const listData = type === "followers" ? followerList : followingList;
 
   const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
