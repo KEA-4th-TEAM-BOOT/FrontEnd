@@ -3,8 +3,10 @@ import AWS from "aws-sdk";
 import styled from "styled-components";
 import AddThumbNailIcon from "../../assets/img/icons/addthumbnail.svg";
 import UploadButtonIcon from "../../assets/img/icons/uploadbutton.svg";
-import { fetchUser } from "../../api/UserAPI";
 import { create_post } from "../../api/PostAPI";
+import { useRecoilValue } from "recoil";
+import { increase_count } from "../../api/UserAPI";
+import { UserProfileState, isUserId } from "../../recoil/user";
 
 const categories = ["카테고리1", "카테고리2", "카테고리3", "전체"];
 const tags = ["경제", "주식", "돈", "금융"];
@@ -15,14 +17,22 @@ const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
 const UploadSection = (props) => {
   const [selectedTags, setSelectedTags] = useState([]);
-  const [userInfo, setUserInfo] = useState({});
+  const userInfo = useRecoilValue(UserProfileState);
+  const userId = useRecoilValue(isUserId);
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState(null); // S3 URL 상태 추가
   const [selectedSubject, setSelectedSubject] = useState(""); // 주제 상태 추가
   const [selectedScope, setSelectedScope] = useState(""); // 공개 범위 상태 추가
+  const [description, setDescription] = useState(""); // 소개 글 상태 추가
   const fileInputRef = useRef();
   const Title = props.title;
   const Content = props.content;
+
+  console.log("userLink : " + userInfo.name);
+  console.log("userId : " + userId);
+  let personalPostId = userInfo.postCnt;
+  personalPostId += 1;
+  console.log("Type: " + personalPostId);
 
   useEffect(() => {
     AWS.config.update({
@@ -33,17 +43,22 @@ const UploadSection = (props) => {
   }, []);
 
   const handleAddTag = (event) => {
-    const tag = event.target.value.trim();
+    let tag = event.target.value.trim();
+    tag = "#" + tag;
     if (event.key === "Enter" && tag) {
       if (selectedTags.length < 4 && !selectedTags.includes(tag)) {
-        setSelectedTags([...selectedTags, tag]);
+        const updatedTags = [...selectedTags, tag];
+        setSelectedTags(updatedTags);
+        console.log("Tags: " + updatedTags.join(" ")); // 콘솔에 한 줄로 출력
         event.target.value = "";
       }
     }
   };
 
   const handleRemoveTag = (index) => {
-    setSelectedTags(selectedTags.filter((_, i) => i !== index));
+    const updatedTags = selectedTags.filter((_, i) => i !== index);
+    setSelectedTags(updatedTags);
+    console.log("Tags: " + updatedTags.join(" ")); // 콘솔에 한 줄로 출력
   };
 
   const handleThumbnailClick = () => {
@@ -63,11 +78,13 @@ const UploadSection = (props) => {
   const uploadToS3 = async (file) => {
     try {
       const name = Date.now();
+      const extension = file.name.split(".").pop(); // 파일 확장자 추출
+      const fileName = `post/${name}.${extension}`; // 확장자를 포함한 파일 이름
       const upload = new AWS.S3.ManagedUpload({
         params: {
           ACL: "public-read",
           Bucket: "kea-boot-postimage",
-          Key: `post/${name}`,
+          Key: fileName,
           Body: file,
         },
       });
@@ -88,9 +105,13 @@ const UploadSection = (props) => {
         subject: selectedSubject,
         accessibility: selectedScope,
         userLink: userInfo.userLink,
+        personalPostId: personalPostId,
+        tags: selectedTags,
+        thumbnail: description, // 소개 글 추가
       };
       console.log("Submitting Data:", data);
       const response = await create_post({ data });
+      await increase_count(userId);
       console.log(response);
       alert("업로드 되었습니다.");
     } catch (error) {
@@ -106,19 +127,9 @@ const UploadSection = (props) => {
     setSelectedScope(event.target.value);
   };
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const user = await fetchUser();
-        console.log("userInfo :", user);
-        setUserInfo(user);
-      } catch (error) {
-        console.error("Failed to fetch user info:", error);
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
 
   return (
     <UploadSectionWrapper>
@@ -159,7 +170,9 @@ const UploadSection = (props) => {
           <UploadOptionItem>
             <OptionTitle>음성 추가</OptionTitle>
             <SelectVoiceModel>
-              <option>{userInfo.name}님의 음성모델</option>
+              {userInfo.voiceModelUrl && (
+                <option>{userInfo.name}님의 음성모델</option>
+              )}
               <option>기본 음성모델1</option>
               <option>기본 음성모델2</option>
             </SelectVoiceModel>
@@ -254,7 +267,7 @@ const UploadSection = (props) => {
             <EnrollTag>
               {selectedTags.map((tag, index) => (
                 <Tag key={index}>
-                  # {tag}
+                  {tag}
                   <RemoveTagButton onClick={() => handleRemoveTag(index)}>
                     x
                   </RemoveTagButton>
@@ -266,7 +279,16 @@ const UploadSection = (props) => {
             </EnrollTag>
           </UploadOptionItem>
         </UploadOptionRow>
+        <UploadOptionDownItem>
+          <OptionTitle>글 설명</OptionTitle>
+          <DescriptionTextarea
+            value={description}
+            onChange={handleDescriptionChange}
+            placeholder="이 글에 대한 짧은 소개를 작성하세요."
+          />
+        </UploadOptionDownItem>
       </UploadOptionLeft>
+
       <UploadOptionRight>
         <ThumbnailButton onClick={handleThumbnailClick}>
           {thumbnail ? (
@@ -298,7 +320,6 @@ const UploadSectionWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 40px;
-  height: 280px;
   background-color: #f2f5ff;
 `;
 
@@ -322,6 +343,13 @@ const UploadOptionRow = styled.div`
 
 const UploadOptionItem = styled.div`
   width: 450px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+`;
+
+const UploadOptionDownItem = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -450,3 +478,14 @@ const Divider = styled.hr`
 `;
 
 const FileInput = styled.input``;
+
+const DescriptionTextarea = styled.textarea`
+  margin-top: 20px;
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+`;

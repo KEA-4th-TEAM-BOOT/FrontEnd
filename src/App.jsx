@@ -19,7 +19,7 @@ import DefaultLayout from "./components/layout/DefaultLayout";
 import MinimalLayout from "./components/layout/MinimalLayout";
 import PrivateRoute from "./components/route/PrivateRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -62,7 +62,7 @@ const App = () => {
             </Routes>
           </Suspense>
         </BrowserRouter>
-        {/* <ReactQueryDevtools /> */}
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </RecoilRoot>
   );

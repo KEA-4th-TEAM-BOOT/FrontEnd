@@ -41,4 +41,13 @@ export const UserProfileState = atom({
     followingList: null,
     followerList: null,
   },
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const isUserId = selector({
+  key: "isUserId",
+  get: ({ get }) => {
+    const user = get(UserData);
+    return user.userId;
+  },
 });

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DOMPurify from "dompurify";
 import styled from "styled-components";
 import Category from "../mypageSection/Category";
 import Comment from "./Comment";
@@ -7,7 +8,8 @@ import likeOIcon from "../../../src/assets/img/icons/likeOicon.svg";
 import likeXIcon from "../../../src/assets/img/icons/likeXicon.svg";
 import SharedBtn from "../../../src/assets/img/icons/shareicon.svg";
 
-const PostCotent = () => {
+const PostCotent = ({ postInfo, userInfo }) => {
+  const cleanContent = DOMPurify.sanitize(postInfo.content);
   const PostData = {
     likes: 72,
     isLiked: true,
@@ -59,8 +61,9 @@ const PostCotent = () => {
         <Category />
       </CategorySection>
       <ContentSection>
-        <ContentDisplayText>{postData.content.text1}</ContentDisplayText>
-        <ContentDisplayImage src={postData.content.image1} alt="Content" />
+        <ContentDisplayText
+          dangerouslySetInnerHTML={{ __html: cleanContent }}
+        ></ContentDisplayText>
         <PostBtnWrapper>
           <LikeInfo onClick={toggleLike}>
             {postData.isLiked ? (
@@ -68,7 +71,7 @@ const PostCotent = () => {
             ) : (
               <LikeIcon src={likeXIcon} alt="Not Liked" />
             )}
-            <span>{postData.likes}</span>
+            <span>{postInfo.likeCnt}</span>
           </LikeInfo>
           <ShareBtn onClick={copyUrlToClipboard}>
             <img src={SharedBtn} alt="Share" />
@@ -76,8 +79,8 @@ const PostCotent = () => {
         </PostBtnWrapper>
         <ProfileWrapper>
           <InfoContainer>
-            <Nickname>{postData.user.nickname}</Nickname>
-            <Introduction>{postData.user.intro}</Introduction>
+            <Nickname>{userInfo.nickname}</Nickname>
+            <Introduction>{userInfo.introduce}</Introduction>
             <FollowButton
               onClick={toggleFollow}
               isFollowing={postData.user.isFollowing}
@@ -85,10 +88,7 @@ const PostCotent = () => {
               {postData.user.isFollowing ? "팔로잉" : "팔로우"}
             </FollowButton>
           </InfoContainer>
-          <ProfileImage
-            src={postData.user.profileImage}
-            alt={postData.user.nickname}
-          />
+          <ProfileImage src={userInfo.profileUrl} alt={userInfo.nickname} />
         </ProfileWrapper>
         <Comment />
       </ContentSection>

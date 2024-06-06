@@ -1,35 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
 
 import playBtn from "../../assets/img/icons/postplayicon.svg";
 import pauseBtn from "../../assets/img/icons/postpauseicon.svg";
 
-const PostHeader = () => {
+const PostHeader = ({ postInfo, userInfo }) => {
+  const createdTime = postInfo.createdTime;
+  const isYours = postInfo.userLink === userInfo.userLink;
+  // 문자열을 'T'를 기준으로 분리
+  const [datePart] = createdTime.split("T");
+
   const postInfoData = [
     {
-      nickname: "제주파",
-      category: "라이프스타일",
-      title: "거친 자연을 품은 제주도 오름",
       tags: ["# 제주", "# 일상", "# 오름", "# 자연"],
-      profileImage:
-        "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTaWksGAUsmDHd-Zmfu6-6TgiH0qtw23poll21guIBMfSvCXsDf",
-      date: "2024.03.01",
-      time: "01: 50",
-      audioUrl: "https://youtu.be/emnB9kam3vg?si=bABEitRoB7lILkvl",
     },
   ];
 
-  const {
-    nickname,
-    category,
-    title,
-    tags,
-    profileImage,
-    date,
-    time,
-    audioUrl,
-  } = postInfoData[0];
+  const { tags } = postInfoData[0];
 
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -45,24 +33,26 @@ const PostHeader = () => {
   return (
     <PostHeaderContainer>
       <HeaderWrapper>
-        <BlogTitle>{nickname} 님의 블로그</BlogTitle>
-        <Category>{category}</Category>
+        <BlogTitle>{userInfo.nickname} 님의 블로그</BlogTitle>
+        <Category>{postInfo.subject}</Category>
         <TitleWrapper>
-          <PostPlayIcon
-            src={isPlaying ? pauseBtn : playBtn}
-            alt="Play or pause"
-            onClick={togglePlay}
-            isPlaying={isPlaying}
-          />
+          {postInfo.postVoiceFileUrl && (
+            <PostPlayIcon
+              src={isPlaying ? pauseBtn : playBtn}
+              alt="Play or pause"
+              onClick={togglePlay}
+              isPlaying={isPlaying}
+            />
+          )}
           <ReactPlayer
-            url={audioUrl}
+            url={postInfo.postVoiceFileUrl}
             playing={isPlaying}
             controls
             width="0"
             height="0"
             style={{ display: "none" }}
           />
-          <PostTitle>{title}</PostTitle>
+          <PostTitle>{postInfo.title}</PostTitle>
         </TitleWrapper>
         <TagsContainer>
           {tags.map((tag, index) => (
@@ -71,14 +61,20 @@ const PostHeader = () => {
         </TagsContainer>
         <BottomSection>
           <ProfileContainer>
-            <ProfileImage src={profileImage} alt={`${nickname}'s profile`} />
-            <Nickname>{nickname} •</Nickname>
-            <PostDate>{date}</PostDate>
-            <PostTime>{time}</PostTime>
+            <ProfileImage
+              src={userInfo.profileUrl}
+              alt={`${userInfo.nickname}'s profile`}
+            />
+            <Nickname>{userInfo.nickname} •</Nickname>
+            <PostDate>{datePart}</PostDate>
           </ProfileContainer>
           <ButtonContainer>
-            <EditButton>수정</EditButton>
-            <DeleteButton>삭제</DeleteButton>
+            {isYours && (
+              <>
+                <EditButton>수정</EditButton>
+                <DeleteButton>삭제</DeleteButton>
+              </>
+            )}
             <CopyUrlBtn onClick={copyUrlToClipboard}>URL 복사</CopyUrlBtn>
           </ButtonContainer>
         </BottomSection>
