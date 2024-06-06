@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
+import { useNavigate } from "react-router-dom";
 
 import playBtn from "../../assets/img/icons/playbluebtn.svg";
 import pauseBtn from "../../assets/img/icons/pausebluebtn.svg";
@@ -16,16 +17,25 @@ const ListCard = ({
   comments,
   thumbnail,
   audioSrc,
+  userLink,
+  id,
 }) => {
   const [playing, setPlaying] = useState(false);
-
+  const navigate = useNavigate();
   const togglePlay = () => {
     setPlaying(!playing);
   };
 
+  // 문자열을 'T'를 기준으로 분리
+  const [datePart] = date.split("T");
+
+  const handleMovePost = () => {
+    navigate(`/${userLink}/post/${id}`);
+  };
+
   return (
     <CardContainer>
-      <ContentContainer>
+      <ContentContainer onClick={handleMovePost}>
         <TitleBar>
           <Title>{title}</Title>
           <PlayButton onClick={togglePlay}>
@@ -42,7 +52,7 @@ const ListCard = ({
           <Divider />
         </TagLine>
         <Footer>
-          <Date>{date}</Date>
+          <Date>{datePart}</Date>
           <LikesCommentsContainer>
             <Likes>
               <Icon src={likeIcon} alt="Likes" />
@@ -56,7 +66,7 @@ const ListCard = ({
         </Footer>
       </ContentContainer>
       <ThumbnailContainer>
-        <Thumbnail src={thumbnail} alt="thumbnail" />
+        <Thumbnail src={thumbnail} alt="썸네일이 존재하지않습니다." />
       </ThumbnailContainer>
       <ReactPlayer
         url={audioSrc}

@@ -7,20 +7,26 @@ import { fetchUser, fetchUserData } from "../api/UserAPI";
 import { useSetRecoilState } from "recoil";
 import { UserProfileState } from "../recoil/user";
 import { useLocation, useParams } from "react-router-dom";
+import { fetch_AllPost } from "../api/PostAPI";
 
 const Mypage = () => {
   const location = useLocation();
   const { userLink } = useParams();
   const setUserProfileState = useSetRecoilState(UserProfileState);
   const [userInfo, setUserInfo] = useState(null);
+  const [postList, setPostList] = useState(null);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         let userInfo;
+        let postList;
         if (location.pathname === "/mypage") {
           userInfo = await fetchUser(); // /mypage로 접근한 경우
           setUserProfileState(userInfo);
+          postList = await fetch_AllPost(userInfo.userLink);
+          setPostList(postList);
+          console.log("2 " + postList);
         } else {
           userInfo = await fetchUserData(userLink); // /:userLink로 접근한 경우
         }
@@ -43,7 +49,7 @@ const Mypage = () => {
       <Bloginfo userInfo={userInfo} />
       <Wrapper>
         <Category categoryList={userInfo.categoryList} />
-        <Postlist posts={userInfo.posts} />
+        <Postlist postList={postList} userLink={userInfo.userLink} />
       </Wrapper>
     </MyPageWrapper>
   );

@@ -1,6 +1,6 @@
 import ListCard from "../card/Listcard";
 
-const Postlist = () => {
+const Postlist = ({ postList, userLink }) => {
   const postData = [
     {
       title: "고양이",
@@ -99,20 +99,21 @@ const Postlist = () => {
       audioSrc: "https://youtu.be/sRmbrE6eHpU?si=4ywvHI8tAc049nkZ",
     },
   ];
-
   return (
     <div>
-      {postData.map((post, index) => (
+      {postList.map((post, index) => (
         <ListCard
           key={index}
           title={post.title}
-          content={post.content}
-          tags={post.tags}
-          date={post.date}
-          likes={post.likes}
+          content={post.thumbnail}
+          tags={post.tagList}
+          date={post.createdTime}
+          likes={post.likeCnt}
           comments={post.comments}
-          thumbnail={post.thumbnail}
-          audioSrc={post.audioSrc}
+          thumbnail={post.thumbnailImageUrl}
+          audioSrc={post.postVoiceFileUrl}
+          userLink={userLink}
+          id={post.personalPostId}
         />
       ))}
     </div>
