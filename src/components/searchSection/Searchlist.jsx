@@ -1,19 +1,32 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SearchCard from "../card/Searchcard";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { searchTitle } from "./../../api/PostAPI";
 import { fetchUserData } from "./../../api/UserAPI";
 
 const Searchlist = ({ searchQuery }) => {
+  const [debouncedQuery, setDebouncedQuery] = useState(searchQuery);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 300); // 500ms 대기
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchQuery]);
+
   const {
     data: fetchdata,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["search", searchQuery],
-    queryFn: () => searchTitle({ keyword: searchQuery }),
-    enabled: !!searchQuery, // 검색어가 비어있지 않을 때만 쿼리 실행
+    queryKey: ["search", debouncedQuery],
+    queryFn: () => searchTitle({ keyword: debouncedQuery }),
+    enabled: !!debouncedQuery, // 검색어가 비어있지 않을 때만 쿼리 실행
+    placeholderData: keepPreviousData, // 깜빡임 제거 용도로 그 전에 값을 보여주고있는거 이로써 깜빡임 제거 성공
   });
 
   const [additionalData, setAdditionalData] = useState([]);
@@ -40,7 +53,7 @@ const Searchlist = ({ searchQuery }) => {
   console.log("additionalData:", additionalData);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <></>;
   }
 
   if (isError) {
