@@ -145,6 +145,12 @@ const Player = () => {
     }
   };
 
+  const handleOverlayClick = (e) => {
+    if (e.target.id === "playlist-overlay") {
+      setShowPlaylist(false);
+    }
+  };
+
   useEffect(() => {
     setPlaying(true);
     setPlayed(0);
@@ -234,14 +240,16 @@ const Player = () => {
         <PlayerIcon src={playlistIcon} onClick={togglePlaylist} />
       </PlayerSectionRight>
       {showPlaylist && (
-        <PlaylistModal>
-          <Playlist
-            trackList={trackList}
-            setTrackList={setTrackList}
-            setCurrentTrack={setCurrentTrackId}
-            setPlaying={setPlaying}
-          />
-        </PlaylistModal>
+        <Overlay id="playlist-overlay" onClick={handleOverlayClick}>
+          <PlaylistModal onClick={(e) => e.stopPropagation()}>
+            <Playlist
+              trackList={trackList}
+              setTrackList={setTrackList}
+              setCurrentTrack={setCurrentTrackId}
+              setPlaying={setPlaying}
+            />
+          </PlaylistModal>
+        </Overlay>
       )}
       <ReactPlayer
         ref={playerRef}
@@ -406,10 +414,20 @@ const VolumeSlider = styled.input`
   -webkit-appearance: slider-vertical;
 `;
 
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+`;
+
 const PlaylistModal = styled.div`
-  position: absolute;
-  bottom: 100%;
-  right: 20px;
   width: 350px;
   max-height: 400px;
   background-color: #202020;
@@ -418,4 +436,6 @@ const PlaylistModal = styled.div`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   z-index: 101;
+  margin-bottom: 80px;
+  margin-right: 5px;
 `;
