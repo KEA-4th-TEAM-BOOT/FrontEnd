@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
+import Playlist from "./homeSection/Playlist";
 import likeOIcon from "../../src/assets/img/icons/likeOwhiteicon.svg";
 import likeXIcon from "../../src/assets/img/icons/likeXwhiteicon.svg";
 import repeatIcon from "../../src/assets/img/icons/repeaticon.svg";
@@ -13,24 +14,50 @@ import volumeIcon from "../../src/assets/img/icons/volumeicon.svg";
 import playlistIcon from "../../src/assets/img/icons/playlisticon.svg";
 
 const Player = () => {
-  const trackInfo = {
-    imageSrc:
-      "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSJwo31zBZKoy-pGdeMYGqXK6J5MJMwrftIVn9RvNBuKatxx5Qa",
-    title: "수영장에서 디너파티",
-    username: "James Cailo",
-    category: "라이프",
-    date: "24.04.12",
-  };
+  const initialTrackList = [
+    {
+      id: 1,
+      thumbnailImage:
+        "https://www.songpa.go.kr/upload/DATA/resrce/22561fd4-92d3-4533-b465-bb71993fcd91DABB9CE632C323A1.jpg",
+      username: "Hello",
+      title: "Title1",
+      audioSrc: "https://youtu.be/lI5pmLQg8sU?feature=shared",
+    },
+    {
+      id: 2,
+      thumbnailImage:
+        "https://www.songpa.go.kr/upload/DATA/resrce/22561fd4-92d3-4533-b465-bb71993fcd91DABB9CE632C323A1.jpg",
+      username: "Hi",
+      title: "Title2",
+      audioSrc: "https://youtu.be/GWp8KMYZzY0?feature=shared",
+    },
+    {
+      id: 3,
+      thumbnailImage:
+        "https://www.songpa.go.kr/upload/DATA/resrce/22561fd4-92d3-4533-b465-bb71993fcd91DABB9CE632C323A1.jpg",
+      username: "Apple",
+      title: "Title3",
+      audioSrc: "https://youtu.be/xqTwKxId6D8?feature=shared",
+    },
+  ];
 
+  const [trackList, setTrackList] = useState(initialTrackList);
+  const [currentTrackId, setCurrentTrackId] = useState(initialTrackList[0].id);
   const [playing, setPlaying] = useState(false);
   const [played, setPlayed] = useState(0);
-  const [liked, setLiked] = useState(false);
+  const [likedTracks, setLikedTracks] = useState(
+    initialTrackList.map((track) => ({ id: track.id, liked: track.liked }))
+  );
+  const [repeatMode, setRepeatMode] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState("00:00");
   const [totalTime, setTotalTime] = useState("00:00");
   const [volume, setVolume] = useState(0.8);
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
+  const [showPlaylist, setShowPlaylist] = useState(false);
   const playerRef = useRef(null);
+
+  const currentTrack = trackList.find((track) => track.id === currentTrackId);
 
   const formatTime = (seconds) => {
     const date = new Date(seconds * 1000);
@@ -82,31 +109,92 @@ const Player = () => {
     setPlaying(!playing);
   };
 
-  const toggleLike = () => setLiked(!liked);
+  const toggleLike = () => {
+    const updatedLikedTracks = likedTracks.map((track) =>
+      track.id === currentTrackId ? { ...track, liked: !track.liked } : track
+    );
+    setLikedTracks(updatedLikedTracks);
+  };
 
   const toggleVolumeSlider = () => {
     setShowVolumeSlider(!showVolumeSlider);
   };
 
-  const videoUrl = "https://youtu.be/C9RI-OXMyu4?si=2LkNYwVFqBv40Gkp";
+  const togglePlaylist = () => {
+    setShowPlaylist(!showPlaylist);
+  };
+
+  const toggleRepeat = () => {
+    setRepeatMode((prevMode) => (prevMode + 1) % 3);
+  };
+
+  const handleEnded = () => {
+    const currentIndex = trackList.findIndex(
+      (track) => track.id === currentTrackId
+    );
+    const nextTrack =
+      repeatMode === 1 ? trackList[currentIndex] : trackList[currentIndex + 1];
+    if (nextTrack) {
+      setCurrentTrackId(nextTrack.id);
+      setPlaying(true);
+    } else if (repeatMode === 2) {
+      setCurrentTrackId(trackList[0].id);
+      setPlaying(true);
+    } else {
+      setPlaying(false);
+    }
+  };
+
+  useEffect(() => {
+    setPlaying(true);
+    setPlayed(0);
+  }, [currentTrackId]);
 
   return (
     <FootPlayer>
       <PlayerInfo>
-        <PlayImage src={trackInfo.imageSrc} alt="Play Image" />
+        <PlayImage src={currentTrack.thumbnailImage} alt="Play Image" />
         <TextContainer>
-          <Title>{trackInfo.title}</Title>
-          <Username>{trackInfo.username}</Username>
-          <CategoryDate>{`${trackInfo.category} • ${trackInfo.date}`}</CategoryDate>
+          <Title>{currentTrack.title}</Title>
+          <Username>{currentTrack.username}</Username>
         </TextContainer>
       </PlayerInfo>
       <PlayerControlContainer>
         <PlayerControl>
-          <PlayerIcon src={shuffleIcon} />
-          <PlayerIcon src={prevIcon} />
+          <PlayerIcon
+            src={shuffleIcon}
+            onClick={() => {
+              const shuffledTracks = [...trackList].sort(
+                () => Math.random() - 0.5
+              );
+              setTrackList(shuffledTracks);
+            }}
+          />
+          <PlayerIcon
+            src={prevIcon}
+            onClick={() => {
+              const currentIndex = trackList.findIndex(
+                (track) => track.id === currentTrackId
+              );
+              const prevTrack =
+                trackList[currentIndex - 1] || trackList[trackList.length - 1];
+              setCurrentTrackId(prevTrack.id);
+              setPlaying(true);
+            }}
+          />
           <PlayIcon src={playing ? pauseIcon : playIcon} onClick={togglePlay} />
-          <PlayerIcon src={nextIcon} />
-          <PlayerIcon src={repeatIcon} />
+          <PlayerIcon
+            src={nextIcon}
+            onClick={() => {
+              const currentIndex = trackList.findIndex(
+                (track) => track.id === currentTrackId
+              );
+              const nextTrack = trackList[currentIndex + 1] || trackList[0];
+              setCurrentTrackId(nextTrack.id);
+              setPlaying(true);
+            }}
+          />
+          <PlayerIcon src={repeatIcon} onClick={toggleRepeat} />
         </PlayerControl>
         <SeekBarContainer>
           <CurrentTime>{currentTime}</CurrentTime>
@@ -124,7 +212,14 @@ const Player = () => {
         </SeekBarContainer>
       </PlayerControlContainer>
       <PlayerSectionRight>
-        <PlayerIcon src={liked ? likeOIcon : likeXIcon} onClick={toggleLike} />
+        <PlayerIcon
+          src={
+            likedTracks.find((track) => track.id === currentTrackId)?.liked
+              ? likeOIcon
+              : likeXIcon
+          }
+          onClick={toggleLike}
+        />
         <PlayerIcon src={volumeIcon} onClick={toggleVolumeSlider} />
         {showVolumeSlider && (
           <VolumeSlider
@@ -136,17 +231,28 @@ const Player = () => {
             onChange={handleVolumeChange}
           />
         )}
-        <PlayerIcon src={playlistIcon} />
+        <PlayerIcon src={playlistIcon} onClick={togglePlaylist} />
       </PlayerSectionRight>
+      {showPlaylist && (
+        <PlaylistModal>
+          <Playlist
+            trackList={trackList}
+            setTrackList={setTrackList}
+            setCurrentTrack={setCurrentTrackId}
+            setPlaying={setPlaying}
+          />
+        </PlaylistModal>
+      )}
       <ReactPlayer
         ref={playerRef}
-        url={videoUrl}
+        url={currentTrack.audioSrc}
         playing={playing}
         onProgress={onProgress}
         onDuration={onDuration}
         volume={1 - volume}
         width="0"
         height="0"
+        onEnded={handleEnded}
       />
     </FootPlayer>
   );
@@ -200,11 +306,6 @@ const Username = styled.h4`
   color: #b3b3b3;
 `;
 
-const CategoryDate = styled.span`
-  font-size: 12px;
-  color: #b3b3b3;
-`;
-
 const PlayerControlContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -237,13 +338,13 @@ const TotalTime = styled(TimeText)``;
 const SeekBarContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 1000px;
+  width: 100%;
 `;
 
 const SeekBar = styled.input`
   -webkit-appearance: none;
   height: 4px;
-  width: calc(100% - 120px);
+  width: calc(100% - 100px);
   margin: 0 10px;
   border-radius: 2px;
   background: ${(props) =>
@@ -277,7 +378,7 @@ const SeekBar = styled.input`
 const PlayerSectionRight = styled.div`
   display: flex;
   justify-content: end;
-  align-items: right;
+  align-items: center;
   flex: 0 0 auto;
   padding-right: 20px;
 `;
@@ -303,4 +404,18 @@ const VolumeSlider = styled.input`
   transform: rotate(-90deg);
   transform-origin: bottom right;
   -webkit-appearance: slider-vertical;
+`;
+
+const PlaylistModal = styled.div`
+  position: absolute;
+  bottom: 100%;
+  right: 20px;
+  width: 350px;
+  max-height: 400px;
+  background-color: #202020;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  z-index: 101;
 `;
