@@ -36,7 +36,9 @@ const AudioCard = ({ imageUrl, category, title, writer, tag }) => {
 
   return (
     <CardWrapper>
-      <ImageBackground image={imageUrl}></ImageBackground>
+      <ImageContainer>
+        <ImageBackground image={imageUrl} />
+      </ImageContainer>
       <BlurOverlay>
         <Category isDark={isDark}>{category}</Category>
         <Title isDark={isDark}>{title}</Title>
@@ -55,10 +57,17 @@ export default AudioCard;
 const CardWrapper = styled.div`
   position: relative;
   display: flex;
-  width: 207px;
+  width: 205px;
   height: 300px;
   border-radius: 15px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  flex-direction: column;
+`;
+
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 59%;
   overflow: hidden;
 `;
 
@@ -68,8 +77,6 @@ const ImageBackground = styled.div`
   background-image: url(${(props) => props.image});
   background-size: cover;
   background-position: center;
-  display: flex;
-  align-items: flex-end;
 `;
 
 const BlurOverlay = styled.div`
@@ -109,26 +116,26 @@ const PlayIconImg = styled.img`
 
 const Category = styled.h2`
   font-size: 11px;
-  color: ${(props) => (props.isDark ? "white" : "black")};
+  color: ${(props) => (props.isDark ? "black" : "black")};
   margin: 0;
 `;
 
 const Title = styled.h1`
   font-size: 16px;
-  color: ${(props) => (props.isDark ? "white" : "black")};
+  color: ${(props) => (props.isDark ? "black" : "black")};
   margin: 0;
-  margin-top: 3px;
-  margin-bottom: 10px;
+  margin-top: 7px;
+  margin-bottom: 7px;
 `;
 
 const Writer = styled.p`
   font-size: 10px;
-  color: ${(props) => (props.isDark ? "white" : "black")};
+  color: ${(props) => (props.isDark ? "black" : "black")};
   margin: 0;
 `;
 
 const Tag = styled.p`
   font-size: 11px;
-  color: ${(props) => (props.isDark ? "white" : "black")};
+  color: ${(props) => (props.isDark ? "black" : "black")};
   padding: 0;
 `;
