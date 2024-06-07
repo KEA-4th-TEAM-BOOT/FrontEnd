@@ -9,6 +9,7 @@ import { increase_count } from "../../api/UserAPI";
 import { UserProfileState, isUserId } from "../../recoil/user";
 import { useNavigate } from "react-router-dom";
 import { AiTag } from "../../api/AiServiceAPI";
+import { fetchUser } from "../../api/UserAPI";
 
 const categories = ["카테고리1", "카테고리2", "카테고리3", "전체"];
 
@@ -18,6 +19,7 @@ const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
 const UploadSection = (props) => {
   const [selectedTags, setSelectedTags] = useState([]);
+  const [userPostCnt, setUserPostCnt] = useState(UserProfileState.postCnt);
   const userInfo = useRecoilValue(UserProfileState);
   const userId = useRecoilValue(isUserId);
   const [thumbnail, setThumbnail] = useState(null);
@@ -31,11 +33,10 @@ const UploadSection = (props) => {
   const Content = props.content;
   const Navigate = useNavigate();
 
-  console.log("userLink : " + userInfo.name);
-  console.log("userId : " + userId);
-  let personalPostId = userInfo.postCnt;
+  let personalPostId = userPostCnt;
   personalPostId += 1;
-  console.log("Type: " + personalPostId);
+
+  console.log("User PersonalPostId is " + personalPostId);
 
   const handleAddTag = (event) => {
     let tag = event.target.value.trim();
@@ -109,6 +110,20 @@ const UploadSection = (props) => {
         console.error("Error fetching AI response:", error);
       }
     };
+
+    const fetchUserInfo = async () => {
+      try {
+        let userInfo;
+        userInfo = await fetchUser();
+
+        setUserPostCnt(userInfo.postCnt);
+        console.log("1 " + UserProfileState);
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+      }
+    };
+
+    fetchUserInfo();
 
     fetchAITagResponse();
   }, [Content]);
