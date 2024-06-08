@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AWS from "aws-sdk";
@@ -12,7 +12,7 @@ const REGION = import.meta.env.VITE_AWS_S3_BUCKET_REGION;
 const ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = import.meta.env.VITE_AWS_S3_BUCKET_SECRET_ACCESS_KEY;
 
-const EditSetting = () => {
+const EditSetting = ({ categorySectionRef }) => {
   const voiceFileUrl = "https://youtu.be/UOY-WsXkgTI?si=9UHO67R3mUWy9yOJ";
   const userInfo = useRecoilValue(UserProfileState);
   const setUserData = useSetRecoilState(UserData);
@@ -209,7 +209,7 @@ const EditSetting = () => {
               </CharacterCount>
             </IntroductionContainer>
           </EditableInfoRow>
-          <CategorySection>
+          <CategorySection ref={categorySectionRef}>
             <Label>카테고리 편집</Label>
             <CategoryEdit />
           </CategorySection>

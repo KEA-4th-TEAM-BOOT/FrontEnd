@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import EditSetting from "../components/settingSection/EditSetting";
 import { fetchUser } from "../api/UserAPI";
 import { UserProfileState } from "../recoil/user";
 import { useSetRecoilState } from "recoil";
+import { useLocation } from "react-router-dom";
 
 const Setting = () => {
   const setUserProfileState = useSetRecoilState(UserProfileState);
+  const location = useLocation();
+  const categorySectionRef = useRef(null);
 
   const fetchUserInfo = async () => {
     try {
@@ -36,9 +39,18 @@ const Setting = () => {
     fetchUserInfo();
   }, [setUserProfileState]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("section") === "category") {
+      if (categorySectionRef.current) {
+        categorySectionRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
+
   return (
     <>
-      <EditSetting />
+      <EditSetting categorySectionRef={categorySectionRef} />
     </>
   );
 };
