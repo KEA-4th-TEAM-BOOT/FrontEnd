@@ -5255,9 +5255,9 @@ const contentsData = {
   ],
 };
 
-const Contents = () => {
+const Contents = ({ defaultSortOrder = "popular" }) => {
   const [activeCategory, setActiveCategory] = useState("life");
-  const [sortOrder, setSortOrder] = useState("popular");
+  const [sortOrder, setSortOrder] = useState(defaultSortOrder);
   const [contentData, setContentData] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
