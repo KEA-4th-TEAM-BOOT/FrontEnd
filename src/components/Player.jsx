@@ -152,7 +152,11 @@ const Player = () => {
   };
 
   useEffect(() => {
-    setPlaying(true);
+    const isFirstLoad = sessionStorage.getItem("firstLoadDone") !== "true";
+    if (isFirstLoad) {
+      setPlaying(false); // Ensure the player is paused on the first load
+      sessionStorage.setItem("firstLoadDone", "true");
+    }
     setPlayed(0);
   }, [currentTrackId]);
 
