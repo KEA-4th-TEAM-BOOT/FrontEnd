@@ -52,7 +52,7 @@ const Playlist = ({ trackList, setTrackList, setCurrentTrack, setPlaying }) => {
           >
             {trackList.map((track, index) => (
               <Draggable
-                key={track.id.toString()}
+                key={track.id}
                 draggableId={track.id.toString()}
                 index={index}
               >
@@ -60,6 +60,7 @@ const Playlist = ({ trackList, setTrackList, setCurrentTrack, setPlaying }) => {
                   <TrackItem
                     ref={provided.innerRef}
                     {...provided.draggableProps}
+                    {...provided.dragHandleProps}
                   >
                     <TrackContent
                       onClick={() => {
@@ -75,7 +76,7 @@ const Playlist = ({ trackList, setTrackList, setCurrentTrack, setPlaying }) => {
                           {durations[track.id] || "Loading..."}
                         </Details>
                       </TrackInfo>
-                      <DragHandle {...provided.dragHandleProps}>
+                      <DragHandle>
                         <img src={trackChangeIcon} alt="Drag handle" />
                       </DragHandle>
                       <ReactPlayer
