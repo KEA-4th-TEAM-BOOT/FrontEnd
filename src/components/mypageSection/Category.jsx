@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
 import categoryIcon from "../../assets/img/icons/categoryicon.svg";
 import searchIcon from "../../assets/img/icons/searchicon.svg";
+import { UserProfileState } from "../../recoil/user";
+import { useRecoilValue } from "recoil";
 
 const CategoryData = [
   { id: 1, name: "전체보기", count: 10 },
@@ -12,16 +13,13 @@ const CategoryData = [
   { id: 5, name: "카테고리 4", count: 1 },
 ];
 
-import { UserProfileState } from "../../recoil/user";
-import { useRecoilValue } from "recoil";
-
 const Category = () => {
   const userInfo = useRecoilValue(UserProfileState);
   return (
     <CategorySection>
       <CategoryHeader>
         <CategoryTitle>카테고리</CategoryTitle>
-        <Link to="/setting">
+        <Link to="/setting?section=category">
           <Icon src={categoryIcon} alt="Setting" />
         </Link>
       </CategoryHeader>
