@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import AudioCard from "../card/Audiocard";
-import gotofollowIcon from "../../assets/img/icons/moreicon.svg";
+import gotofeedIcon from "../../assets/img/icons/moreicon.svg";
 import { Link } from "react-router-dom";
 
-const Recommend = () => {
-  const RecommendData = [
+const Latest = () => {
+  const LatestData = [
     {
       imageUrl:
         "https://i.namu.wiki/i/DxT8JMtpNj45oL_AHXWWowhJqzigx87KCDZrLeV4ePpO3oZCCylQj-W_qtrM2Zo2B0_82-Hv4PGN5C2ElOtR0w.webp",
@@ -88,15 +88,15 @@ const Recommend = () => {
     },
   ];
   return (
-    <RecommendWrapper>
-      <RecommendHeader>
-        <RecommendTitle>추천</RecommendTitle>
-        <Link to="/follow?section=recommendpost">
-          <GoToFeed src={gotofollowIcon} alt="Go to follow" />
+    <LatestWrapper>
+      <LatestHeader>
+        <LatestTitle>최신</LatestTitle>
+        <Link to="/feed?section=contents&sort=recent">
+          <GoToFeed src={gotofeedIcon} alt="Go to feed" />
         </Link>
-      </RecommendHeader>
+      </LatestHeader>
       <AudioCardContainer>
-        {RecommendData.map((card, index) => (
+        {LatestData.map((card, index) => (
           <AudioCard
             key={index}
             imageUrl={card.imageUrl}
@@ -107,13 +107,13 @@ const Recommend = () => {
           />
         ))}
       </AudioCardContainer>
-    </RecommendWrapper>
+    </LatestWrapper>
   );
 };
 
-export default Recommend;
+export default Latest;
 
-const RecommendWrapper = styled.div`
+const LatestWrapper = styled.div`
   width: 1115px;
   margin: 110px auto 110px auto;
   display: flex;
@@ -122,7 +122,7 @@ const RecommendWrapper = styled.div`
   padding: 0;
 `;
 
-const RecommendHeader = styled.div`
+const LatestHeader = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -130,7 +130,7 @@ const RecommendHeader = styled.div`
   margin-bottom: 20px;
 `;
 
-const RecommendTitle = styled.h1`
+const LatestTitle = styled.h1`
   font-size: 2rem;
   color: #222;
 `;

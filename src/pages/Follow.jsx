@@ -1,34 +1,36 @@
-import React from "react";
-
-// import FollowTop from "../components/followSection/FollowTop";
-// import FollowBottom from "../components/followSection/FollowBottom";
-// import NoFollow from "../components/followSection/NoFollow";
+import React, { useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import FollowingUpload from "../components/followSection/FollowingUpload";
 import FavoriteUsers from "../components/followSection/FavoriteUsers";
-// import Snapshot from "../components/followSection/Snapshot";
 import RecommendPost from "../components/followSection/RecommendPost";
 import RecommendFollow from "../components/followSection/RecommendFollow";
 
 const Follow = () => {
-  // const [hasFollow, setHasFollow] = useState(true);
+  const recommendPostRef = useRef(null);
+  const location = useLocation();
+
+  const scrollToRecommendPost = () => {
+    if (recommendPostRef.current) {
+      recommendPostRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("section") === "recommendpost") {
+      scrollToRecommendPost();
+    }
+  }, [location]);
 
   return (
     <>
       <FollowingUpload />
       <FavoriteUsers />
-      {/* <Snapshot /> */}
-      <RecommendPost />
+      <div ref={recommendPostRef}>
+        <RecommendPost />
+      </div>
       <RecommendFollow />
     </>
-    // <>
-    //   {hasFollow ? (
-    //     <>
-    //       <FollowingUpload />
-    //     </>
-    //   ) : (
-    //     <FollowingUpload />
-    //   )}
-    // </>
   );
 };
 
