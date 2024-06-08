@@ -19,8 +19,8 @@ import DefaultLayout from "./components/layout/DefaultLayout";
 import MinimalLayout from "./components/layout/MinimalLayout";
 import PrivateRoute from "./components/route/PrivateRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-// import RecoilizeDebugger from "recoilize";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import RecoilizeDebugger from "recoilize";
 
 const queryClient = new QueryClient();
 
@@ -62,8 +62,8 @@ const App = () => {
             </Routes>
           </Suspense>
         </BrowserRouter>
-        {/* <RecoilizeDebugger />
-        <ReactQueryDevtools /> */}
+        <RecoilizeDebugger />
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </RecoilRoot>
   );
