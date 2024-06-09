@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import PlayIcon from "../../assets/img/icons/audioplayicon.svg";
 
-const AudioCard = ({ imageUrl, category, title, writer, tag }) => {
+const AudioCard = ({ imageUrl, subject, title, writer, tag }) => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const AudioCard = ({ imageUrl, category, title, writer, tag }) => {
         <ImageBackground image={imageUrl} />
       </ImageContainer>
       <BlurOverlay>
-        <Category isDark={isDark}>{category}</Category>
+        <Category isDark={isDark}>{subject}</Category>
         <Title isDark={isDark}>{title}</Title>
         <Writer isDark={isDark}>{writer}</Writer>
         <Tag isDark={isDark}>{tag}</Tag>

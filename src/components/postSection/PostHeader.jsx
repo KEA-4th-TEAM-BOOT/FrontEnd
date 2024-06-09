@@ -11,13 +11,7 @@ const PostHeader = ({ postInfo, userInfo }) => {
   // 문자열을 'T'를 기준으로 분리
   const [datePart] = createdTime.split("T");
 
-  const postInfoData = [
-    {
-      tags: [""],
-    },
-  ];
-
-  const { tags } = postInfoData[0];
+  const tags = postInfo.tagList;
 
   const [isPlaying, setIsPlaying] = useState(false);
 
