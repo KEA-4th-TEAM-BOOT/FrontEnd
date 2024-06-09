@@ -24,6 +24,7 @@ const SearchCard = ({
   const handleMovePost = () => {
     navigate(`/${userLink}/post/${id}`);
   };
+
   return (
     <CardContainer onClick={handleMovePost}>
       <Thumbnail src={thumbnail} alt="Thumbnail" />
@@ -54,13 +55,22 @@ export default SearchCard;
 
 const CardContainer = styled.div`
   display: flex;
-  align-items: column;
-  padding: 15px 0;
-  margin: 15px 0;
+  align-items: flex-start;
+  padding: 30px 15px;
+  margin: 0;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background-color: #fff;
 `;
 
 const ContentContainer = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Thumbnail = styled.img`
@@ -96,13 +106,13 @@ const Content = styled.p`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 10px 0;
 `;
 
 const PostInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto;
 `;
 
 const Date = styled.span`
