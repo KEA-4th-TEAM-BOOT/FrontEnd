@@ -140,6 +140,7 @@ const UploadSection = (props) => {
         personalPostId: personalPostId,
         tags: selectedTags,
         thumbnail: description, // 소개 글 추가
+        nickname: userInfo.nickname,
       };
       console.log("Submitting Data:", data);
       const response = await create_post({ data });
