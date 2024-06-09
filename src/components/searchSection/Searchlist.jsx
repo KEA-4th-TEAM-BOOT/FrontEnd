@@ -7,11 +7,13 @@ import { fetchUserData } from "./../../api/UserAPI";
 
 const Searchlist = ({ searchQuery }) => {
   const [debouncedQuery, setDebouncedQuery] = useState(searchQuery);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedQuery(searchQuery);
-    }, 300); // 500ms 대기
+    }, 300);
 
     return () => {
       clearTimeout(handler);
@@ -60,11 +62,28 @@ const Searchlist = ({ searchQuery }) => {
     return <div>Error occurred while fetching data.</div>;
   }
 
+  const filteredData = fetchdata.content;
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page > 0 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <ListContainer>
-      {fetchdata.content.length > 0 ? (
+      {/* {fetchdata.content.length > 0 ? (
         fetchdata.content.map((card, index) => {
-          const additionalInfo = additionalData[index]; // additionalData에서 대응되는 추가 정보를 가져옴
+          const additionalInfo = additionalData[index]; // additionalData에서 대응되는 추가 정보를 가져옴 */}
+      {paginatedData.length > 0 ? (
+        paginatedData.map((card, index) => {
+          const additionalInfo = additionalData[index];
 
           return (
             <React.Fragment key={index}>
@@ -81,11 +100,37 @@ const Searchlist = ({ searchQuery }) => {
                 userLink={card.userLink}
                 id={card.personalPostId}
               />
+              {index < paginatedData.length - 1 && <Divider />}
             </React.Fragment>
           );
         })
       ) : (
         <NoResults>검색 결과가 없습니다.</NoResults>
+      )}
+      {filteredData.length > itemsPerPage && (
+        <Pagination>
+          <ArrowButton
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            &lt;
+          </ArrowButton>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <PageNumber
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              isActive={currentPage === index + 1}
+            >
+              {index + 1}
+            </PageNumber>
+          ))}
+          <ArrowButton
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            &gt;
+          </ArrowButton>
+        </Pagination>
       )}
     </ListContainer>
   );
@@ -103,9 +148,52 @@ const ListContainer = styled.div`
   padding: 0 0 50px 0;
 `;
 
+const Divider = styled.hr`
+  border: none;
+  height: 1px;
+  background-color: #d8d8d8;
+  width: calc(100%);
+  margin: 20px 0;
+`;
+
 const NoResults = styled.div`
   margin-top: 20px;
   margin-bottom: 200px;
   color: #999;
   font-size: 18px;
+`;
+
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  gap: 10px;
+`;
+
+const PageNumber = styled.button`
+  background: none;
+  border: none;
+  color: ${({ isActive }) => (isActive ? "#000" : "#bbb")};
+  font-size: 16px;
+  font-weight: ${({ isActive }) => (isActive ? "bold" : "normal")};
+  cursor: pointer;
+  &:hover {
+    color: #000;
+  }
+`;
+
+const ArrowButton = styled.button`
+  background: none;
+  border: none;
+  color: #bbb;
+  font-size: 20px;
+  cursor: pointer;
+  &:hover {
+    color: #000;
+  }
+  &:disabled {
+    color: #eee;
+    cursor: default;
+  }
 `;
