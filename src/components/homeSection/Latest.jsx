@@ -5,7 +5,13 @@ import gotofeedIcon from "../../assets/img/icons/moreicon.svg";
 import { Link } from "react-router-dom";
 
 const Latest = ({ postList }) => {
-  const LatestData = postList.recentPosts;
+  const LatestData = postList?.recentPosts || []; // postList가 없을 경우 빈 배열로 설정
+
+  // 빈 오디오카드 10개 생성
+  const emptyCards = Array.from({ length: 10 }, (_, index) => (
+    <AudioCard key={index} />
+  ));
+
   return (
     <LatestWrapper>
       <LatestHeader>
@@ -15,16 +21,18 @@ const Latest = ({ postList }) => {
         </Link>
       </LatestHeader>
       <AudioCardContainer>
-        {LatestData.map((card, index) => (
-          <AudioCard
-            key={index}
-            imageUrl={card.thumbnailImageUrl}
-            category={card.category}
-            title={card.title}
-            writer={card.writer}
-            tag={card.tagList}
-          />
-        ))}
+        {LatestData.length > 0
+          ? LatestData.map((card, index) => (
+              <AudioCard
+                key={index}
+                imageUrl={card.thumbnailImageUrl}
+                subject={card.subject}
+                title={card.title}
+                writer={card.writer}
+                tag={card.tagList}
+              />
+            ))
+          : emptyCards}
       </AudioCardContainer>
     </LatestWrapper>
   );
