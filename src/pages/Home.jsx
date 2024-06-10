@@ -7,7 +7,7 @@ import Following from "../components/homeSection/Following";
 import Popular from "../components/homeSection/Popular";
 import Latest from "../components/homeSection/Latest";
 import { isUserLoggedIn } from "../recoil/user";
-import { main_post_follow } from "../api/PostAPI";
+import { main_post, main_post_login } from "../api/PostAPI";
 
 const Home = () => {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
@@ -16,31 +16,36 @@ const Home = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const postList = await main_post_follow();
+        let postList;
+        if (isLoggedIn) {
+          postList = await main_post_login();
+        } else {
+          postList = await main_post(); // 로그아웃 상태에서 호출할 API 함수
+        }
         setMainPostList(postList);
-        console.log("postList : " + mainPostList);
+        console.log("postList : ", postList);
       } catch (error) {
         console.error("Failed to fetch user info:", error);
       }
     };
 
     fetchUserInfo();
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <>
       <Banner />
-      <AutoPlayer />
+      {/* <AutoPlayer /> */}
       {isLoggedIn ? (
         <>
-          <Following />
-          <Popular />
+          <Following postList={mainPostList} />
+          <Popular postList={mainPostList} />
           <Recommend />
         </>
       ) : (
         <>
-          <Popular />
-          <Latest />
+          <Popular postList={mainPostList} />
+          <Latest postList={mainPostList} />
         </>
       )}
     </>
