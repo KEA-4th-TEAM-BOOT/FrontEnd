@@ -135,27 +135,36 @@
 
 ```
     "@hookform/resolvers": "^3.3.4",
+    "@tanstack/react-query": "^5.40.1",
+    "@tanstack/react-query-devtools": "^5.40.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "aws-sdk": "^2.1619.0",
     "axios": "^1.6.8",
-    "quill-image-drop-module": "^1.0.3",
+    "dompurify": "^3.1.5",
+    "immutability-helper": "^3.1.1",
+    "quill-image-drop-and-paste": "^1.3.0",
     "quill-image-resize": "^3.0.9",
-    "quill-image-resize-module": "^3.0.0",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
-    "react-helmet-async": "^2.0.4",
+    "react-h5-audio-player": "^3.9.1",
     "react-hook-form": "^7.51.3",
     "react-icons": "^5.0.1",
+    "react-markdown": "^9.0.1",
     "react-player": "^2.16.0",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.22.3",
-    "react-scripts": "^5.0.1",
     "react-type-animation": "^3.2.0",
     "recoil": "^0.7.7",
-    "styled-components": "^6.1.8",
+    "recoil-persist": "^5.1.0",
+    "recoilize": "^3.2.0",
+    "styled-components": "^6.1.9",
     "swiper": "^11.1.0",
-    "web-vitals": "^2.1.4",
+    "vite-plugin-svgr": "^4.2.0",
     "yup": "^1.4.0"
 ```
 
@@ -196,7 +205,7 @@
 
 ```
 npm install
-npm run start
+npm run dev
 ```
 
 <h2> ✍️ 아쉬웠던점 </h2>
