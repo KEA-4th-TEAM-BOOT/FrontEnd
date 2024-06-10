@@ -5,7 +5,13 @@ import gotofeedIcon from "../../assets/img/icons/moreicon.svg";
 import { Link } from "react-router-dom";
 
 const Popular = ({ postList }) => {
-  const PopularData = postList.topLikedPosts;
+  const PopularData = postList.topLikedPosts || []; // postList가 없을 경우 빈 배열로 설정
+
+  // 빈 오디오카드 10개 생성
+  const emptyCards = Array.from({ length: 10 }, (_, index) => (
+    <AudioCard key={index} />
+  ));
+
   return (
     <PopularWrapper>
       <PopularHeader>
@@ -15,16 +21,18 @@ const Popular = ({ postList }) => {
         </Link>
       </PopularHeader>
       <AudioCardContainer>
-        {PopularData.map((card, index) => (
-          <AudioCard
-            key={index}
-            imageUrl={card.thumbnailImageUrl}
-            category={card.category}
-            title={card.title}
-            writer={card.writer}
-            tag={card.tagList}
-          />
-        ))}
+        {PopularData.length > 0
+          ? PopularData.map((card, index) => (
+              <AudioCard
+                key={index}
+                imageUrl={card.thumbnailImageUrl}
+                subject={card.subject}
+                title={card.title}
+                writer={card.writer}
+                tag={card.tagList}
+              />
+            ))
+          : emptyCards}
       </AudioCardContainer>
     </PopularWrapper>
   );

@@ -11,10 +11,11 @@ import { main_post, main_post_login } from "../api/PostAPI";
 
 const Home = () => {
   const isLoggedIn = useRecoilValue(isUserLoggedIn);
-  const [mainPostList, setMainPostList] = useState();
+  const [mainPostList, setMainPostList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
+    const fetchPostInfo = async () => {
       try {
         let postList;
         if (isLoggedIn) {
@@ -26,10 +27,12 @@ const Home = () => {
         console.log("postList : ", postList);
       } catch (error) {
         console.error("Failed to fetch user info:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchUserInfo();
+    fetchPostInfo();
   }, [isLoggedIn]);
 
   return (
@@ -38,14 +41,14 @@ const Home = () => {
       {/* <AutoPlayer /> */}
       {isLoggedIn ? (
         <>
-          <Following postList={mainPostList} />
-          <Popular postList={mainPostList} />
+          <Following postList={isLoading ? [] : mainPostList} />
+          <Popular postList={isLoading ? [] : mainPostList} />
           <Recommend />
         </>
       ) : (
         <>
-          <Popular postList={mainPostList} />
-          <Latest postList={mainPostList} />
+          <Popular postList={isLoading ? [] : mainPostList} />
+          <Latest postList={isLoading ? [] : mainPostList} />
         </>
       )}
     </>
