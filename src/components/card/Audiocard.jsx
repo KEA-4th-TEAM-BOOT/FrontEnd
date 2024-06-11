@@ -116,8 +116,12 @@ const PlayIconImg = styled.img`
 
 const Category = styled.h2`
   font-size: 11px;
-  color: ${(props) => (props.isDark ? "black" : "black")};
+  color: black;
   margin: 0;
+  padding-right: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Title = styled.h1`
@@ -126,6 +130,12 @@ const Title = styled.h1`
   margin: 0;
   margin-top: 7px;
   margin-bottom: 7px;
+  padding-right: 30px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Writer = styled.p`

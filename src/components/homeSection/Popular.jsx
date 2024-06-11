@@ -26,7 +26,7 @@ const Popular = ({ postList }) => {
               <AudioCard
                 key={index}
                 imageUrl={card.thumbnailImageUrl}
-                subject={card.subject}
+                category={card.category}
                 title={card.title}
                 writer={card.writer}
                 tag={card.tagList}
