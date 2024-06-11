@@ -29,7 +29,8 @@ const Popular = ({ postList }) => {
                 subject={card.subject}
                 title={card.title}
                 writer={card.writer}
-                tag={card.tagList}
+                tagList={card.tagList}
+                userLink={card.userLink}
               />
             ))
           : emptyCards}

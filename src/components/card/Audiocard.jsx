@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import PlayIcon from "../../assets/img/icons/audioplayicon.svg";
 
-const AudioCard = ({ imageUrl, subject, title, writer, tag }) => {
+const AudioCard = ({ imageUrl, subject, title, writer, tag, userLink }) => {
   const [isDark, setIsDark] = useState(false);
+  const navigate = useNavigate();
 
+  const handleMovePost = () => {
+    navigate(`/${userLink}`);
+  };
   useEffect(() => {
     const img = new Image();
     img.crossOrigin = "Anonymous";
@@ -35,7 +40,7 @@ const AudioCard = ({ imageUrl, subject, title, writer, tag }) => {
   }, [imageUrl]);
 
   return (
-    <CardWrapper>
+    <CardWrapper onClick={handleMovePost}>
       <ImageContainer>
         <ImageBackground image={imageUrl} />
       </ImageContainer>

@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+const Usercard = ({ nickname, introduce, profileUrl, userLink }) => {
+  const navigate = useNavigate();
 
-const Usercard = ({ nickname, userIntro, profileUrl }) => {
+  const handleMovePost = () => {
+    navigate(`/${userLink}`);
+  };
   return (
-    <UsercardContainer>
+    <UsercardContainer onClick={handleMovePost}>
       <UserWrapper>
         <Username>{nickname}</Username>
-        <UserIntro>{userIntro}</UserIntro>
+        <UserIntro>{introduce}</UserIntro>
       </UserWrapper>
       <ProfileImage src={profileUrl} alt="Profile Image" />
     </UsercardContainer>
@@ -22,6 +27,7 @@ const UsercardContainer = styled.div`
   border-radius: 8px;
   background-color: #fff;
   height: 95px;
+  cursor: pointer;
 `;
 
 const UserWrapper = styled.div`
