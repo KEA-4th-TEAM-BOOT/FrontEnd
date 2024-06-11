@@ -6,6 +6,8 @@ import { modalState } from "../../recoil/modal";
 import { UserData, UserProfileState } from "../../recoil/user";
 import ResetPassword from "../reset/ResetPassword";
 import { fetchUser, login } from "../../api/UserAPI"; // 로그인 API를 import 합니다.
+import logoIcon from "../../assets/img/icons/logo.svg";
+import kakaoIcon from "../../assets/img/icons/kakaologinIcon.svg";
 
 const LoginPage = () => {
   const nav = useNavigate();
@@ -104,11 +106,7 @@ const LoginPage = () => {
 
   return (
     <LoginContainer>
-      <LogoImage
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/9565e099702b1ee404f6921020b6b1b5dcddadd9ff9592d2d29ec55681eec0e9?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-        loading="lazy"
-        alt="Logo"
-      />
+      <LogoImage src={logoIcon} loading="lazy" alt="Logo" />
       <LoginContent>
         <Divider />
         <LoginTitle>이메일 로그인</LoginTitle>
@@ -131,11 +129,7 @@ const LoginPage = () => {
         </LoginForm>
         <SocialLoginSection>
           <KakaoLoginButton>
-            <KakaoLogo
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/66a3379e7d4746622c955ea521cf5d8bcf63b86037eabc25fd9ad363ab291199?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-              loading="lazy"
-              alt="Kakao Logo"
-            />
+            <KakaoLogo src={kakaoIcon} loading="lazy" alt="Kakao Logo" />
             <span>Kakao Login</span>
           </KakaoLoginButton>
           <RememberLoginCheckbox>
