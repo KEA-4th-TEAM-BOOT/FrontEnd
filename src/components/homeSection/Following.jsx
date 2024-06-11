@@ -104,6 +104,7 @@ const Following = () => {
             title={card.title}
             writer={card.writer}
             tag={card.tag}
+            userLink={card.userLink}
           />
         ))}
       </AudioCardContainer>
