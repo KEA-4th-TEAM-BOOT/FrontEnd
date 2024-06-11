@@ -14,12 +14,12 @@ const Recommendcard = ({ data }) => {
   return (
     <RecommendWrapper>
       <ProfileWrapper>
-        <ProfileImage src={data.profileImage} />
+        <ProfileImage src={data.profileImage} alt="Profile Image"/>
         <Username>{data.username}</Username>
       </ProfileWrapper>
       <PostImageWrapper>
-        <PostImage src={data.postImage}>
-          <IconPlay src={PlayIcon} />
+        <PostImage src={data.postImage} alt="Post Images">
+          <IconPlay src={PlayIcon} alt="Play Icon"/>
         </PostImage>
       </PostImageWrapper>
       <PostTitle>{data.postTitle}</PostTitle>

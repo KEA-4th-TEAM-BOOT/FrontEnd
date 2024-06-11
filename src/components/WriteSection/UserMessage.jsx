@@ -6,7 +6,7 @@ const UserMessage = ({ text }) => {
   return (
     <UserMessageContainer>
       <UserHeader>
-        <UserLogo src={userAiIcon} loading="lazy" alt="VODA AI logo" />
+        <UserLogo src={userAiIcon} loading="lazy" alt="VODA AI Logo" />
         <UserTitle>User</UserTitle>
       </UserHeader>
       <UserPrompt>{text}</UserPrompt>

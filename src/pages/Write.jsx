@@ -167,7 +167,7 @@ const Write = () => {
           ref={aiButtonRef}
           onClick={toggleSidebar}
         >
-          <AIButtonImage src={aiWriteImage} />
+          <AIButtonImage src={aiWriteImage} alt="AI Write Image"/>
         </AIButtonSection>
         <Sidebar isSideOpen={isSideOpen}>
           <AIWrite />
