@@ -70,7 +70,7 @@ const FAQContentWrapper = styled.div`
   width: 100%;
   max-width: 1000px;
   margin: auto;
-  padding: 50px 20px;
+  padding: 150px 120px;
   box-sizing: border-box;
 `;
 

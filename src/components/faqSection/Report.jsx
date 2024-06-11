@@ -31,6 +31,7 @@ const ReportContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 50px 0;
+  margin-bottom: 120px;
   background-color: #e1f3ff;
 `;
 
