@@ -110,9 +110,11 @@ const Header = () => {
         <MenuItem>
           <MenuLink to="/feed">콘텐츠</MenuLink>
         </MenuItem>
-        <MenuItem>
-          <MenuLink to="/follow">팔로잉</MenuLink>
-        </MenuItem>
+        {isLoggedIn && (
+          <MenuItem>
+            <MenuLink to="/follow">팔로잉</MenuLink>
+          </MenuItem>
+        )}
       </MenuList>
       <HeaderMenu>
         <HeaderMenuItem>

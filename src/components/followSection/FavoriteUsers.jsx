@@ -1,90 +1,19 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Usercard from "../card/Usercard";
-
-const UserData = [
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-  {
-    username: "도슨트",
-    userIntro: "인문학 책읽기를 좋아하는 공대생 블로그",
-    profileImage:
-      "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKCBLmVz8ur0tkn85nUvKoNx10rVMVaIn5X5sJXcxhSTlpSomm",
-  },
-];
+import { useRecoilValue } from "recoil";
+import { UserProfileState } from "../../recoil/user";
 
 const FavoriteUsers = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const recoilUserInfo = useRecoilValue(UserProfileState);
+  const followUserInfo = recoilUserInfo.followingList;
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = isExpanded ? 25 : 6;
-  const totalPages = Math.ceil(UserData.length / itemsPerPage);
+  const totalPages = Math.ceil(followUserInfo.length / itemsPerPage);
 
-  const displayedData = UserData.slice(
+  const displayedData = followUserInfo.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );

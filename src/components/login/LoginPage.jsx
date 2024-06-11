@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { modalState } from "../../recoil/modal";
 import { UserData, UserProfileState } from "../../recoil/user";
 import ResetPassword from "../reset/ResetPassword";
-import { fetchUser, login } from "../../api/UserAPI"; // 로그인 API를 import 합니다.
+import { fetchFirstLogin, login, UserApi } from "../../api/UserAPI"; // 로그인 API를 import 합니다.
 import logoIcon from "../../assets/img/icons/logo.svg";
 import kakaoIcon from "../../assets/img/icons/kakaologinIcon.svg";
 
@@ -60,8 +60,12 @@ const LoginPage = () => {
 
       // 토큰을 저장 (localStorage 또는 sessionStorage)
       const storage = isChecked ? localStorage : sessionStorage;
-      storage.setItem("accessToken", accessToken);
-      storage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
+      // UserApi 헤더에 토큰 설정
+      UserApi.defaults.headers.common["Authorization"] = `${accessToken}`;
+      UserApi.defaults.headers.common["REFRESH_TOKEN"] = refreshToken;
 
       // 모달 닫기
       setModal({
@@ -69,28 +73,12 @@ const LoginPage = () => {
       });
 
       try {
-        const userInfo = await fetchUser();
-        setUserProfileState({
-          name: userInfo.name,
-          email: userInfo.email,
-          nickname: userInfo.nickname,
-          profileUrl: userInfo.profileUrl,
-          introduce: userInfo.introduce,
-          userLink: userInfo.userLink,
-          followingNum: userInfo.followingNum,
-          followerNum: userInfo.followerNum,
-          latestPostId: userInfo.latestPostId,
-          postCnt: userInfo.postCnt,
-          voiceModelUrl: userInfo.voiceModelUrl,
-          categoryList: userInfo.categoryList,
-          followingList: userInfo.followingList,
-          followerList: userInfo.followerList,
-        });
+        const userInfo = await fetchFirstLogin();
+        setUserProfileState(userInfo);
       } catch (error) {
         console.log("Recoil-Set-up-Error");
       }
 
-      window.location.reload();
       // 페이지 이동 (필요한 경우)
       // nav("/dashboard"); // 예: 로그인 후 대시보드로 이동
     } catch (error) {
