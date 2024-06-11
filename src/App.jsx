@@ -21,8 +21,27 @@ import PrivateRoute from "./components/route/PrivateRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import RecoilizeDebugger from "recoilize";
+import { createGlobalStyle } from "styled-components";
 
 const queryClient = new QueryClient();
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    font-family: 'pretendard', sans-serif;
+  }
+
+  .wf-loading body {
+    font-family: sans-serif;
+  }
+
+  .wf-active body {
+    font-family: 'pretendard', sans-serif;
+  }
+
+  .wf-inactive body {
+    font-family: sans-serif;
+  }
+`;
 
 const App = () => {
   return (
@@ -31,6 +50,7 @@ const App = () => {
         <BrowserRouter>
           <Suspense fallback={<div>Loading...</div>}>
             <GlobalModal />
+            <GlobalStyle />
             <Routes>
               <Route element={<DefaultLayout />}>
                 <Route path="/" element={<Home />} />
