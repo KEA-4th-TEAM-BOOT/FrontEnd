@@ -6,6 +6,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper/modules";
 
+import banner1 from "../../assets/img/icons/banner1.svg";
+import banner2 from "../../assets/img/icons/banner2.svg";
+import banner3 from "../../assets/img/icons/banner3.svg";
+
 const Banner = () => {
   return (
     <BannerWrapper>
@@ -19,10 +23,7 @@ const Banner = () => {
         speed={1100}
       >
         <StyledSwiperSlide>
-          <BannerContent
-            bgcolor="#C5D9FF"
-            image="https://cdn.builder.io/api/v1/image/assets/TEMP/6066deb538ac84795d77caf084a6a64edfc28ba050a44e62cd884f137d642e45?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-          >
+          <BannerContent image={banner1} alt="banner 1">
             <BannerScene>
               <BannerHeding>
                 <b>오디오 블로그</b>
@@ -37,10 +38,7 @@ const Banner = () => {
         </StyledSwiperSlide>
 
         <StyledSwiperSlide>
-          <BannerContent
-            bgcolor="#C5D9FF"
-            image="https://cdn.builder.io/api/v1/image/assets/TEMP/522049669d5314d0166a72a972c440a9a97064791f89d8af2ca55af33b44766f?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-          >
+          <BannerContent image={banner2} alt="banner 2">
             <BannerScene>
               <BannerHeding>
                 <b>실시간 트렌드</b>
@@ -55,10 +53,7 @@ const Banner = () => {
         </StyledSwiperSlide>
 
         <StyledSwiperSlide>
-          <BannerContent
-            bgcolor="#C5D9FF"
-            image="https://cdn.builder.io/api/v1/image/assets/TEMP/3def259ef8a152984b8ceb2b0a0a006df851f579e8c3430dbc0148b665466b5d?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-          >
+          <BannerContent image={banner3} alt="banner 3">
             <BannerScene>
               <BannerHeding>
                 <b>AI 추천 블로그</b>
