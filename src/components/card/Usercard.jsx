@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const Usercard = ({ username, userIntro, profileImage }) => {
+const Usercard = ({ nickname, userIntro, profileUrl }) => {
   return (
     <UsercardContainer>
       <UserWrapper>
-        <Username>{username}</Username>
+        <Username>{nickname}</Username>
         <UserIntro>{userIntro}</UserIntro>
       </UserWrapper>
-      <ProfileImage src={profileImage} alt="Profile Image" />
+      <ProfileImage src={profileUrl} alt="Profile Image" />
     </UsercardContainer>
   );
 };
