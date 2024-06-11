@@ -173,6 +173,7 @@ const Player = () => {
         <PlayerControl>
           <PlayerIcon
             src={shuffleIcon}
+            alt="Shuffle Icon"
             onClick={() => {
               const shuffledTracks = [...trackList].sort(
                 () => Math.random() - 0.5
@@ -182,6 +183,7 @@ const Player = () => {
           />
           <PlayerIcon
             src={prevIcon}
+            alt="Previous Icon"
             onClick={() => {
               const currentIndex = trackList.findIndex(
                 (track) => track.id === currentTrackId
@@ -192,9 +194,14 @@ const Player = () => {
               setPlaying(true);
             }}
           />
-          <PlayIcon src={playing ? pauseIcon : playIcon} onClick={togglePlay} />
+          <PlayIcon
+            src={playing ? pauseIcon : playIcon}
+            onClick={togglePlay}
+            alt="Play & Pause Icon"
+          />
           <PlayerIcon
             src={nextIcon}
+            alt="Next Icon"
             onClick={() => {
               const currentIndex = trackList.findIndex(
                 (track) => track.id === currentTrackId
@@ -204,7 +211,11 @@ const Player = () => {
               setPlaying(true);
             }}
           />
-          <PlayerIcon src={repeatIcon} onClick={toggleRepeat} />
+          <PlayerIcon
+            src={repeatIcon}
+            onClick={toggleRepeat}
+            alt="Repeat Icon"
+          />
         </PlayerControl>
         <SeekBarContainer>
           <CurrentTime>{currentTime}</CurrentTime>
@@ -230,7 +241,11 @@ const Player = () => {
           }
           onClick={toggleLike}
         />
-        <PlayerIcon src={volumeIcon} onClick={toggleVolumeSlider} />
+        <PlayerIcon
+          src={volumeIcon}
+          onClick={toggleVolumeSlider}
+          alt="Volume Icon"
+        />
         {showVolumeSlider && (
           <VolumeSlider
             type="range"
@@ -241,7 +256,11 @@ const Player = () => {
             onChange={handleVolumeChange}
           />
         )}
-        <PlayerIcon src={playlistIcon} onClick={togglePlaylist} />
+        <PlayerIcon
+          src={playlistIcon}
+          onClick={togglePlaylist}
+          alt="Playlist Icon"
+        />
       </PlayerSectionRight>
       {showPlaylist && (
         <Overlay id="playlist-overlay" onClick={handleOverlayClick}>

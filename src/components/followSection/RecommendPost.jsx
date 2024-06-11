@@ -58,7 +58,7 @@ const RecommendPost = () => {
         ))}
       </RecommendcardContainer>
       <ResetButton onClick={() => window.location.reload()}>
-        <img src={ResetIcon} alt="reset" />
+        <img src={ResetIcon} alt="Reset Button" />
       </ResetButton>
     </RecommendPostWrapper>
   );

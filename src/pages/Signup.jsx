@@ -303,7 +303,7 @@ const Signup = () => {
 
           <TermsWrapper onClick={handleTermsClick}>
             <TermsBox>
-              {getValues("termsAgreed") && <TermsImg src={termsImg} />}
+              {getValues("termsAgreed") && <TermsImg src={termsImg} alt="Terms Agreed"/>}
             </TermsBox>
             <TermsTitle>
               <TermsButton>이용약관</TermsButton>과{" "}

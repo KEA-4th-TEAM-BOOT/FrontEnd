@@ -19,7 +19,7 @@ const FollowCard = ({
   return (
     <CardContainer>
       <ProfileImageWrapper>
-        <ProfileImage src={profileImageUrl} alt="profile" />
+        <ProfileImage src={profileImageUrl} alt="Profile Image" />
       </ProfileImageWrapper>
       <InfoContainer>
         <Nickname>{nickname}</Nickname>

@@ -40,7 +40,7 @@ const VoiceFile = ({
             <RecommendScriptTitle>
               음성 파일 녹음 추천 스크립트
             </RecommendScriptTitle>
-            <ResetButton src={resetBtn} />
+            <ResetButton src={resetBtn} alt="Reset Button" />
           </ScriptTopSection>
           <Divider2 />
           <ScriptContainer>
