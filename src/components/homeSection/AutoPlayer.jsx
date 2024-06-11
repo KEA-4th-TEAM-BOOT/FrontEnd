@@ -31,7 +31,7 @@ const AutoPlayer = () => {
         <Section>
           <MenuWrapper>
             <IconAndMenu>
-              <Icon src={categoryIcon} />
+              <Icon src={categoryIcon} alt="Category Icon" />
               <MenuText>카테고리</MenuText>
             </IconAndMenu>
             <SelectElement
@@ -48,7 +48,7 @@ const AutoPlayer = () => {
           </MenuWrapper>
           <MenuWrapper>
             <IconAndMenu>
-              <Icon src={timeIcon} />
+              <Icon src={timeIcon} alt="Time Icon" />
               <MenuText>예상 시간</MenuText>
             </IconAndMenu>
             <SelectElement value={selectTime} onChange={handleTimeChange}>
@@ -61,7 +61,7 @@ const AutoPlayer = () => {
           </MenuWrapper>
           <MenuWrapper>
             <IconAndMenu>
-              <Icon src={speedIcon} />
+              <Icon src={speedIcon} alt="Speed Icon" />
               <MenuText>배속</MenuText>
             </IconAndMenu>
             {/* <SelectElement value={selectSpeed} onChange={handleSpeedChange}>
@@ -80,7 +80,7 @@ const AutoPlayer = () => {
           </MenuWrapper>
         </Section>
         <IconAndMenu>
-          <Icon src={searchIcon} />
+          <Icon src={searchIcon} alt="Search Icon" />
           <MenuText>검색</MenuText>
         </IconAndMenu>
         <SearchInputBox placeholder="검색어를 입력하세요" />

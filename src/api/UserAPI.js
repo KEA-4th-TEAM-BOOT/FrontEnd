@@ -132,3 +132,27 @@ export const increase_count = async (userId) => {
   const response = await UserApi.post(`/api/v1/user/increasePostCnt/${userId}`);
   return response.data;
 };
+
+export const userFollow = async (userLink) => {
+  const response = await UserApi.post(`/api/v1/user/follow/${userLink}`);
+  return response.data;
+};
+
+export const userUnFollow = async (userLink) => {
+  const response = await UserApi.delete(`/api/v1/user/follow/${userLink}`);
+  return response.data;
+};
+export const fetchFirstLogin = async () => {
+  const accessToken =
+    localStorage.getItem("accessToken") ||
+    sessionStorage.getItem("accessToken");
+
+  if (accessToken) {
+    UserApi.defaults.headers.common["Authorization"] = `${accessToken}`;
+  } else {
+    throw new Error("No access token found");
+  }
+
+  const response = await UserApi.get(`/api/v1/user`);
+  return response.data;
+};

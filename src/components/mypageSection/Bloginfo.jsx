@@ -24,7 +24,7 @@ const Bloginfo = ({ userInfo: propsUserInfo }) => {
   return (
     <ListcardWrapper>
       <BlogInfo>
-        <ProfileImage src={userInfo.profileUrl} alt="profile image" />
+        <ProfileImage src={userInfo.profileUrl} alt="Profile Image" />
         <InfoWrapper>
           <Nickname>
             <StyledNickname>{userInfo.nickname}</StyledNickname>

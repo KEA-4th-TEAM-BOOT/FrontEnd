@@ -14,7 +14,7 @@ const Photocard = ({
   return (
     <PhotocardWrapper>
       <PhotocardTop>
-        <ProfileImage src={profileImage} />
+        <ProfileImage src={profileImage} alt="Profile Image" />
         <UserInfo>
           <Username>{username}</Username>
           <PostTime>{postTime}</PostTime>
@@ -23,7 +23,7 @@ const Photocard = ({
       <PostTitle>{postTitle}</PostTitle>
       <ImageContainer>
         {postImages.map((image, index) => (
-          <PostImage key={index} src={image} />
+          <PostImage key={index} src={image} alt="Post Images" />
         ))}
       </ImageContainer>
       <PostContent>{postContent}</PostContent>

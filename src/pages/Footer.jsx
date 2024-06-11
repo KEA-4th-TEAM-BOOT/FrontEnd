@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 import ScrollToTop from "../hooks/ScrollToTop";
+import logoIcon from "../assets/img/icons/logo.svg";
 
 const footerLinks = [
   { label: "Main", url: "/" },
@@ -18,10 +19,7 @@ const Footer = () => {
       <FooterWrapper>
         <FooterContent>
           <FooterDescription>
-            <Logo
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/4778e280bc6e8aa12cb93739321f9996f764f473de7eb4d7389c7f7208e68fa1?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-              alt="Voda Logo"
-            />
+            <Logo src={logoIcon} alt="Voda Logo" />
             <DescriptionText>
               사용자가 자신의 블로그에 글을 작성하면, VODA 서비스를 통해 해당
               글을 음성으로 들으실 수 있습니다.

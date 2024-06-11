@@ -57,13 +57,13 @@ const PlaylistCard = ({ track, index, moveCard, onClick, selected }) => {
       onClick={onClick}
       selected={selected}
     >
-      <Thumbnail src={track.thumbnailImage} />
+      <Thumbnail src={track.thumbnailImage} alt="Thumbnail Image" />
       <TrackDetails>
         <TrackTitle>{track.title}</TrackTitle>
         <TrackUsername>{track.username}</TrackUsername>
         <TrackPlaytime>{track.playtime}</TrackPlaytime>
       </TrackDetails>
-      <TrackMenuIcon src={trackChangeIcon} />
+      <TrackMenuIcon src={trackChangeIcon} alt="Track Change Icon" />
     </CardContainer>
   );
 };

@@ -10,6 +10,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { modalState } from "../recoil/modal";
 import { UserData, UserProfileState } from "../recoil/user";
 import { logout } from "../api/UserAPI";
+import logoIcon from "../assets/img/icons/logo.svg";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,6 +23,7 @@ const Header = () => {
   const LoginState = useRecoilValue(UserData);
   const navigate = useNavigate();
   const notifyRef = useRef();
+  const dropdownRef = useRef();
 
   const handleLoginClick = () => {
     setModal({
@@ -77,13 +79,26 @@ const Header = () => {
     setIsLoggedIn(!!LoginState.accessToken);
   }, [LoginState.accessToken, userInfo]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (notifyRef.current && !notifyRef.current.contains(event.target)) {
+        setShowNotify(false);
+      }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <HeaderContainer id="header" role="banner">
       <LogoLink to="/">
-        <LogoImage
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/b6892265024ab900b8dbc2ff05ece0c24e35311c2fc87d1f19dae69dda4cabb4?apiKey=a9a9d68966df47cab33790d709ea20f1&"
-          alt="Logo Image"
-        />
+        <LogoImage src={logoIcon} alt="Logo Image" />
       </LogoLink>
       <MenuList>
         <MenuItem>
@@ -95,9 +110,11 @@ const Header = () => {
         <MenuItem>
           <MenuLink to="/feed">콘텐츠</MenuLink>
         </MenuItem>
-        <MenuItem>
-          <MenuLink to="/follow">팔로잉</MenuLink>
-        </MenuItem>
+        {isLoggedIn && (
+          <MenuItem>
+            <MenuLink to="/follow">팔로잉</MenuLink>
+          </MenuItem>
+        )}
       </MenuList>
       <HeaderMenu>
         <HeaderMenuItem>
@@ -114,7 +131,7 @@ const Header = () => {
           )}
         </HeaderMenuItem>
         {isLoggedIn ? (
-          <HeaderMenuItem>
+          <HeaderMenuItem ref={dropdownRef}>
             <ProfileImage
               src={userInfo ? LoginState.profileUrl : profileImage}
               alt="Profile Image"
