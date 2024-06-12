@@ -79,8 +79,9 @@ const LoginPage = () => {
         console.log("Recoil-Set-up-Error");
       }
 
-      // 페이지 이동 (필요한 경우)
-      // nav("/dashboard"); // 예: 로그인 후 대시보드로 이동
+      //동기화를 위한 강제 새로고침
+
+      window.location.reload();
     } catch (error) {
       console.error("로그인 실패:", error);
       // 에러 처리 로직 추가

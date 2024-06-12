@@ -117,7 +117,15 @@ const Contents = ({ defaultSortOrder = "popular" }) => {
       </SelectContainer>
       <CardsContainer>
         {contentData.map((data, index) => (
-          <AudioCard key={index} {...data} />
+          <AudioCard
+            key={index}
+            imageUrl={data.thumbnailImageUrl}
+            subject={data.subject}
+            title={data.title}
+            writer={data.nickname}
+            tagList={data.tagList}
+            userLink={data.userLink}
+          />
         ))}
       </CardsContainer>
       <div ref={loader} />
