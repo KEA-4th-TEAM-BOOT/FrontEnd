@@ -1,6 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
+import { useSetRecoilState } from "recoil";
+import { currentTrackState } from "../../recoil/playerState";
 
 import playBtn from "../../assets/img/icons/postplayicon.svg";
 import pauseBtn from "../../assets/img/icons/postpauseicon.svg";
@@ -8,15 +10,20 @@ import pauseBtn from "../../assets/img/icons/postpauseicon.svg";
 const PostHeader = ({ postInfo, userInfo }) => {
   const createdTime = postInfo.createdTime;
   const isYours = postInfo.userLink === userInfo.userLink;
-  // 문자열을 'T'를 기준으로 분리
   const [datePart] = createdTime.split("T");
-
   const tags = postInfo.tagList;
-
   const [isPlaying, setIsPlaying] = useState(false);
+  const setCurrentTrack = useSetRecoilState(currentTrackState);
 
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
+    setCurrentTrack({
+      id: postInfo.id,
+      thumbnailImage: postInfo.thumbnailImage,
+      username: userInfo.nickname,
+      title: postInfo.title,
+      audioSrc: postInfo.postVoiceFileUrl,
+    });
   };
 
   const copyUrlToClipboard = () => {
@@ -104,9 +111,9 @@ const TitleWrapper = styled.div`
 `;
 
 const PostPlayIcon = styled.img`
-width: 50px;
-height; 50px;
-cursor: pointer;
+  width: 50px;
+  height; 50px;
+  cursor: pointer;
 `;
 
 const BlogTitle = styled.h2`
