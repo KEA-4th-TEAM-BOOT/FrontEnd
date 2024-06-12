@@ -72,7 +72,7 @@ const Mypage = () => {
   const endPage = Math.min(pageGroup * pagesPerGroup, totalPages);
 
   if (!userInfo) {
-    return <div>Loading...</div>;
+    return <></>;
   }
 
   return (
