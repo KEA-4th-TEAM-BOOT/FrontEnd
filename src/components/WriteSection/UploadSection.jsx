@@ -251,22 +251,31 @@ const UploadSection = (props) => {
                   <RadioInput
                     type="radio"
                     name="subject"
-                    value="문화"
-                    onChange={handleSubjectChange}
-                  />
-                  문화
-                </RadioLabel>
-                <RadioLabel>
-                  <RadioInput
-                    type="radio"
-                    name="subject"
                     value="여행"
                     onChange={handleSubjectChange}
                   />
                   여행
                 </RadioLabel>
+                <RadioLabel>
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="문화"
+                    onChange={handleSubjectChange}
+                  />
+                  문화
+                </RadioLabel>
               </RadioGroup>
               <RadioGroup>
+                <RadioLabel>
+                  <RadioInput
+                    type="radio"
+                    name="subject"
+                    value="IT"
+                    onChange={handleSubjectChange}
+                  />
+                  IT
+                </RadioLabel>
                 <RadioLabel>
                   <RadioInput
                     type="radio"
@@ -284,15 +293,6 @@ const UploadSection = (props) => {
                     onChange={handleSubjectChange}
                   />
                   시사
-                </RadioLabel>
-                <RadioLabel>
-                  <RadioInput
-                    type="radio"
-                    name="subject"
-                    value="기타"
-                    onChange={handleSubjectChange}
-                  />
-                  기타
                 </RadioLabel>
               </RadioGroup>
             </SelectSubject>
