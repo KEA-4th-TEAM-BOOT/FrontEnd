@@ -39,20 +39,20 @@ const PostHeader = ({ postInfo, userInfo }) => {
         <TitleWrapper>
           {postInfo.postVoiceFileUrl && (
             <PostPlayIcon
-              src={isPlaying ? pauseBtn : playBtn}
+              src={playBtn}
               alt="Play or pause"
               onClick={togglePlay}
               isPlaying={isPlaying}
             />
           )}
-          <ReactPlayer
+          {/* <ReactPlayer
             url={postInfo.postVoiceFileUrl}
             playing={isPlaying}
             controls
             width="0"
             height="0"
             style={{ display: "none" }}
-          />
+          /> */}
           <PostTitle>{postInfo.title}</PostTitle>
         </TitleWrapper>
         <TagsContainer>
