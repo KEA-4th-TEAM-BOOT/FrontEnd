@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import FollowCard from "../card/Followcard";
-
+import { useRecoilValue } from "recoil";
+import { UserProfileState } from "../../recoil/user";
 const RecommendFollow = () => {
+  const userInfo = useRecoilValue(UserProfileState);
+
+  const nonFollowList = userInfo.nonFollowList;
+
+  console.log(nonFollowList);
+
   const [followersData, setFollowersData] = useState([
     {
       profileImageUrl:
@@ -69,8 +76,8 @@ const RecommendFollow = () => {
         <RecommendationSection>
           <SectionTitle>팔로잉 추천</SectionTitle>
           <CardGrid>
-            {followersData.length ? (
-              followersData.map((data, index) => (
+            {nonFollowList.length ? (
+              nonFollowList.map((data, index) => (
                 <FollowCard
                   key={index}
                   {...data}

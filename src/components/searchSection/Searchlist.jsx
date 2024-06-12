@@ -55,11 +55,19 @@ const Searchlist = ({ searchQuery }) => {
   console.log("additionalData:", additionalData);
 
   if (isLoading) {
-    return <></>;
+    return (
+      <ListContainer>
+        <NoResults>검색 중 입니다.</NoResults>
+      </ListContainer>
+    );
   }
 
   if (isError) {
-    return <div>Error occurred while fetching data.</div>;
+    return (
+      <ListContainer>
+        <NoResults>서버에서 응답을 가져오지 못했습니다.</NoResults>
+      </ListContainer>
+    );
   }
 
   const filteredData = fetchdata.content;
