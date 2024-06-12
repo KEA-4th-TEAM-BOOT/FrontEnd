@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
+import { useRecoilValue } from "recoil";
+import { currentTrackState } from "../recoil/playerState";
 import Playlist from "./homeSection/Playlist";
 import likeOIcon from "../../src/assets/img/icons/likeOwhiteicon.svg";
 import likeXIcon from "../../src/assets/img/icons/likeXwhiteicon.svg";
@@ -41,6 +43,7 @@ const Player = () => {
     },
   ];
 
+  const currentTrack = useRecoilValue(currentTrackState);
   const [trackList, setTrackList] = useState(initialTrackList);
   const [currentTrackId, setCurrentTrackId] = useState(initialTrackList[0].id);
   const [playing, setPlaying] = useState(false);
@@ -56,8 +59,6 @@ const Player = () => {
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const [showPlaylist, setShowPlaylist] = useState(false);
   const playerRef = useRef(null);
-
-  const currentTrack = trackList.find((track) => track.id === currentTrackId);
 
   const formatTime = (seconds) => {
     const date = new Date(seconds * 1000);
@@ -159,6 +160,13 @@ const Player = () => {
     }
     setPlayed(0);
   }, [currentTrackId]);
+
+  useEffect(() => {
+    if (currentTrack.id) {
+      setCurrentTrackId(currentTrack.id);
+      setPlaying(true);
+    }
+  }, [currentTrack]);
 
   return (
     <FootPlayer>
