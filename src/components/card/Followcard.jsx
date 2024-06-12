@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const FollowCard = ({
-  profileImageUrl,
+  profileUrl,
   nickname,
   followerCount,
-  description,
+  userId,
+  userLink,
+  introduce,
   isFollowing: initialFollowing,
   onFollowToggle,
 }) => {
@@ -19,12 +21,12 @@ const FollowCard = ({
   return (
     <CardContainer>
       <ProfileImageWrapper>
-        <ProfileImage src={profileImageUrl} alt="Profile Image" />
+        <ProfileImage src={profileUrl} alt="Profile Image" />
       </ProfileImageWrapper>
       <InfoContainer>
         <Nickname>{nickname}</Nickname>
-        <FollowerCount>팔로워 {followerCount}</FollowerCount>
-        <Description>{description}</Description>
+        {/* <FollowerCount>팔로워 {followerCount}</FollowerCount> */}
+        <Description>{introduce}</Description>
       </InfoContainer>
       <FollowButton isFollowing={isFollowing} onClick={handleFollowToggle}>
         {isFollowing ? "팔로잉" : "팔로우 +"}
